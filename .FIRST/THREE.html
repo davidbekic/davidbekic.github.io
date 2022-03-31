@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+
+<html>
+	<body>
+
+			<button onclick="move()">Click me</button>
+		<script src="three.js"></script>
+		<script type="module" src="orbit2.js"></script>
+		<script type="module"> import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'</script>
+		<script>
+			const scene = new THREE.Scene();
+			const camera = new THREE.
+				PerspectiveCamera( 75, window.innerWidth / 
+				window.innerHeight, 0.1, 1000 );
+
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setPixelRatio(devicePixelRatio);
+			document.body.appendChild( renderer.domElement );
+			
+			const geometry = new THREE.BoxGeometry();
+			const geometry2 = new THREE.BoxGeometry(30, 30, 30);
+			const material = new THREE.MeshBasicMaterial( { color: 0xddffff } );
+			const material2 = new THREE.MeshBasicMaterial( { color: 0xffeeff } );
+			const material3 = new THREE.MeshBasicMaterial( { color: 0x498899} );
+			const cube = new THREE.Mesh( geometry, material );
+			const cube3 = new THREE.Mesh( geometry, material );
+			const cube4 = new THREE.Mesh(geometry2, material3);
+			material3.side = THREE.DoubleSide;
+			scene.add( cube );
+			scene.add( cube4 );
+
+			const cube2 = new THREE.Mesh(geometry, material2);
+			cube2.position.x = 0;
+			cube3.position.z = 2;
+			cube2.position.z = 1;
+			scene.add( cube2 );
+			scene.add( cube3 );
+			camera.position.z = 10
+			camera.position.y = 3
+
+		
+			const planegeometry = new THREE.PlaneGeometry(3, 3);
+			const planematerial = new THREE.MeshBasicMaterial( { color: 0xddffff } );
+			let plane = new THREE.Mesh(planegeometry, planematerial)
+			planematerial.side = THREE.DoubleSide;
+			scene.add(plane)
+
+			function move()
+			{
+				camera.position.y -= 2
+				camera.position.x -= 2
+
+			}
+			
+			function animate() {
+
+				var retFrame = requestAnimationFrame( animate );
+
+				const time = performance.now() * 0.0003;
+			//	camera.position.x = 8 * Math.cos( time );
+				//camera.position.y = -4 * Math.cos( time );
+			//	camera.position.z = 4 * Math.sin( time );
+				//camera.lookAt( scene.position );
+				renderer.render( scene, camera );
+				
+				plane.rotation.x += .02
+				}
+	
+
+			animate();
+			
+		</script>
+
+	</body>
+</html>

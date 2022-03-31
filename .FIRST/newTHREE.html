@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+
+<html>
+        <head>
+                <meta charset="utf-8">
+                <title>My first three.js app</title>
+                <style>
+                        body { margin: 0; }
+                </style>
+        </head>
+        <body>
+                <script src="three.js"></script>
+                <script>
+
+
+
+geometry = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
+geometry.rotateX( - Math.PI / 2 );
+floorTexture = new THREE.TextureLoader().load( 'img/wood_texture512.jpg' );
+floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+floorTexture.repeat.set(20, 20);
+material = new THREE.MeshBasicMaterial({map: floorTexture}),
+mesh = new THREE.Mesh( geometry, material );
+scene.add( mesh );
+
+                </script>
+        </body>
+</html>

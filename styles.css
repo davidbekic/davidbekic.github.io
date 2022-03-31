@@ -1,0 +1,51 @@
+
+  #labels>div:hover {
+    color: rgb(177, 136, 194);
+  }
+
+  #info {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: left;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+	z-index: 100; /* TODO Solve this in HTML */
+}
+
+ul { 
+    display: inline; 
+}
+
+body {
+	margin: 0;
+	background-color: #000;
+	color: #fff;
+	font-family: Monospace;
+	font-size: 13px;
+	line-height: 24px;
+	overscroll-behavior: none;
+}
+
+a {
+	color: rgb(177, 136, 194);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+    font-weight: bolder;
+    color: rgb(177, 136, 194);
+}
+
+a, button, input, select, p {
+	pointer-events: auto;
+}
+

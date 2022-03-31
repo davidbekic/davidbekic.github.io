@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="three.js"></script>
+    <script>
+        
+        // HELLO WORLD
+        const canvas = document.querySelector('canvas.webgl')
+        let scene = new THREE.Scene();
+        let camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+        let renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(innerWidth, innerHeight);
+
+        document.body.appendChild(renderer.domElement);
+
+        // GEOMETRIES
+        const plane_geo_1 = new THREE.PlaneGeometry(10, 10);
+        const room_geo_1 = new THREE.BoxGeometry(70, 60, 70);
+
+
+        // MATERIALS 
+        const plane_mat_1 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+        const plane_mat_2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+        const plane_mat_3 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+        const plane_mat_4 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+        plane_mat_1.side = THREE.DoubleSide;
+        plane_mat_1.map = THREE.ImageUtils.loadTexture('salomet3.png');
+        plane_mat_2.side = THREE.DoubleSide;
+        plane_mat_2.map = THREE.ImageUtils.loadTexture('concrete.jpeg');
+        plane_mat_3.side = THREE.DoubleSide;
+        plane_mat_3.map = THREE.ImageUtils.loadTexture('glass1.jpeg');
+        plane_mat_4.side = THREE.DoubleSide;
+        plane_mat_4.map = THREE.ImageUtils.loadTexture('3_tbm.png');
+
+        const room_mat_1 = new THREE.MeshLambertMaterial({color: 0xFFCCDD});
+        room_mat_1.side = THREE.DoubleSide;
+
+        // LIGHTS
+        const ambient1 = new THREE.AmbientLight({color: 0xFFFFFF});
+        const light1 = new THREE.PointLight( 0xffFFff, 3, 100 );
+        light1.position.set( 50, 30, 0 );
+        const light2 = new THREE.PointLight( 0xffFFff, 3, 100 );
+        light2.position.set( -50, -10, 50 );
+
+
+        // MESHES
+        const plane1 = new THREE.Mesh(plane_geo_1, plane_mat_1);
+        const plane2 = new THREE.Mesh(plane_geo_1, plane_mat_2);
+        const plane3 = new THREE.Mesh(plane_geo_1, plane_mat_3);
+        const plane4 = new THREE.Mesh(plane_geo_1, plane_mat_4);
+        const room1 = new THREE.Mesh(room_geo_1, room_mat_1);
+
+        // POSITIONS
+        camera.position.z = 50;
+        camera.lookAt(new THREE.Vector3(0,0,0));
+        
+        plane1.rotation.x =  Math.PI;
+        plane2.rotation.y = - Math.PI / 2;
+        plane2.rotation.z = - Math.PI;
+        plane3.rotation.y = - Math.PI / 2;
+        plane3.rotation.z = - Math.PI;
+        plane4.rotation.x = - Math.PI;
+        
+
+        plane2.position.x = 5;
+        plane2.position.z = 5;
+        plane3.position.x = -5;
+        plane3.position.z = 5;
+        plane4.position.z = 10;
+
+        // ADD TO WORLD
+        scene.add(plane1);
+        scene.add(plane2);
+        scene.add(plane3);
+        scene.add(plane4);
+        //scene.add(ambient1);
+        scene.add(light1);
+        scene.add(light2);
+        scene.add(room1);
+
+        plane1.addEventListener("click", function(){ alert("Hello World!"); });
+
+        // RAYCASTER
+
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();
+
+        
+
+
+
+        let i = 0;
+
+      function animate()
+        {
+            requestAnimationFrame(animate);
+            camera.position.x = 30 * Math.cos( i );
+			//camera.position.y = 10 * Math.cos( i/10 );
+			camera.position.z = 30 * Math.sin( i );
+          //  console.log(camera.position.y);
+            i += .01;
+
+            
+            function onMouseClick( event )
+        {
+            raycaster.setFromCamera(mouse, camera);
+            var isIntersected = raycaster.intersectObject(plane1);
+            if (isIntersected)
+            {
+                //camera.position.y = 20 * Math.cos(i);
+             //   i += 20;
+                console.log(camera.position.y);
+            }
+
+
+        }
+        function onMouseMove( event )
+        {
+            mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+            mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+        }
+        
+        window.addEventListener( 'click', onMouseClick, false );
+        window.addEventListener( 'mousemove', onMouseMove, false );
+
+
+
+
+
+            renderer.render(scene, camera);    
+            camera.lookAt(new THREE.Vector3(0,0,0));
+        }
+
+        animate();
+
+
+    </script>
+</body>
+</html>

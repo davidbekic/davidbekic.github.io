@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="three.js"></script>
+    <script>
+        // HELLO WORLD
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(innerWidth, innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+
+        // GEOMETRIES
+        const sphere_geo1 = new THREE.SphereGeometry(30, 200, 300);
+        const room_geo1 = new THREE.BoxGeometry(260, 600, 400);
+
+
+        // MATERIALS
+        const sphere_mat1 = new THREE.MeshLambertMaterial({color: 0x33EE99});
+        sphere_mat1.map = THREE.ImageUtils.loadTexture('salomet3.png');
+
+
+        const room_mat1 = new THREE.MeshLambertMaterial(0xFFEEDD);
+
+        // MESHES
+        const sun = new THREE.Mesh(sphere_geo1, sphere_mat1);
+        const room1 = new THREE.Mesh(room_geo1, room_mat1);
+
+
+        // LIGHTS
+        const light1 = new THREE.PointLight(0xFFFFFF, 3, 100);
+        light1.position.set(50, 50, 20);
+
+        const light2 = new THREE.PointLight(0xFF2244, 12, 100);
+        light2.position.set(30, 50, 20);
+
+        const light3 = new THREE.AmbientLight(0x002233);
+
+
+
+
+        // POSITIONS
+        camera.position.z = 100;
+
+        // ADD TO SCENE
+        scene.add(sun);
+        scene.add(light1);
+        scene.add(light2);
+        scene.add(light3);
+        scene.add(room1);
+
+        let i = 0;
+        function animate()
+        {
+            
+       
+            sun.rotation.y += 0.02;
+            sun.rotation.z += 0.02;
+            sun.position.y += Math.sin(requestAnimationFrame(animate)/20)
+            console.log(sun.rotation.z);
+            camera.position.y += Math.sin(i/3);
+            camera.position.x += Math.sin(i/2);
+            camera.position.z += Math.sin(i/5);
+
+            renderer.render(scene, camera);
+            i += 3;
+        }
+
+
+        animate();
+
+    </script>
+</body>
+
+</html>

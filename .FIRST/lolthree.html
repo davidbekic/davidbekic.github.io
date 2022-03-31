@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<body>
+	<script src="three.js"></script>
+	<script>
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera
+		( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+		const renderer = new THREE.WebGLRenderer();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+                renderer.setPixelRatio(devicePixelRatio);
+		document.body.appendChild( renderer.domElement );
+
+	//	const cube = new THREE.Mesh(
+	//		new THREE.SphereGeometry(3, 50), 
+	//		new THREE.MeshBasicMaterial({color: 0x00ff00})
+	//		)
+		const geometry = new THREE.SphereGeometry( 15, 100, 100 );
+		const material = new THREE.MeshBasicMaterial
+		const sphere = new THREE.Mesh( geometry, material );
+		scene.add( sphere );
+
+		//scene.add(cube)
+		
+		camera.position.z = 50
+		function animate()
+		{
+			requestAnimationFrame(animate)
+			renderer.render(scene, camera)
+			sphere.rotation.x += 0.6
+			sphere.rotation.y += 0.6
+
+		}
+		animate()
+
+	</script>
+	</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="three.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(innerWidth, innerHeight);
+
+        camera.position.z = 40;
+        camera.position.y = 10;
+        camera.lookAt(new THREE.Vector3(0,0,0));
+        document.body.appendChild(renderer.domElement);
+
+        const cubegeo1 = new THREE.BoxGeometry(6, 2, 10);
+        const cubemat1 = new THREE.MeshPhongMaterial
+        ( {color: 0xFFEECC, specular: 0xFFCCFF, shinyness: 100 } );;
+        const cube1 = new THREE.Mesh(cubegeo1, cubemat1);
+        cubemat1.side = THREE.DoubleSide;
+        cubemat1.map = THREE.ImageUtils.loadTexture('salomet3.png');
+        cube1.castShadow = true;
+        cube1.receiveShadow = true;
+        scene.add(cube1);
+
+
+        // SHADOWS
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+
+
+        function makeInstance(geometry, color, x)
+        {
+            const material = new THREE.MeshBasicMaterial({color});
+            const instance = new THREE.Mesh(geometry, material);
+            console.log("kuken" + x + "i" + "fittan");
+            instance.position.y = (x - (x/20000)) - 30;
+            instance.position.z = (x / x) - 50;
+            instance.position.x = (x + x) - 20;
+
+            
+            return instance;
+
+        }
+        
+  /*      for(let i = 0; i < 300; i++)
+        {
+            scene.add(makeInstance(cubegeo1, 0xFFEECC, i))
+
+        }
+*/
+        
+        ////// LIGHTS
+        
+        const light = new THREE.PointLight( 0xff0000, 3, 100 );
+        light.position.set( 50, 10, 0 );
+        light.castShadow = true;
+        light.shadow.mapSize.width = 124;
+        light.shadow.mapSize.height = 124;
+        
+        
+        scene.add(light);
+
+        const roomgeo = new THREE.BoxGeometry(50, 70, 90);
+        const roommat = new THREE.MeshLambertMaterial({color: 0xFFEEFF});
+        const room = new THREE.Mesh(roomgeo, roommat);
+        roommat.side = THREE.DoubleSide;        
+        scene.add(room);
+
+        const light2 = new THREE.PointLight( 0xffffff, 3, 100 );
+        light2.position.set( 20, 5, 10 );
+        light2.position.set( 50, -50, 0 );
+        light2.castShadow = true;
+        light2.shadow.mapSize.width = 124;
+        light2.shadow.mapSize.height = 124;
+        scene.add(light2);
+        
+        let i = 0;
+
+
+ 
+
+        renderer.gammaInput = true;
+        renderer.gammaOutput = true;
+
+       
+      //  cubegeo1.vertices[i].x += -10
+        function animate ()
+        { 
+            requestAnimationFrame(animate);
+            
+          
+            light.color.setHex( 0xAAEE + i  + 20);
+            light2.color.setHex( 0x00 + i + 20 );
+           // light.position.y += 1 * Math.sin(i);
+            //light2.position.z += 20 * Math.cos(i);
+            
+            i = i + 01;
+            cube1.rotation.x += 0.01;
+            cube1.rotation.y += 0.01;
+
+          //  if (i % 10 == 0){
+            //    scene.add(makeInstance(cubegeo1, 0xFFEECC, i/10))
+            //}
+            renderer.render(scene,camera);
+        }
+        animate();
+
+    </script>
+</body>
+</html>
