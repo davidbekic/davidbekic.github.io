@@ -119,6 +119,7 @@ function main()
         tween.start();
         controls.enabled = true;
         
+        
     }
     document.getElementById("home").addEventListener("click", moveHome);
 
@@ -150,8 +151,8 @@ function main()
 
     function animate(){
         requestAnimationFrame(animate);
-        cube1.rotation.x += 0.02;
-        cube1.rotation.y += 0.02;
+        cube1.rotation.x += 0.01;
+        cube1.rotation.y += 0.01;
 
         TWEEN.update();
         
