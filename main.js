@@ -17,7 +17,18 @@ function main()
     ////  TEXTURES  ////
     ////             ////
     const texture = new THREE.TextureLoader().load( 'rock.jpg' );
+    //Get your video element:
+const video = document.getElementById('video');
 
+//Create your video texture:
+const videoTexture = new THREE.VideoTexture(video);
+const videoMaterial =  new THREE.MeshBasicMaterial( {map: videoTexture, side: THREE.FrontSide, toneMapped: false} );
+//Create screen
+const screen = new THREE.PlaneGeometry(60, 60);
+const videoScreen = new THREE.Mesh(screen, videoMaterial);
+scene.add(videoScreen);
+
+    
 
     ////             ////
     //// GEOMETRIES  ////
@@ -40,6 +51,8 @@ function main()
     room_mat.side = THREE.DoubleSide;
     floor_mat.side = THREE.DoubleSide;
     cube2_mat.map = texture;
+    cube1_mat.map = videoTexture;
+    videoMaterial.side = THREE.BackSide;
 
 
    
@@ -59,8 +72,8 @@ function main()
     ////             ////
     
     let light1 = new THREE.PointLight(0xFFFFFF, 1, 10000);
-    let light2 = new THREE.PointLight(0xFFFFEE, 1, 10000);
-    let light3 = new THREE.PointLight(0xFFFFFF, 1, 10000);
+    let light2 = new THREE.PointLight(0xFFFFDD, 1, 10000);
+    let light3 = new THREE.PointLight(0xFFFFEE, 1, 10000);
     light1.position.set( 50, 0, 20 );
     light2.position.set( -50, 300, -1490 );
     light3.position.set( -50, 700, 1490 );
@@ -72,6 +85,9 @@ function main()
     ////             ////
 
     camera.position.z = 150;
+    videoScreen.position.x = 200;
+    videoScreen.rotation.y = 0.5 * Math.PI;
+ 
 
     let center = new THREE.Vector3();
     floor.position.y = -95
@@ -99,33 +115,41 @@ function main()
    
     const controls = new OrbitControls( camera, renderer.domElement );
    // controls.enabled = false;
+   //controls.target = floor.position;
    controls.minDistance = 20;
    controls.maxDistance = 100;
+   controls.maxAzimuthAngle = (0, Math.PI + 20);
     controls.enableDamping = true;
    // controls.enableZoom = false;
     controls.dampingFactor = 0.06;
 
-
-    controls.keys = {
-	LEFT: 'ArrowLeft', //left arrow
-	UP: 'ArrowUp', // up arrow
-	RIGHT: 'ArrowRight', // right arrow
-	BOTTOM: 'ArrowDown' // down arrow
-}
 
     function moveHome()
     {
         //camera.position.y += 4 * Math.random();
         tween.start();
         controls.enabled = true;
+        sound.play();
+        controls.target = cube1.position;
         
         
     }
     document.getElementById("home").addEventListener("click", moveHome);
+    document.getElementById("music").addEventListener("click", musicMove);
+    document.getElementById("about").addEventListener("click", aboutMove);
+    
 
     document.onkeydown = function(e) {
         console.log("KUK");
     }   
+    function aboutMove(){
+        controls.target = videoScreen.position;
+    }
+    function musicMove(){
+        controls.target = cube2.position;
+        controls.minDistance = 100;
+        controls.maxDistance = 300;
+    }
 
    // window.addEventListener( 'keydown', onKeyDown, false );
 
@@ -158,10 +182,15 @@ function main()
         
         controls.update();
         
+        light1.color.setHex( 0xFF + x + 20);
+        light2.color.setHex( 0x33 + x);
+        //light3.color.setHex( 0x11 + x + 20);
+        
         camera.rotation.z += 0.001 * Math.cos(x/20) + (0.001 * Math.random());
         camera.rotation.y += 0.004 * Math.cos(x/20) + (0.001 * Math.random());
         camera.rotation.x += 0.006 * Math.sin(x/20) + (0.001 * Math.random());
-      //  camera.lookAt(cube1);
+        
+        //  camera.lookAt(cube1);
         //cube2.position.y += 2 * Math.cos(x/20);
     //    cube2.position.z += 20 * Math.cos(x/40);
         
@@ -187,7 +216,7 @@ audioLoader.load( 'those days1711.mp3', function( buffer ) {
 	sound.setBuffer( buffer );
 	sound.setLoop( true );
 	sound.setVolume( .5 );
-    sound.play();
+    
     
 	
 });
