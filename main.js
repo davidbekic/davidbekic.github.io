@@ -202,10 +202,7 @@ scene.add(videoScreen);
 
 }
 
-window.addEventListener('deviceorientation', function(e) {
-    var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
-    bottleGroup.rotation.y = gammaRotation;
-  });
+
 
     animate();
     
