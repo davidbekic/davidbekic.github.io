@@ -27,7 +27,9 @@ function main()
 
     const song1_texture = new THREE.TextureLoader().load( 'song1.png' );
     const song2_texture = new THREE.TextureLoader().load( 'song2.png' );
-    const text_plane_texture = new THREE.TextureLoader().load( 'text_test1.png' );
+    const text_plane_texture = new THREE.TextureLoader().load( 'text3.jpeg' );
+    //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
+   
     song1_texture.generateMipmaps = false;
     song2_texture.generateMipmaps = false;
     text_plane_texture.generateMipmaps = false;
@@ -48,7 +50,7 @@ function main()
     ////             ////
 
     let room_geo = new THREE.BoxGeometry(500, 200, 1000);
-    let text_plane_geo = new THREE.PlaneGeometry(100, 100);
+    let text_plane_geo = new THREE.PlaneGeometry(192/1.3, 108/1.3);
     let floor_geo = new THREE.PlaneGeometry(300, 1000);
     let cube1_geo = new THREE.BoxGeometry(10, 10, 10);
     let song1_geo = new THREE.BoxGeometry(60, 25, 20);
@@ -119,7 +121,7 @@ function main()
     let center = new THREE.Vector3();
     floor.position.y = -95
     floor.rotation.x = 0.5 * 3.14;
-    text_plane.position.x = -140;
+    text_plane.position.x = -230;
 
     song_group.position.z = -488;
     song1.position.x = -30;
@@ -176,9 +178,11 @@ function main()
     ////                 ////
 
     document.getElementById("home").addEventListener("click", moveHome);
+   
     document.getElementById("music").addEventListener("click", musicMove);
     document.getElementById("about").addEventListener("click", aboutMove);
     window.addEventListener( 'pointermove', onPointerMove );
+    
     
     ////             ////
     ////  FUNCTIONS  ////
@@ -210,6 +214,8 @@ function main()
         pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     
     }
+
+    
 
     ////              ////
     ////    TWEEN     ////
