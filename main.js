@@ -10,17 +10,27 @@ function main()
     ////             ////
     //// HELLO WORLD ////
     ////             ////
+
     const canvas = document.querySelector('#c');
     const scene = new THREE.Scene();
     const renderer = new THREE.WebGLRenderer({canvas, antialias: true});
     renderer.setSize(innerWidth, innerHeight);
     const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 10000);
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    let   INTERSECTED;
     
-   ////             ////
-    ////  TEXTURES  ////
+    
     ////             ////
-    const texture = new THREE.TextureLoader().load( 'rock.jpg' );
+    ////  TEXTURES  ////
+    ////            ////
+
+    const song1_texture = new THREE.TextureLoader().load( 'song1.png' );
     //Get your video element:
+    song1_texture.generateMipmaps = false;
+    //song1_texture.magFilter = THREE.NearestFilter;
+    //song1_texture.minFilter = THREE.LinearMipMapLinearFilter;
+    
 const video = document.getElementById('video');
 
 //Create your video texture:
@@ -42,7 +52,7 @@ scene.add(videoScreen);
     let room_geo = new THREE.BoxGeometry(500, 200, 1000);
     let floor_geo = new THREE.PlaneGeometry(300, 1000);
     let cube1_geo = new THREE.BoxGeometry(10, 10, 10);
-    let cube2_geo = new THREE.BoxGeometry(250, 40, 1);
+    let song1_geo = new THREE.BoxGeometry(120, 50, 1);
     
     
     ////             ////
@@ -50,17 +60,15 @@ scene.add(videoScreen);
     ////             ////
 
     let room_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
-    let floor_mat = new THREE.MeshLambertMaterial({color: 0xF});
+    let floor_mat = new THREE.MeshLambertMaterial({color: 0x1});
     let cube1_mat = new THREE.MeshLambertMaterial({color: 0xFFCCFF});
-    let cube2_mat = new THREE.MeshLambertMaterial({color: 0x001144});
+    let song1_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     room_mat.side = THREE.DoubleSide;
     floor_mat.side = THREE.DoubleSide;
-    cube2_mat.map = texture;
+    song1_mat.map = song1_texture;
     cube1_mat.map = videoTexture;
     videoMaterial.side = THREE.BackSide;
 
-
-   
 
     ////             ////
     ////    MESH     ////
@@ -69,7 +77,13 @@ scene.add(videoScreen);
     let room = new THREE.Mesh(room_geo, room_mat);
     let floor = new THREE.Mesh(floor_geo, floor_mat);
     let cube1 = new THREE.Mesh(cube1_geo, cube1_mat);
-    let cube2 = new THREE.Mesh(cube2_geo, cube2_mat);
+    let song1 = new THREE.Mesh(song1_geo, song1_mat);
+    const song_group = new THREE.Group();
+  //  console.log(song_group);
+    
+    song_group.add(song1);
+    
+    
 
 
     ////             ////
@@ -97,19 +111,21 @@ scene.add(videoScreen);
     let center = new THREE.Vector3();
     floor.position.y = -95
     floor.rotation.x = 0.5 * 3.14;
-    cube2.position.z = -488
+    song1.position.z = -488
 
-    //room.position.z = 50
+    
     ////             ////
     ////  SCENE.ADD  ////
     ////             ////
+
     scene.add(room);
     scene.add(cube1);
-    scene.add(cube2);
+    //scene.add(song1);
    // scene.add(floor);
     scene.add(light1);
     scene.add(light2);
     scene.add(light3);
+    scene.add(song_group);
 
     let x = 0;
 
@@ -122,7 +138,7 @@ scene.add(videoScreen);
    // controls.enabled = false;
    //controls.target = floor.position;
    controls.minDistance = 20;
-   controls.maxDistance = 100;
+ //  controls.maxDistance = 100;
    controls.maxAzimuthAngle = (0, Math.PI + 20);
     controls.enableDamping = true;
    // controls.enableZoom = false;
@@ -139,10 +155,19 @@ scene.add(videoScreen);
         
         
     }
+
+    ////                 ////
+    //// EVENT LISTENERS ////
+    ////                 ////
+
     document.getElementById("home").addEventListener("click", moveHome);
     document.getElementById("music").addEventListener("click", musicMove);
     document.getElementById("about").addEventListener("click", aboutMove);
+    window.addEventListener( 'pointermove', onPointerMove );
     
+    ////             ////
+    ////  FUNCTIONS  ////
+    ////             ////
 
     document.onkeydown = function(e) {
         console.log("KUK");
@@ -151,17 +176,33 @@ scene.add(videoScreen);
         controls.target = videoScreen.position;
     }
     function musicMove(){
-        controls.target = cube2.position;
-        controls.minDistance = 100;
-        controls.maxDistance = 300;
+        controls.target = song1.position;
+        controls.minDistance = 60;
+        controls.maxDistance = 200;
+    }
+  /*  function songDance(song){
+        let x;
+        song.rotatation.x += Math.sin(x/20);
+
+    }*/
+
+    function onPointerMove( event ) {
+
+        // calculate pointer position in normalized device coordinates
+        // (-1 to +1) for both components
+    
+        pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    
     }
 
-   // window.addEventListener( 'keydown', onKeyDown, false );
+    ////              ////
+    ////    TWEEN     ////
+    ////              ////
 
     var coords = { x: 0, y: 0, z: 150 };
     var tween = new TWEEN.Tween(coords);
     tween.to({x: 0, y: 10, z: 30}, 2000);
-
 	
     tween.onUpdate(function(){
       //  camera.position.x = coords.y;
@@ -174,21 +215,44 @@ scene.add(videoScreen);
 
     });
 
-    
-   // tween.start();
+
+    console.log(song_group[0]);
 
 
     function animate(){
         requestAnimationFrame(animate);
         cube1.rotation.x += 0.01;
         cube1.rotation.y += 0.01;
+        raycaster.setFromCamera( pointer, camera );
+        const intersects = raycaster.intersectObjects( song_group.children);
+        console.log(intersects.length);
+
+  
+
+        if ( intersects.length > 0 ) {
+            if ( INTERSECTED != intersects[ 0 ].object ) {
+                if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                
+                INTERSECTED = intersects[ 0 ].object;
+                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                INTERSECTED.material.emissive.setHex( 0xff0000 );
+                tween.to({x: 0, y: 10, z: 30}, 2000);
+            }
+        } else {
+            if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+            INTERSECTED = null;
+        }
+
+            
+        
 
         TWEEN.update();
         
         controls.update();
         
-        light1.color.setHex( 0xFF + x + 20);
-        light2.color.setHex( 0x33 + x);
+        light1.color.setHex(0xFFFEFF);
+        light2.color.setHex(0xFFDEFF);
+     //  light2.color.setHex(100);
         //light3.color.setHex( 0x11 + x + 20);
         
         camera.rotation.z += 0.001 * Math.cos(x/20) + (0.001 * Math.random());
@@ -201,6 +265,12 @@ scene.add(videoScreen);
         
         
         x += 1;
+        if(x == 256)
+        {
+            x = 0;
+        }
+       
+       // console.log(light1.color);
         renderer.render(scene, camera);
 
 }
