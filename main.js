@@ -76,7 +76,7 @@ function main()
     let song2_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     let text_plane_mat = new THREE.MeshLambertMaterial({color: 0xA6A6A6});
     room_mat.side = THREE.DoubleSide;
-    room_mat.map = silverfoil_texture;
+    //room_mat.map = silverfoil_texture;
     floor_mat.side = THREE.DoubleSide;
     song1_mat.map = song1_texture;
     song2_mat.map = song2_texture;
@@ -349,9 +349,9 @@ function main()
         controls.update();
         
         light1.color.setHex(0xFFFEFF);
-        light2.color.setHex(0xFFDEFF);
+        //light2.color.setHex(0xFFDEFF);
      //  light2.color.setHex(100);
-        //light3.color.setHex( 0x11 + x + 20);
+        light2.color.setHex( 0x11 + x + 20);
         
         camera.rotation.z += 0.001 * Math.cos(x/20) + (0.001 * Math.random());
         camera.rotation.y += 0.004 * Math.cos(x/20) + (0.001 * Math.random());
