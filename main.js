@@ -19,6 +19,9 @@ function main()
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
     let   INTERSECTED;
+    var   domEvents	= new THREEx.DomEvents(camera, renderer.domElement);
+    var   loader = new THREE.GLTFLoader();
+
     
     
     ////             ////
@@ -27,7 +30,7 @@ function main()
 
     const song1_texture = new THREE.TextureLoader().load( 'song1.png' );
     const song2_texture = new THREE.TextureLoader().load( 'song2.png' );
-    const text_plane_texture = new THREE.TextureLoader().load( 'text3.jpeg' );
+    const text_plane_texture = new THREE.TextureLoader().load( 'text_test1.png' );
     //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
    
     song1_texture.generateMipmaps = false;
@@ -42,9 +45,8 @@ function main()
     scene.add(videoScreen);
 
 
-//let controls2 = new DeviceOrientationControls( camera );
+    //let controls2 = new DeviceOrientationControls( camera );
     
-
     ////             ////
     //// GEOMETRIES  ////
     ////             ////
@@ -54,7 +56,7 @@ function main()
     let floor_geo = new THREE.PlaneGeometry(300, 1000);
     let cube1_geo = new THREE.BoxGeometry(10, 10, 10);
     let song1_geo = new THREE.BoxGeometry(60, 25, 20);
-    let song2_geo = new THREE.BoxGeometry(25, 60, 29);
+    let song2_geo = new THREE.BoxGeometry(25, 60, 20);
     
     
     ////             ////
@@ -73,12 +75,14 @@ function main()
     song2_mat.map = song2_texture;
     cube1_mat.map = videoTexture;
     text_plane_mat.map = text_plane_texture;
+    text_plane_mat.opacity = 0;
     videoMaterial.side = THREE.BackSide;
 
+   
 
-    ////             ////
+     ////             ////
     ////    MESH     ////
-    ////             ////
+   ////             ////
 
     let room = new THREE.Mesh(room_geo, room_mat);
     let floor = new THREE.Mesh(floor_geo, floor_mat);
@@ -87,12 +91,53 @@ function main()
     let song2 = new THREE.Mesh(song2_geo, song2_mat);
     let text_plane = new THREE.Mesh(text_plane_geo, text_plane_mat);
     const song_group = new THREE.Group();
-  //  console.log(song_group);
+    let model1;
+    //  console.log(song_group);
     
     song_group.add(song1);
     song_group.add(song2);
     
+      ////            ////
+     ////    OBJS    ////
+    ////            ////
+
+    loader.load(
+        // resource URL
+        'SONGS.glb',
+        // called when the resource is loaded
+        
+        function ( gltf ) {
+            model1 = gltf.scene;
+          
+            console.log(model1.children[0]);
+            scene.add( model1 );
     
+            gltf.animations; // Array<THREE.AnimationClip>
+            gltf.scene; // THREE.Group
+            gltf.scenes; // Array<THREE.Group>
+            gltf.cameras; // Array<THREE.Camera>
+            gltf.asset; // Object
+            model1.scale.x += 2000;
+            model1.rotation.y += 1/2 * -3.14;
+            model1.position.x = 20;
+            model1.position.y = 30;
+            model1.position.z = -490;
+            model1.children[0].material.map = song2_texture;
+    
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+    
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    
+        },
+        // called when loading has errors
+        function ( error ) {
+    
+            console.log( 'An error happened' );
+    
+        }
+    );
 
 
     ////             ////
@@ -130,6 +175,7 @@ function main()
     song1.position.z = 10;
     song2.position.x = -20;
     song2.position.y = -45;
+    
 
     
     ////             ////
@@ -177,11 +223,21 @@ function main()
     //// EVENT LISTENERS ////
     ////                 ////
 
+    window.addEventListener('resize', onWindowResize, false)
+        function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight
+        camera.updateProjectionMatrix()
+        renderer.setSize(window.innerWidth, window.innerHeight)
+        render()
+}
     document.getElementById("home").addEventListener("click", moveHome);
    
     document.getElementById("music").addEventListener("click", musicMove);
     document.getElementById("about").addEventListener("click", aboutMove);
+    // EVERYTIME I MOVE MOUSE THIS HAPPENS
     window.addEventListener( 'pointermove', onPointerMove );
+   
+    
     
     
     ////             ////
@@ -197,7 +253,7 @@ function main()
     function musicMove(){
         controls.target = song_group.position;
         controls.minDistance = 60;
-        controls.maxDistance = 200;
+        controls.maxDistance = 400;
     }
   /*  function songDance(song){
         let x;
@@ -209,13 +265,25 @@ function main()
 
         // calculate pointer position in normalized device coordinates
         // (-1 to +1) for both components
-    
         pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
         pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-    
     }
 
+    domEvents.addEventListener(song1, 'click', function(event){
+        sound.play();
+        song1.rotation.x += Math.PI * 3;
+    }, false)
+
+    domEvents.addEventListener(song2, 'click', function(event){
+        sound.play();
+     //   song2.rotation.y += Math.PI * 3;
+        song2.rotation.x += Math.PI * 1.5;
+    }, false)
+
     
+
+ 
+
 
     ////              ////
     ////    TWEEN     ////
@@ -237,7 +305,7 @@ function main()
     });
 
 
-    console.log(song_group[0]);
+    
 
 
     function animate(){
@@ -249,10 +317,12 @@ function main()
         console.log(intersects.length);
 
   
-
+        
         if ( intersects.length > 0 ) {
+            
             if ( INTERSECTED != intersects[ 0 ].object ) {
                 if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                
                 
                 INTERSECTED = intersects[ 0 ].object;
                 INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
@@ -264,7 +334,7 @@ function main()
             INTERSECTED = null;
         }
 
-            
+
         
 
         TWEEN.update();
