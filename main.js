@@ -31,9 +31,15 @@ function main()
     const song1_texture = new THREE.TextureLoader().load( 'song1.png' );
     const song2_texture = new THREE.TextureLoader().load( 'song2.png' );
     const text_plane_texture = new THREE.TextureLoader().load( 'text_test1.png' );
+    const silverfoil_texture = new THREE.TextureLoader().load( 'glass1.jpeg' );
     //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
+    silverfoil_texture.wrapS = silverfoil_texture.wrapT = THREE.RepeatWrapping;
+    silverfoil_texture.offset.set( 20, 20 );
+    silverfoil_texture.repeat.set( 1, 1 );
+    
    
     song1_texture.generateMipmaps = false;
+    silverfoil_texture.generateMipmaps = false;
     song2_texture.generateMipmaps = false;
     text_plane_texture.generateMipmaps = false;
     const video = document.getElementById('video');
@@ -63,13 +69,14 @@ function main()
     ////  MATERIALS  ////
     ////             ////
 
-    let room_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+    let room_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF   });
     let floor_mat = new THREE.MeshLambertMaterial({color: 0x1});
     let cube1_mat = new THREE.MeshLambertMaterial({color: 0xFFCCFF});
     let song1_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     let song2_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     let text_plane_mat = new THREE.MeshLambertMaterial({color: 0xA6A6A6});
     room_mat.side = THREE.DoubleSide;
+    room_mat.map = silverfoil_texture;
     floor_mat.side = THREE.DoubleSide;
     song1_mat.map = song1_texture;
     song2_mat.map = song2_texture;
@@ -103,7 +110,7 @@ function main()
 
     loader.load(
         // resource URL
-        'SONGS.glb',
+        'RANDOMTEXT2.glb',
         // called when the resource is loaded
         
         function ( gltf ) {
@@ -119,8 +126,8 @@ function main()
             gltf.asset; // Object
             model1.scale.x += 2000;
             model1.rotation.y += 1/2 * -3.14;
-            model1.position.x = 20;
-            model1.position.y = 30;
+            model1.position.x = -80;
+            model1.position.y = -97;
             model1.position.z = -490;
             model1.children[0].material.map = song2_texture;
     
@@ -201,7 +208,7 @@ function main()
    // controls.enabled = false;
    //controls.target = floor.position;
    controls.minDistance = 20;
-   controls.maxDistance = 250;
+   controls.maxDistance = 2500;
    controls.maxAzimuthAngle = (0, Math.PI + 20);
     controls.enableDamping = true;
    // controls.enableZoom = false;
@@ -223,13 +230,13 @@ function main()
     //// EVENT LISTENERS ////
     ////                 ////
 
-    window.addEventListener('resize', onWindowResize, false)
+   /* window.addEventListener('resize', onWindowResize, false)
         function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight
         camera.updateProjectionMatrix()
         renderer.setSize(window.innerWidth, window.innerHeight)
         render()
-}
+}*/
     document.getElementById("home").addEventListener("click", moveHome);
    
     document.getElementById("music").addEventListener("click", musicMove);
