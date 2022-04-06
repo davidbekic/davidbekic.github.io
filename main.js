@@ -23,6 +23,8 @@ function main()
     let   loader = new THREE.GLTFLoader();
     var   loader2 = new THREE.GLTFLoader();
     var   loader3 = new THREE.GLTFLoader();
+    renderer.shadowMap.enabled = true;
+    
 
 
     ////             ////
@@ -35,6 +37,7 @@ function main()
     let cube1_geo = new THREE.BoxGeometry(10, 10, 10);
     let song1_geo = new THREE.BoxGeometry(60, 25, 20);
     let song2_geo = new THREE.BoxGeometry(25, 60, 20);
+    const screen = new THREE.PlaneGeometry(30, 80);
     const video_song1 = document.getElementById('video_song1');
     const video_song2 = document.getElementById('video_song2');
     const video_song3 = document.getElementById('video_song3');
@@ -70,7 +73,7 @@ function main()
     const videoMaterial2 =  new THREE.MeshBasicMaterial( {map: videoTexture2, side: THREE.FrontSide, toneMapped: false} );
     const videoMaterial3 =  new THREE.MeshBasicMaterial( {map: videoTexture3, side: THREE.FrontSide, toneMapped: false} );
     const videoMaterial4 =  new THREE.MeshBasicMaterial( {map: videoTexture4, side: THREE.FrontSide, toneMapped: false} );
-    const screen = new THREE.PlaneGeometry(60, 60);
+    
     const videoScreen1 = new THREE.Mesh(screen, videoMaterial1);
     const videoScreen2 = new THREE.Mesh(screen, videoMaterial2);
     const videoScreen3 = new THREE.Mesh(screen, videoMaterial3);
@@ -80,7 +83,7 @@ function main()
     ////  MATERIALS  ////
     ////             ////
 
-    let room_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF   });
+    let room_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     let floor_mat = new THREE.MeshLambertMaterial({color: 0x1});
     let cube1_mat = new THREE.MeshLambertMaterial({color: 0xFFCCFF});
     let song1_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
@@ -131,7 +134,7 @@ function main()
         function ( gltf ) {
             model1 = gltf.scene;
           
-            console.log(model1.children[0]);
+            //console.log(model1.children[0]);
             scene.add( model1 );
     
             gltf.animations; // Array<THREE.AnimationClip>
@@ -213,7 +216,7 @@ function main()
             model3.position.x = 10;
             model3.position.y = 0;
             model3.position.z = 0;
-            //model3.children[0].material.map = song2_texture;
+        //    model3.children[0].material.map = silverfoil_texture;
     
         },
         // called while loading is progressing
@@ -247,19 +250,20 @@ function main()
     ////  POSITIONS  ////
     ////             ////
 
+    
     camera.position.z = 150;
-    videoScreen1.position.x = 200;
+    videoScreen1.position.x = 230;
     videoScreen1.rotation.y = 0.5 * Math.PI;
     videoScreen1.position.z = -250;
-    videoScreen2.position.x = 240;
-    videoScreen2.position.z = -200;   
-    videoScreen2.position.y = -70;
+    videoScreen2.position.x = 230;
+    videoScreen2.position.z = -150;   
+    videoScreen2.position.y = -30;
     videoScreen2.rotation.y = 0.5 * Math.PI;
-    videoScreen3.position.x = 200;
-    videoScreen3.position.y = 45;
+    videoScreen3.position.x = 230;
+    videoScreen3.position.y = 25;
     videoScreen3.position.z = -200;
     videoScreen3.rotation.y = 0.5 * Math.PI;
-    videoScreen4.position.x = 190;
+    videoScreen4.position.x = 220;
     videoScreen4.position.y = 20;
     videoScreen4.position.z = -300;
     videoScreen4.rotation.y = 0.5 * Math.PI;
@@ -303,7 +307,8 @@ function main()
     ////       ////
     //// ORBIT ////
     ////       ////
-   
+
+
     const controls = new OrbitControls( camera, renderer.domElement );
    // controls.enabled = false;
    //controls.target = floor.position;
@@ -313,6 +318,13 @@ function main()
     controls.enableDamping = true;
    // controls.enableZoom = false;
     controls.dampingFactor = 0.06;
+    controls.keys = {
+        LEFT: 37, //left arrow
+        UP: 38, // up arrow
+        RIGHT: 39, // right arrow
+        BOTTOM: 40 // down arrow
+      };
+  
 
 
     function moveHome()
@@ -471,9 +483,14 @@ function main()
         cube1.rotation.y += 0.01;
         raycaster.setFromCamera( pointer, camera );
         const intersects = raycaster.intersectObjects( song_group.children);
-        console.log(intersects.length);
+       // console.log(intersects.length);
 
-  
+        
+
+
+
+
+
         
         if ( intersects.length > 0 ) {
             
