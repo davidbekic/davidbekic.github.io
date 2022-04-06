@@ -42,13 +42,17 @@ function main()
     silverfoil_texture.generateMipmaps = false;
     song2_texture.generateMipmaps = false;
     text_plane_texture.generateMipmaps = false;
-    const video = document.getElementById('video');
+    const video1 = document.getElementById('video1');
+    const video2 = document.getElementById('video2');
 
-    const videoTexture = new THREE.VideoTexture(video);
-    const videoMaterial =  new THREE.MeshBasicMaterial( {map: videoTexture, side: THREE.FrontSide, toneMapped: false} );
+    const videoTexture1 = new THREE.VideoTexture(video1);
+    const videoTexture2 = new THREE.VideoTexture(video2);
+    const videoMaterial1 =  new THREE.MeshBasicMaterial( {map: videoTexture1, side: THREE.FrontSide, toneMapped: false} );
+    const videoMaterial2 =  new THREE.MeshBasicMaterial( {map: videoTexture2, side: THREE.FrontSide, toneMapped: false} );
     const screen = new THREE.PlaneGeometry(60, 60);
-    const videoScreen = new THREE.Mesh(screen, videoMaterial);
-    scene.add(videoScreen);
+    const videoScreen1 = new THREE.Mesh(screen, videoMaterial1);
+    const videoScreen2 = new THREE.Mesh(screen, videoMaterial2);
+    
 
 
     //let controls2 = new DeviceOrientationControls( camera );
@@ -80,10 +84,11 @@ function main()
     floor_mat.side = THREE.DoubleSide;
     song1_mat.map = song1_texture;
     song2_mat.map = song2_texture;
-    cube1_mat.map = videoTexture;
+    cube1_mat.map = videoTexture1;
     text_plane_mat.map = text_plane_texture;
     text_plane_mat.opacity = 0;
-    videoMaterial.side = THREE.BackSide;
+    videoMaterial1.side = THREE.BackSide;
+    videoMaterial2.side = THREE.BackSide;
 
    
 
@@ -165,8 +170,12 @@ function main()
     ////             ////
 
     camera.position.z = 150;
-    videoScreen.position.x = 200;
-    videoScreen.rotation.y = 0.5 * Math.PI;
+    videoScreen1.position.x = 200;
+    videoScreen1.rotation.y = 0.5 * Math.PI;
+    videoScreen2.position.x = 240;
+    videoScreen2.position.z = 60;   
+    videoScreen2.position.y = -70;
+    videoScreen2.rotation.y = 0.5 * Math.PI;
     text_plane.rotation.y = 0.5 * Math.PI;
  
 
@@ -190,12 +199,14 @@ function main()
     ////             ////
 
     scene.add(room);
-    scene.add(cube1);
+ //   scene.add(cube1);
     scene.add(light1);
     scene.add(light2);
     scene.add(light3);
     scene.add(text_plane);
     scene.add(song_group);
+    scene.add(videoScreen1);
+    scene.add(videoScreen2);
 
     let x = 0;
 
@@ -278,14 +289,43 @@ function main()
 
     domEvents.addEventListener(song1, 'click', function(event){
         sound.play();
+        video.play();
         song1.rotation.x += Math.PI * 3;
     }, false)
 
     domEvents.addEventListener(song2, 'click', function(event){
         sound.play();
+        
      //   song2.rotation.y += Math.PI * 3;
         song2.rotation.x += Math.PI * 1.5;
     }, false)
+
+    let video_count1 = 0;
+    domEvents.addEventListener(videoScreen1, 'click', function(event){
+        sound.play();
+        video_count1++;
+        console.log("video_count: " + video_count1);
+        if (video_count1 % 2 != 0){
+            video1.play(); }     
+        else {
+            video1.pause();
+        }
+        song1.rotation.x += Math.PI * 3;
+    }, false)
+
+    let video_count2 = 0;
+    domEvents.addEventListener(videoScreen2, 'click', function(event){
+        sound.play();
+        video_count2++;
+        console.log("video_count: " + video_count2);
+        if (video_count2 % 2 != 0){
+            video2.play(); }     
+        else {
+            video2.pause();
+        }
+        song1.rotation.x += Math.PI * 3;
+    }, false)
+
 
     
 
