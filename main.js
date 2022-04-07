@@ -8,7 +8,7 @@ function main()
 {
     
     ////             ////
-    //// HELLO WORLD ////
+    //// FHELLO WORLD ////
     ////             ////
 
     const canvas = document.querySelector('#c');
@@ -23,12 +23,14 @@ function main()
     let   loader = new THREE.GLTFLoader();
     var   loader2 = new THREE.GLTFLoader();
     var   loader3 = new THREE.GLTFLoader();
+    var   loader4 = new THREE.GLTFLoader();
+    var   loader5 = new THREE.GLTFLoader();
     renderer.shadowMap.enabled = true;
     
 
 
     ////             ////
-    //// GEOMETRIES  ////
+    //// FGEOMETRIES  ////
     ////             ////
 
     let room_geo = new THREE.BoxGeometry(500, 200, 1000);
@@ -46,7 +48,7 @@ function main()
     
     
     ////             ////
-    ////  TEXTURES  ////
+    ////  FTEXTURES  ////
     ////            ////
 
     const song1_texture = new THREE.TextureLoader().load( 'song1.png' );
@@ -55,7 +57,7 @@ function main()
     const silverfoil_texture = new THREE.TextureLoader().load( 'glass1.jpeg' );
     //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
     silverfoil_texture.wrapS = silverfoil_texture.wrapT = THREE.RepeatWrapping;
-    silverfoil_texture.offset.set( 20, 20 );
+    silverfoil_texture.offset.set( 1, 1 );
     silverfoil_texture.repeat.set( 1, 1 );
     
    
@@ -80,7 +82,7 @@ function main()
     const videoScreen4 = new THREE.Mesh(screen, videoMaterial4);
 
     ////             ////
-    ////  MATERIALS  ////
+    ////  FMATERIALS  ////
     ////             ////
 
     let room_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
@@ -101,11 +103,13 @@ function main()
     videoMaterial2.side = THREE.BackSide;
     videoMaterial3.side = THREE.BackSide;
     videoMaterial4.side = THREE.BackSide;
+    renderer.setClearColor(0xFFFFFF, 1);
+    
 
    
 
      ////             ////
-    ////    MESH     ////
+    ////    FMESH     ////
    ////             ////
 
     let room = new THREE.Mesh(room_geo, room_mat);
@@ -118,13 +122,15 @@ function main()
     let model1;
     let model2;
     let model3;
+    let model4;
+    let model5;
     //  console.log(song_group);
     
     song_group.add(song1);
     song_group.add(song2);
     
       ////            ////
-     ////    OBJS    ////
+     ////    FOBJS    ////
     ////            ////
 
     loader.load(
@@ -233,8 +239,71 @@ function main()
         }
     );
 
+    loader4.load(
+        // resource URL
+        'assets/GLTF/CUPGLASSBEND.glb',
+        // called when the resource is loaded  
+        function ( gltf ) {
+            model4 = gltf.scene;
+            scene.add( model4 );
+
+            model4.position.x = -20;
+            model4.position.y = -30;
+            model4.position.z = 0;
+            model4.rotation.set(1, 2.3, 2.6);
+          //  model4.children[0].material.map = silverfoil_texture;
+    
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+    
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    
+        },
+        // called when loading has errors
+        function ( error ) {
+    
+            console.log( 'An error happened' );
+    
+        }
+    );
+
+    loader5.load(
+        // resource URL
+        'assets/GLTF/CAGE.glb',
+        // called when the resource is loaded  
+        function ( gltf ) {
+            model5 = gltf.scene;
+            scene.add( model5 );
+    
+            gltf.animations; // Array<THREE.AnimationClip>
+            gltf.scene; // THREE.Group
+            gltf.scenes; // Array<THREE.Group>
+            gltf.cameras; // Array<THREE.Camera>
+            gltf.asset; // Object
+           // model2.scale += 20;
+            model5.rotation.y += 1/2 * -3.14;
+            model5.position.x = 0;
+            model5.position.y = -90;
+            model5.position.z = 0;
+    
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+    
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    
+        },
+        // called when loading has errors
+        function ( error ) {
+    
+            console.log( 'An error happened' );
+    
+        }
+    );
+
     ////             ////
-    ////   LIGHTS    ////
+    ////   FLLIGHTS    ////
     ////             ////
     
     let light1 = new THREE.PointLight(0xFFFFFF, 1, 10000);
@@ -247,11 +316,12 @@ function main()
 
 
     ////             ////
-    ////  POSITIONS  ////
+    ////  FPOSITIONS  ////
     ////             ////
 
     
-    camera.position.z = 150;
+    camera.position.y = -50;
+    camera.position.z = 30;
     videoScreen1.position.x = 230;
     videoScreen1.rotation.y = 0.5 * Math.PI;
     videoScreen1.position.z = -250;
@@ -305,15 +375,15 @@ function main()
 
 
     ////       ////
-    //// ORBIT ////
+    //// FORBIT ////
     ////       ////
 
 
     const controls = new OrbitControls( camera, renderer.domElement );
    // controls.enabled = false;
-   //controls.target = floor.position;
+   controls.target.set(0, -50, 0);
    controls.minDistance = 20;
-   controls.maxDistance = 2500;
+   controls.maxDistance = 38;
    controls.maxAzimuthAngle = (0, Math.PI + 20);
     controls.enableDamping = true;
    // controls.enableZoom = false;
@@ -339,7 +409,7 @@ function main()
     }
 
     ////                 ////
-    //// EVENT LISTENERS ////
+    //// FEVENT LISTENERS ////
     ////                 ////
 
    /* window.addEventListener('resize', onWindowResize, false)
@@ -360,7 +430,7 @@ function main()
     
     
     ////             ////
-    ////  FUNCTIONS  ////
+    ////  FFUNCTIONS  ////
     ////             ////
 
     document.onkeydown = function(e) {
@@ -455,7 +525,7 @@ function main()
 
 
     ////              ////
-    ////    TWEEN     ////
+    ////    FTWEEN     ////
     ////              ////
 
     var coords = { x: 0, y: 0, z: 150 };
