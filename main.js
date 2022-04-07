@@ -25,6 +25,7 @@ function main()
     var   loader3 = new THREE.GLTFLoader();
     var   loader4 = new THREE.GLTFLoader();
     var   loader5 = new THREE.GLTFLoader();
+    var   loader6 = new THREE.GLTFLoader();
     renderer.shadowMap.enabled = true;
     
 
@@ -123,6 +124,7 @@ function main()
     let model3;
     let model4;
     let model5;
+    let model6;
     //  console.log(song_group);
     
     song_group.add(song1);
@@ -301,6 +303,41 @@ function main()
         }
     );
 
+    loader6.load(
+        // resource URL
+        'assets/GLTF/LASS_ROOM.glb',
+        // called when the resource is loaded  
+        function ( gltf ) {
+            model6 = gltf.scene;
+            scene.add( model6 );
+    
+            gltf.animations; // Array<THREE.AnimationClip>
+            gltf.scene; // THREE.Group
+            gltf.scenes; // Array<THREE.Group>
+            gltf.cameras; // Array<THREE.Camera>
+            gltf.asset; // Object
+           // model2.scale += 20;
+            model6.rotation.y += 1/2 * -3.14;
+            model6.position.x = 0;
+            model6.position.y = 0;
+            model6.position.z = 0;
+    
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+    
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    
+        },
+        // called when loading has errors
+        function ( error ) {
+    
+            console.log( 'An error happened' );
+    
+        }
+    );
+
+
     ////             ////
     ////   FLLIGHTS    ////
     ////             ////
@@ -382,7 +419,7 @@ function main()
    // controls.enabled = false;
    controls.target.set(0, -50, 0);
    controls.minDistance = 20;
-   controls.maxDistance = 38;
+  // controls.maxDistance = 38;
    controls.maxAzimuthAngle = (0, Math.PI + 20);
     controls.enableDamping = true;
    // controls.enableZoom = false;
@@ -396,16 +433,7 @@ function main()
   
 
 
-    function moveHome()
-    {
-        //camera.position.y += 4 * Math.random();
-        tween.start();
-        controls.enabled = true;
-        sound.play();
-        controls.target = cube1.position;
-        
-        
-    }
+ 
 
     ////                 ////
     //// FEVENT LISTENERS ////
@@ -419,8 +447,8 @@ function main()
         render()
 }*/
     document.getElementById("home").addEventListener("click", moveHome);
-   
     document.getElementById("music").addEventListener("click", musicMove);
+    document.getElementById("net").addEventListener("click", netMove);
     document.getElementById("about").addEventListener("click", aboutMove);
     // EVERYTIME I MOVE MOUSE THIS HAPPENS
     window.addEventListener( 'pointermove', onPointerMove );
@@ -431,17 +459,36 @@ function main()
     ////             ////
     ////  FFUNCTIONS  ////
     ////             ////
+    room.visible = false;
+    
+    function moveHome()
+    {
+        //camera.position.y += 4 * Math.random();
+        tween.start();
+        controls.enabled = true;
+        room.visible = true;
+        sound.play();
+        controls.target = cube1.position;
+    }
 
     document.onkeydown = function(e) {
         console.log("KUK");
     }   
     function aboutMove(){
         controls.target = text_plane.position;
+        room.visible = true;
+    }
+    function netMove(){
+        controls.target = videoScreen1.position;
+        controls.minDistance = 60;
+        controls.maxDistance = 250;
+        room.visible = true; 
     }
     function musicMove(){
         controls.target = song_group.position;
         controls.minDistance = 60;
-        controls.maxDistance = 400;
+        controls.maxDistance = 250;
+        room.visible = true;
     }
   /*  function songDance(song){
         let x;
@@ -554,7 +601,12 @@ function main()
         const intersects = raycaster.intersectObjects( song_group.children);
        // console.log(intersects.length);
 
-        
+        if (x > 0 && x < 128){
+            room.visible = true; 
+        }
+        else if (x % 380){
+            room.visible = false; 
+        }
 
 
 
@@ -576,22 +628,13 @@ function main()
             if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
             INTERSECTED = null;
         }
-
-
-        
-
         TWEEN.update();
-        
         controls.update();
-        
         light1.color.setHex(0xFFFEFF);
-        //light2.color.setHex(0xFFDEFF);
-     //  light2.color.setHex(100);
         light2.color.setHex( 0x11 + x + 20);
-        
-        camera.rotation.z += 0.001 * Math.cos(x/20) + (0.001 * Math.random());
-        camera.rotation.y += 0.004 * Math.cos(x/20) + (0.001 * Math.random());
-        camera.rotation.x += 0.006 * Math.sin(x/20) + (0.001 * Math.random());
+        camera.rotation.z += 0.005 * Math.cos(x/20) + (0.001 * Math.random());
+        camera.rotation.y += 0.009 * Math.cos(x/20) + (0.001 * Math.random());
+        camera.rotation.x += 0.009 * Math.sin(x/20) + (0.001 * Math.random());
         
         //  camera.lookAt(cube1);
         //cube2.position.y += 2 * Math.cos(x/20);
