@@ -7,6 +7,7 @@
 	position: absolute;
 	top: 0px;
 	width: 100%;
+	margin: 0px;	
 	padding: 10px;
 	box-sizing: border-box;
 	text-align: left;
@@ -25,9 +26,9 @@ ul {
 }
 
 body {
-	margin: 0;
 	background-color: #000;
 	color: #fff;
+	margin: 0;
 	font-family: Monospace;
 	font-size: 13px;
 	line-height: 24px;
@@ -35,6 +36,9 @@ body {
 }
 
 a {
+	padding-top: 0px;
+	padding-left: 30px;
+	margin-bottom: 50px;
 	color: rgb(177, 136, 194);
 	text-decoration: none;
 }
@@ -49,3 +53,32 @@ a, button, input, select, p {
 	pointer-events: auto;
 }
 
+
+@media only screen and (max-width: 800px) {
+	body {
+	
+		background-color: #000;
+		color: #fff;
+		font-family: Monospace;
+		font-size: 24px;
+		line-height: 24px;
+		overscroll-behavior: none;
+	}
+	
+
+	a {
+		padding-top: 50px;
+		margin-bottom: 50px;
+		padding-left: 25px;
+		margin-top: 200px;
+		
+		color: rgb(177, 136, 194);
+		text-decoration: none;
+	}
+	
+	a:hover {
+		text-decoration: underline;
+		font-weight: bolder;
+		color: rgb(177, 136, 194);
+	}
+  }

@@ -103,7 +103,6 @@ function main()
     videoMaterial2.side = THREE.BackSide;
     videoMaterial3.side = THREE.BackSide;
     videoMaterial4.side = THREE.BackSide;
-    renderer.setClearColor(0xFFFFFF, 1);
     
 
    
