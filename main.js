@@ -495,7 +495,7 @@ function main()
         song.rotatation.x += Math.sin(x/20);
 
     }*/
-
+    
     function onPointerMove( event ) {
 
         // calculate pointer position in normalized device coordinates
@@ -505,12 +505,15 @@ function main()
     }
 
     domEvents.addEventListener(song1, 'click', function(event){
+        
         sound.play();
         video.play();
+        
         song1.rotation.x += Math.PI * 3;
     }, false)
 
     domEvents.addEventListener(song2, 'click', function(event){
+        
         sound.play();
         
      //   song2.rotation.y += Math.PI * 3;
@@ -519,6 +522,7 @@ function main()
 
     let video_count = 0;
     domEvents.addEventListener(videoScreen1, 'click', function(event){
+        window.location.href = "lines.html";
         sound.play();
         video_count++;
         console.log("video_count: " + video_count);
