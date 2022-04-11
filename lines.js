@@ -70,6 +70,10 @@ function main()
                 }
             }, true);
 
+        window.addEventListener('touchmove', function() { //touchmove works for iOS, I don't know if Android supports it
+                window.dispatchEvent( new Event('wheel') );
+              });
+
         function animate()
         {
                 requestAnimationFrame(animate);
