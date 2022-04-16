@@ -26,7 +26,9 @@ function main()
     var   loader4 = new THREE.GLTFLoader();
     var   loader5 = new THREE.GLTFLoader();
     var   loader6 = new THREE.GLTFLoader();
+    var   loader7    = new THREE.GLTFLoader();
     renderer.shadowMap.enabled = true;
+    document.getElementById('music-menu').style.display = "none";
     
 
 
@@ -41,6 +43,7 @@ function main()
     let song1_geo = new THREE.BoxGeometry(60, 25, 20);
     let song2_geo = new THREE.BoxGeometry(25, 60, 20);
     const screen = new THREE.PlaneGeometry(30, 80);
+    const instrument1_proxy_geo = new THREE.PlaneGeometry(50, 50);
     const video_song1 = document.getElementById('video_song1');
     const video_song2 = document.getElementById('video_song2');
     const video_song3 = document.getElementById('video_song3');
@@ -92,6 +95,7 @@ function main()
     let song1_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     let song2_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     let text_plane_mat = new THREE.MeshLambertMaterial({color: 0xA6A6A6});
+    let instrument1_proxy_mat = new THREE.MeshStandardMaterial();
     room_mat.side = THREE.DoubleSide;
     //room_mat.map = silverfoil_texture;
     floor_mat.side = THREE.DoubleSide;
@@ -104,6 +108,7 @@ function main()
     videoMaterial2.side = THREE.BackSide;
     videoMaterial3.side = THREE.BackSide;
     videoMaterial4.side = THREE.BackSide;
+    //instrument1_proxy_mat.side = THREE.DoubleSide;
     
 
    
@@ -118,6 +123,7 @@ function main()
     let song1 = new THREE.Mesh(song1_geo, song1_mat);
     let song2 = new THREE.Mesh(song2_geo, song2_mat);
     let text_plane = new THREE.Mesh(text_plane_geo, text_plane_mat);
+    let instrument1_proxy = new THREE.Mesh(instrument1_proxy_geo, instrument1_proxy_mat)
     const song_group = new THREE.Group();
     let model1;
     let model2;
@@ -125,6 +131,7 @@ function main()
     let model4;
     let model5;
     let model6;
+    let model7;
     //  console.log(song_group);
     
     song_group.add(song1);
@@ -310,7 +317,6 @@ function main()
         function ( gltf ) {
             model6 = gltf.scene;
         //    scene.add( model6 );
-    
             gltf.animations; // Array<THREE.AnimationClip>
             gltf.scene; // THREE.Group
             gltf.scenes; // Array<THREE.Group>
@@ -321,19 +327,42 @@ function main()
             model6.position.x = 0;
             model6.position.y = 0;
             model6.position.z = 0;
-    
         },
         // called while loading is progressing
         function ( xhr ) {
-    
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-    
         },
         // called when loading has errors
         function ( error ) {
-    
             console.log( 'An error happened' );
-    
+        }
+    );
+
+    loader7.load(
+        // resource URL
+        'assets/GLTF/INSTRUMENT1.glb',
+        // called when the resource is loaded  
+        function ( gltf ) {
+            model7 = gltf.scene;
+            scene.add( model7 );
+            gltf.animations; // Array<THREE.AnimationClip>
+            gltf.scene; // THREE.Group
+            gltf.scenes; // Array<THREE.Group>
+            gltf.cameras; // Array<THREE.Camera>
+            gltf.asset; // Object
+           // model2.scale += 20;
+            model7.rotation.y += 1/2 * 3.14;
+            model7.position.x = 100;
+            model7.position.y = -100;
+            model7.position.z = 470;
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        },
+        // called when loading has errors
+        function ( error ) {
+            console.log( 'An error happened' );
         }
     );
 
@@ -374,6 +403,12 @@ function main()
     videoScreen4.position.z = -300;
     videoScreen4.rotation.y = 0.5 * Math.PI;
     text_plane.rotation.y = 0.5 * Math.PI;
+
+    instrument1_proxy.rotation.y += 1/2 * 3.14;
+    instrument1_proxy.position.x = 100;
+    instrument1_proxy.position.y = -50;
+    instrument1_proxy.position.z = 470;
+    instrument1_proxy.rotation.y = -3.14;
  
 
     let center = new THREE.Vector3();
@@ -388,6 +423,7 @@ function main()
     song1.position.z = 10;
     song2.position.x = -20;
     song2.position.y = -45;
+
     
 
     
@@ -406,6 +442,8 @@ function main()
     scene.add(videoScreen2);
     scene.add(videoScreen3);
     scene.add(videoScreen4);
+    scene.add(instrument1_proxy);
+    instrument1_proxy.visible = false;
 
     let x = 0;
 
@@ -448,8 +486,13 @@ function main()
 }*/
     document.getElementById("home").addEventListener("click", moveHome);
     document.getElementById("music").addEventListener("click", musicMove);
+    document.getElementById("instruments").addEventListener("click", instrumentsMove);
     document.getElementById("net").addEventListener("click", netMove);
-    document.getElementById("about").addEventListener("click", aboutMove);
+    document.getElementById("contact").addEventListener("click", function(){
+        document.getElementById("contact").innerHTML = "davidbekic@gmail.com";
+    });
+    
+   // document.getElementById("about").addEventListener("click", aboutMove);
     // EVERYTIME I MOVE MOUSE THIS HAPPENS
     window.addEventListener( 'pointermove', onPointerMove );
    
@@ -464,11 +507,16 @@ function main()
     function moveHome()
     {
         //camera.position.y += 4 * Math.random();
-        tween.start();
+        //tween.start();
+        document.getElementById('first-menu').style.display = "inline";
+        document.getElementById('music-menu').style.display = "none";
+        document.getElementById("contact").innerHTML = "contact";
+
         controls.enabled = true;
-        room.visible = true;
+        controls.target.set(0, -50, 0);
         sound.play();
-        controls.target = cube1.position;
+        room.visible = true;
+        roomEntered = true;
     }
 
     document.onkeydown = function(e) {
@@ -477,51 +525,66 @@ function main()
     function aboutMove(){
         controls.target = text_plane.position;
         room.visible = true;
+        roomEntered = true;
     }
     function netMove(){
         controls.target = videoScreen1.position;
         controls.minDistance = 60;
         controls.maxDistance = 250;
         room.visible = true; 
+        roomEntered = true;
     }
     function musicMove(){
-        controls.target = song_group.position;
-        controls.minDistance = 60;
-        controls.maxDistance = 250;
+        document.getElementById('first-menu').style.display = "none";
+        document.getElementById('music-menu').style.display = "inline";
         room.visible = true;
+        roomEntered = true;
     }
-  /*  function songDance(song){
-        let x;
-        song.rotatation.x += Math.sin(x/20);
-
-    }*/
+    function instrumentsMove(){
+        document.getElementById('first-menu').style.display = "none";
+        document.getElementById('music-menu').style.display = "inline";
+        controls.target.set(0, -30, 400);
+        controls.minDistance = 20;
+        controls.maxDistance = 150;
+        room.visible = true;
+        roomEntered = true;
+    }
     
     function onPointerMove( event ) {
-
-        // calculate pointer position in normalized device coordinates
-        // (-1 to +1) for both components
         pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
         pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     }
 
     domEvents.addEventListener(song1, 'click', function(event){
-        
         sound.play();
         video.play();
-        
         song1.rotation.x += Math.PI * 3;
     }, false)
 
     domEvents.addEventListener(song2, 'click', function(event){
-        
         sound.play();
-        
-     //   song2.rotation.y += Math.PI * 3;
         song2.rotation.x += Math.PI * 1.5;
     }, false)
 
+    domEvents.addEventListener(song1, 'click', function(event){
+        sound.play();
+        song2.rotation.x += Math.PI * 1.5;
+    }, false)
+
+
     let video_count = 0;
     domEvents.addEventListener(videoScreen1, 'click', function(event){
+        window.location.href = "lines.html";
+        sound.play();
+        video_count++;
+        console.log("video_count: " + video_count);
+        if (video_count % 2 != 0){
+            video_song1.play(); }     
+        else {
+            video_song1.pause();
+        }
+    }, false)
+    domEvents.addEventListener(videoScreen1, 'touchstart', function(event){
         window.location.href = "lines.html";
         sound.play();
         video_count++;
@@ -544,11 +607,33 @@ function main()
             video_song2.pause();
         }
     }, false)
+    domEvents.addEventListener(videoScreen2, 'touchstart', function(event){
+        sound.play();
+        video_count++;
+        console.log("video_count: " + video_count);
+        if (video_count % 2 != 0){
+            video_song2.play(); }     
+        else {
+            video_song2.pause();
+        }
+    }, false)
 
     
     domEvents.addEventListener(videoScreen3, 'click', function(event){
         sound.play();
         video_count++;
+        window.location.href = "ifc_test.html";
+        console.log("video_count: " + video_count);
+        if (video_count % 2 != 0){
+            video_song3.play(); }     
+        else {
+            video_song3.pause();
+        }
+    }, false)
+    domEvents.addEventListener(videoScreen3, 'touchstart', function(event){
+        sound.play();
+        video_count++;
+        window.location.href = "ifc_test.html";
         console.log("video_count: " + video_count);
         if (video_count % 2 != 0){
             video_song3.play(); }     
@@ -560,6 +645,7 @@ function main()
     domEvents.addEventListener(videoScreen4, 'click', function(event){
         sound.play();
         video_count++;
+        
         console.log("video_count: " + video_count);
         if (video_count % 2 != 0){
             video_song4.play(); }     
@@ -568,6 +654,16 @@ function main()
         }
     }, false)
 
+    domEvents.addEventListener(videoScreen4, 'touchstart', function(event){
+        sound.play();
+        video_count++;
+        console.log("video_count: " + video_count);
+        if (video_count % 2 != 0){
+            video_song4.play(); }     
+        else {
+            video_song4.pause();
+        }
+    }, false)
 
     
 
@@ -593,9 +689,33 @@ function main()
 
     });
 
+    domEvents.addEventListener(instrument1_proxy, 'click', function(event){
+        window.location.href = "instrument1.html";
+        sound.play();
+        video_count++;
+        console.log("video_count: " + video_count);
+        if (video_count % 2 != 0){
+            video_song1.play(); }     
+        else {
+            video_song1.pause();
+        }
+    }, false);
+    domEvents.addEventListener(instrument1_proxy, 'touchstart', function(event){
+        window.location.href = "instrument1.html";
+        sound.play();
+        video_count++;
+        console.log("video_count: " + video_count);
+        if (video_count % 2 != 0){
+            video_song1.play(); }     
+        else {
+            video_song1.pause();
+        }
+    }, false);
 
     
+    let roomEntered = false;
 
+    console.log(controls.target);
 
     function animate(){
         requestAnimationFrame(animate);
@@ -605,20 +725,18 @@ function main()
         const intersects = raycaster.intersectObjects( song_group.children);
        // console.log(intersects.length);
 
-        if (x > 0 && x < 128){
+        if (x > 0 && x < 128 && roomEntered == false){
             room.visible = true; 
         }
-        else if (x % 380){
+        else if (x / 380 && roomEntered == false){
             room.visible = false; 
         }
+        if (roomEntered){
+            model5.visible = false;
+        }
+        console.log(roomEntered);
 
-
-
-
-
-        
         if ( intersects.length > 0 ) {
-            
             if ( INTERSECTED != intersects[ 0 ].object ) {
                 if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
                 

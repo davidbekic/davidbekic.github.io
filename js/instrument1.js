@@ -25,7 +25,7 @@ function main()
 
     const key_mat_C2 = new THREE.MeshLambertMaterial({color: 0xCC22EE});
     const key_mat_D2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
-    const key_mat_E2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+    const key_mat_E2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF});
     const key_mat_F2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     const key_mat_G2 = new THREE.MeshLambertMaterial({color: 0xCC22EE});
     const key_mat_A2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});

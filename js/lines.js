@@ -11,7 +11,9 @@ function main()
 
         renderer.render(scene, camera);
 
-        camera.position.z = 2;
+        camera.lookAt(0, 0, 0);
+        camera.position.z = .4;
+        camera.position.y = .3;
         
         let room_geo = new THREE.BoxGeometry(10, 10, 10 );
         let room_mat = new THREE.MeshLambertMaterial({color: 0x808080});
@@ -61,24 +63,25 @@ function main()
                 window.dispatchEvent( new Event('wheel') );
               });
 
+        let w = 0;
         function animate()
         {
-
+                w++;
                 requestAnimationFrame(animate);
                 console.log(x);
                 renderer.render(scene, camera);
                 controls.update();
-              if (x < 30000){
-                x += 1;
+              if (x < 1000){
+                x += .3;
                 y += 15;
-                points.push( new THREE.Vector3( Math.sin(x/10)*.1, Math.cos(x/10), Math.sin(x)*0.1));
+                points.push( new THREE.Vector3( Math.sin(x/100)*.1, Math.cos(x/10), Math.sin(x)*0.1));
                light1.position.set( points );
                light1.color.set(0xFFEEcc);
+               //camera.position.set(Math.sin(x/100)*.1, Math.cos(x/10), Math.sin(x)*0.1);
                
                }
-
-               document.getElementById("text").innerHTML = x;
-            
+               
+                document.getElementById("text").innerHTML = "web spins: " + w;
                 const geometry = new THREE.BufferGeometry().setFromPoints( points );
                 const line = new THREE.Line( geometry, material );
       //  if (x == 500)

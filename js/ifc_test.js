@@ -14,7 +14,9 @@ function main()
     
 
     
-    camera.position.z = 20;
+    camera.position.z = 30;
+    camera.position.y = 2;
+    
     const song2_texture = new THREE.TextureLoader().load( 'assets/imgs/silver_foil.jpeg' );
 
     const point_geo = new THREE.SphereGeometry(.04, 0.02, 0.02);
@@ -35,52 +37,62 @@ function main()
     let x = 0;
     let y = 0;
     let z = 0;
+    let count = 0;
 
-    
-    while (z < 10){
-        x++;
+    let button = document.getElementById("button");
+    button.addEventListener('click', () => {
+            animate();
+            button.style.display = "none";
+            document.getElementById("text").innerHTML = "interact";
+     } );
 
-        const point = new THREE.Mesh(point_geo, point_mat);
-       // point_mat.color.set(0xFFFFFF - z);
-        
-        point.position.set(x, y, z); 
-        console.log("z: " + z);
-        scene.add(point);
-
-
-        light.position.set(point.position.x + 10, point.position.y + 10, point.position.z + 10);
-        light2.position.set(point.position.x + 10, point.position.y + 10, point.position.z + 10);
-        
-        
-        
-        if (x == 10)
-        {
-            y++;
-            x = 0;
-        }
-        if (y == 10)
-        {
-            x = 0;
-            y = 0;
-            z += 1;
-        }
-        console.log("y: " + y);
-        console.log("z: " + z);
-        
-    }
+ 
     function animate()
     {
-        camera.lookAt(x, y, 0);
+        if (z < 100){
+            x++;
+            count++;
+            const point = new THREE.Mesh(point_geo, point_mat);
+           // point_mat.color.set(0xFFFFFF - z);
+            
+            point.position.set(x, y, z); 
+            console.log("z: " + z);
+            scene.add(point);
+    
+    
+            light.position.set(point.position.x + 10, point.position.y + 10, point.position.z + 10);
+            light2.position.set(point.position.x + 10, point.position.y + 10, point.position.z + 10);
+            
+            
+            
+            if (x == 10)
+            {
+                y++;
+                x = 0;
+            }
+            if (y == 10)
+            {
+                x = 0;
+                y = 0;
+                z += 1;
+            }
+            document.getElementById("text").innerHTML = "points: " + count;
+            
+        }
+        controls.target.set(0, 2, 7);
+        console.log(controls.target);
+        //camera.lookAt(x, y, 0);
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
- 
+        
         controls.update();
+       
      //  console.log(camera.position.z);
         //console.log(point.position);
       //  console.log(light.position);
     }
 
-    animate();
+    
 
 
 

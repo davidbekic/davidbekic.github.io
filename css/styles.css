@@ -17,7 +17,7 @@
 	user-select: none;
 	pointer-events: none;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: ndot57;
 	z-index: 100; /* TODO Solve this in HTML */
 }
 
@@ -25,11 +25,17 @@ ul {
     display: inline; 
 }
 
+
+@font-face {
+    font-family: 'ndot57'; /*a name to be used later*/
+    src: url('/assets/fonts/fonts-ndot57.ttf'); /*URL to font*/
+}
+
 body {
 	background-color: #000;
 	color: #fff;
 	margin: 0px;
-	font-size: 13px;
+	font-size: 16px;
 	line-height: 24px;
 	height: 100%;
 	overscroll-behavior: none;
@@ -38,14 +44,16 @@ body {
 a {
 	padding-top: 0px;
 	margin: 30px;
-	font-family: "Courier New";
+	font-family: "ndot57";
 	padding-left: 0px;
 	margin-bottom: 50px;
-	color: rgb(177, 136, 194);
+	color: rgb(176, 159, 184);
 	text-decoration: none;
 }
 p {
 	margin: 30px;
+	color: rgb(229, 219, 233);
+	font-size: 12px;
 }
 
 a:hover {
@@ -57,7 +65,6 @@ a:hover {
 a, button, input, select, p {
 	pointer-events: auto;
 }
-
 
 @media only screen and (max-width: 800px) {
 	body {
@@ -72,8 +79,9 @@ a, button, input, select, p {
 	
 
 	a {
-		padding-top: 50px;
+		padding-top: 0px;
 		margin-bottom: 50px;
+		margin: 0px;
 		padding-left: 25px;
 		margin-top: 200px;
 		
@@ -86,4 +94,10 @@ a, button, input, select, p {
 		font-weight: bolder;
 		color: rgb(177, 136, 194);
 	}
+	p {
+		margin: 25px;
+		color: rgb(229, 219, 233);
+		font-size: 18px;
+	}
   }
+
