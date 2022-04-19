@@ -17,9 +17,10 @@ function main()
 
     const key_geo1 = new THREE.BoxGeometry(10, 10, 100);
     const room_geo = new THREE.BoxGeometry(300, 200, 300);
+    const backdrop_geo = new THREE.PlaneGeometry(1200, 1200);
 
 
-
+    const controls = new OrbitControls( camera, renderer.domElement );
 
     // F_MATERIALS //
 
@@ -31,8 +32,11 @@ function main()
     const key_mat_A2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     const key_mat_B2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     const key_mat_C3 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+    //const backdrop_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+    const backdrop_mat = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 0, metalness: 0});
+    backdrop_mat.side = THREE.DoubleSide;
 
-    const room_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+    const room_mat = new THREE.MeshLambertMaterial({color: 0x223333});
     room_mat.side = THREE.BackSide;
     //renderer.setClearColor( 0xffefff, 1);
 
@@ -46,10 +50,26 @@ function main()
     const key_B2 = new THREE.Mesh(key_geo1, key_mat_B2);
     const key_C3 = new THREE.Mesh(key_geo1, key_mat_C3);
     const room = new THREE.Mesh(room_geo, room_mat);
+    const backdrop = new THREE.Mesh(backdrop_geo, backdrop_mat);
 
     const ambient_light1 = new THREE.AmbientLight({color: 0xFFFFFF}, .1, 100);
     const point_light1 = new THREE.PointLight({color: 0xCFFFFF}, 1, 1000);
-    const point_light2 = new THREE.PointLight({color: 0xCFFFFF}, 2, 1000);
+    const point_light2 = new THREE.PointLight({color: 0xCFFFFF}, .1, 1000);
+    
+    const spot_light3 = new THREE.SpotLight(0xFFAA99FF, 2.5, 1000, 90);
+    const spot_light4 = new THREE.SpotLight(0xFFFF0099, .3, 1000, 90);
+    
+    point_light1.lookAt(key_G2.position);
+    point_light1.position.z = 300;
+    point_light1.position.y = 500;
+    spot_light3.lookAt(backdrop.position);
+    spot_light3.position.x = -200;
+    spot_light3.position.y = 200;
+    spot_light3.position.z = 400;
+    spot_light4.position.x = 400;
+    spot_light4.position.y = 0;
+    spot_light4.position.z = 400;
+    //spot_light4.lookAt(-900, 100, 30);
 
     scene.add(key_C2);
     scene.add(key_D2);
@@ -59,9 +79,12 @@ function main()
     scene.add(key_A2);
     scene.add(key_B2);
     scene.add(key_C3);
+    scene.add(backdrop);
     //scene.add(ambient_light1);
-    scene.add(point_light1);
+   // scene.add(point_light1);
   //  scene.add(point_light2);
+    scene.add(spot_light3);
+    scene.add(spot_light4);
    // scene.add(room);
 
 
@@ -82,6 +105,8 @@ function main()
     point_light2.position.y = -30;
     point_light2.position.z = 20;
     room.position.y = 50;
+    backdrop.position.z = -100;
+    backdrop.rotation.x = 100;
 
     
     

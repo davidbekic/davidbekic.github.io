@@ -44,10 +44,12 @@ function main()
     let song2_geo = new THREE.BoxGeometry(25, 60, 20);
     const screen = new THREE.PlaneGeometry(30, 80);
     const instrument1_proxy_geo = new THREE.PlaneGeometry(50, 50);
+    const gradient_canvas_geo = new THREE.PlaneGeometry(200, 30);
     const video_song1 = document.getElementById('video_song1');
     const video_song2 = document.getElementById('video_song2');
     const video_song3 = document.getElementById('video_song3');
     const video_song4 = document.getElementById('video_song4');
+
     
     
     
@@ -96,7 +98,9 @@ function main()
     let song2_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     let text_plane_mat = new THREE.MeshLambertMaterial({color: 0xA6A6A6});
     let instrument1_proxy_mat = new THREE.MeshStandardMaterial();
+    const gradient_canvas_mat = new THREE.MeshPhysicalMaterial({color: 0xCCAA99CC, roughness: 0, metalness: 0});
     room_mat.side = THREE.DoubleSide;
+    gradient_canvas_mat.side = THREE.BackSide;
     //room_mat.map = silverfoil_texture;
     floor_mat.side = THREE.DoubleSide;
     song1_mat.map = song1_texture;
@@ -123,6 +127,7 @@ function main()
     let song1 = new THREE.Mesh(song1_geo, song1_mat);
     let song2 = new THREE.Mesh(song2_geo, song2_mat);
     let text_plane = new THREE.Mesh(text_plane_geo, text_plane_mat);
+    const gradient_canvas = new THREE.Mesh(gradient_canvas_geo, gradient_canvas_mat);
     let instrument1_proxy = new THREE.Mesh(instrument1_proxy_geo, instrument1_proxy_mat)
     const song_group = new THREE.Group();
     let model1;
@@ -368,7 +373,7 @@ function main()
 
 
     ////             ////
-    ////   FLLIGHTS    ////
+    ////   FLIGHTS    ////
     ////             ////
     
     let light1 = new THREE.PointLight(0xFFFFFF, 1, 10000);
@@ -403,6 +408,8 @@ function main()
     videoScreen4.position.z = -300;
     videoScreen4.rotation.y = 0.5 * Math.PI;
     text_plane.rotation.y = 0.5 * Math.PI;
+    gradient_canvas.position.z = 490;
+    gradient_canvas.position.y = 30;
 
     instrument1_proxy.rotation.y += 1/2 * 3.14;
     instrument1_proxy.position.x = 100;
@@ -428,7 +435,7 @@ function main()
 
     
     ////             ////
-    ////  SCENE.ADD  ////
+    ////  FSCENE.ADD  ////
     ////             ////
 
     scene.add(room);
@@ -444,6 +451,7 @@ function main()
     scene.add(videoScreen4);
     scene.add(instrument1_proxy);
     instrument1_proxy.visible = false;
+    scene.add(gradient_canvas);
 
     let x = 0;
 
