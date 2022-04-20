@@ -33,7 +33,7 @@ function main()
     const key_mat_B2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     const key_mat_C3 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     //const backdrop_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
-    const backdrop_mat = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 0, metalness: 0});
+    const backdrop_mat = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, metalness: 0});
     backdrop_mat.side = THREE.DoubleSide;
 
     const room_mat = new THREE.MeshLambertMaterial({color: 0x223333});

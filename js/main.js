@@ -20,13 +20,12 @@ function main()
     const pointer = new THREE.Vector2();
     let   INTERSECTED;
     let   domEvents	= new THREEx.DomEvents(camera, renderer.domElement);
-    let   loader = new THREE.GLTFLoader();
-    var   loader2 = new THREE.GLTFLoader();
-    var   loader3 = new THREE.GLTFLoader();
-    var   loader4 = new THREE.GLTFLoader();
-    var   loader5 = new THREE.GLTFLoader();
-    var   loader6 = new THREE.GLTFLoader();
-    var   loader7    = new THREE.GLTFLoader();
+    let   frontText_loader = new THREE.GLTFLoader();
+    var   caged_loader = new THREE.GLTFLoader();
+    var   roomsText_loader = new THREE.GLTFLoader();
+    var   mainSculpture_loader = new THREE.GLTFLoader();
+    var   glassCylinder_loader = new THREE.GLTFLoader();
+    var   instrument1_loader = new THREE.GLTFLoader();
     renderer.shadowMap.enabled = true;
     document.getElementById('music-menu').style.display = "none";
     
@@ -36,7 +35,7 @@ function main()
     //// FGEOMETRIES  ////
     ////             ////
 
-    let room_geo = new THREE.BoxGeometry(500, 200, 1000);
+    let room_geo = new THREE.BoxGeometry(2200, 200, 1000);
     let text_plane_geo = new THREE.PlaneGeometry(192/1.3, 108/1.3);
     let floor_geo = new THREE.PlaneGeometry(300, 1000);
     let cube1_geo = new THREE.BoxGeometry(10, 10, 10);
@@ -59,6 +58,7 @@ function main()
 
     const song1_texture = new THREE.TextureLoader().load( 'assets/imgs/song1.png' );
     const song2_texture = new THREE.TextureLoader().load( 'assets/imgs/song2.png' );
+    const concrete_texture = new THREE.TextureLoader().load( 'assets/imgs/concrete_1.jpg' );
     const text_plane_texture = new THREE.TextureLoader().load( 'assets/imgs/text_test1.png' );
     const silverfoil_texture = new THREE.TextureLoader().load( 'assets/imgs/glass1.jpeg' );
     //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
@@ -66,6 +66,9 @@ function main()
     silverfoil_texture.offset.set( 1, 1 );
     silverfoil_texture.repeat.set( 1, 1 );
     
+    concrete_texture.wrapS = silverfoil_texture.wrapT = THREE.RepeatWrapping;
+   // concrete_texture.offset.set( 1, 1 );
+    concrete_texture.repeat.set(1, 1);
    
     song1_texture.generateMipmaps = false;
     silverfoil_texture.generateMipmaps = false;
@@ -98,8 +101,9 @@ function main()
     let song2_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     let text_plane_mat = new THREE.MeshLambertMaterial({color: 0xA6A6A6});
     let instrument1_proxy_mat = new THREE.MeshStandardMaterial();
-    const gradient_canvas_mat = new THREE.MeshPhysicalMaterial({color: 0xCCAA99CC, roughness: 0, metalness: 0});
+    const gradient_canvas_mat = new THREE.MeshPhysicalMaterial({color: 0xCCAA99CC, roughness: 1, metalness: 0});
     room_mat.side = THREE.DoubleSide;
+    room_mat.map = concrete_texture;
     gradient_canvas_mat.side = THREE.BackSide;
     //room_mat.map = silverfoil_texture;
     floor_mat.side = THREE.DoubleSide;
@@ -130,43 +134,43 @@ function main()
     const gradient_canvas = new THREE.Mesh(gradient_canvas_geo, gradient_canvas_mat);
     let instrument1_proxy = new THREE.Mesh(instrument1_proxy_geo, instrument1_proxy_mat)
     const song_group = new THREE.Group();
-    let model1;
-    let model2;
-    let model3;
-    let model4;
-    let model5;
-    let model6;
-    let model7;
+    let frontText;
+    let caged;
+    let roomsText;
+    let mainSculpture;
+    let glassCylinder;
+    let instrument1;
     //  console.log(song_group);
     
     song_group.add(song1);
     song_group.add(song2);
+ 
     
       ////            ////
      ////    FOBJS    ////
     ////            ////
 
-    loader.load(
+    frontText_loader.load(
         // resource URL
         'assets/GLTF/RANDOMTEXT2.glb',
         // called when the resource is loaded  
         function ( gltf ) {
-            model1 = gltf.scene;
+            frontText = gltf.scene;
           
             //console.log(model1.children[0]);
-            scene.add( model1 );
+            scene.add( frontText );
     
             gltf.animations; // Array<THREE.AnimationClip>
             gltf.scene; // THREE.Group
             gltf.scenes; // Array<THREE.Group>
             gltf.cameras; // Array<THREE.Camera>
             gltf.asset; // Object
-            model1.scale.x += 2000;
-            model1.rotation.y += 1/2 * -3.14;
-            model1.position.x = -80;
-            model1.position.y = -97;
-            model1.position.z = -490;
-            model1.children[0].material.map = song2_texture;
+            frontText.scale.x += 2000;
+            frontText.rotation.y += 1/2 * -3.14;
+            frontText.position.x = -80;
+            frontText.position.y = -97;
+            frontText.position.z = -490;
+            frontText.children[0].material.map = song2_texture;
     
         },
         // called while loading is progressing
@@ -183,15 +187,15 @@ function main()
         }
     );
 
-    loader2.load(
-        // resource URL
+    caged_loader.load(
+    // resource URL
         'assets/GLTF/CAGED.glb',
         // called when the resource is loaded  
         function ( gltf ) {
-            model2 = gltf.scene;
+            caged = gltf.scene;
           
-            console.log(model2.children[0]);
-            scene.add( model2 );
+            console.log(caged.children[0]);
+            scene.add( caged );
     
             gltf.animations; // Array<THREE.AnimationClip>
             gltf.scene; // THREE.Group
@@ -199,11 +203,11 @@ function main()
             gltf.cameras; // Array<THREE.Camera>
             gltf.asset; // Object
            // model2.scale += 20;
-            model2.rotation.y += 1/2 * -3.14;
-            model2.position.x = 230;
-            model2.position.y = -50;
-            model2.position.z = -400;
-            model2.children[0].material.map = song2_texture;
+            caged.rotation.y += 1/2 * -3.14;
+            caged.position.x = 230;
+            caged.position.y = -50;
+            caged.position.z = -400;
+            caged.children[0].material.map = song2_texture;
     
         },
         // called while loading is progressing
@@ -220,23 +224,16 @@ function main()
         }
     );
 
-    loader3.load(
-        // resource URL
+    roomsText_loader.load(
         'assets/GLTF/ROOMS.glb',
         // called when the resource is loaded  
         function ( gltf ) {
-            model3 = gltf.scene;
-          
-            //console.log(model2.children[0]);
-            scene.add( model3 );
+            roomsText = gltf.scene;
 
-          //  model3.scale += 20;
-         //   model3.rotation.y += 1/2 * -3.14;
-            model3.position.x = 10;
-            model3.position.y = 0;
-            model3.position.z = 0;
-        //    model3.children[0].material.map = silverfoil_texture;
-    
+            scene.add( roomsText );
+            roomsText.position.x = 10;
+            roomsText.position.y = 0;
+            roomsText.position.z = 0;
         },
         // called while loading is progressing
         function ( xhr ) {
@@ -252,18 +249,18 @@ function main()
         }
     );
 
-    loader4.load(
+    mainSculpture_loader.load(
         // resource URL
         'assets/GLTF/CUPGLASSBEND.glb',
         // called when the resource is loaded  
         function ( gltf ) {
-            model4 = gltf.scene;
-            scene.add( model4 );
+            mainSculpture = gltf.scene;
+            scene.add( mainSculpture );
 
-            model4.position.x = -20;
-            model4.position.y = -30;
-            model4.position.z = 0;
-            model4.rotation.set(1, 2.3, 2.6);
+            mainSculpture.position.x = -20;
+            mainSculpture.position.y = -30;
+            mainSculpture.position.z = 0;
+            mainSculpture.rotation.set(1, 2.3, 2.6);
           //  model4.children[0].material.map = silverfoil_texture;
     
         },
@@ -281,13 +278,13 @@ function main()
         }
     );
 
-    loader5.load(
+    glassCylinder_loader.load(
         // resource URL
         'assets/GLTF/CAGE.glb',
         // called when the resource is loaded  
         function ( gltf ) {
-            model5 = gltf.scene;
-            scene.add( model5 );
+            glassCylinder = gltf.scene;
+            scene.add( glassCylinder );
     
             gltf.animations; // Array<THREE.AnimationClip>
             gltf.scene; // THREE.Group
@@ -295,10 +292,10 @@ function main()
             gltf.cameras; // Array<THREE.Camera>
             gltf.asset; // Object
            // model2.scale += 20;
-            model5.rotation.y += 1/2 * -3.14;
-            model5.position.x = 0;
-            model5.position.y = -90;
-            model5.position.z = 0;
+            glassCylinder.rotation.y += 1/2 * -3.14;
+            glassCylinder.position.x = 0;
+            glassCylinder.position.y = -90;
+            glassCylinder.position.z = 0;
     
         },
         // called while loading is progressing
@@ -315,51 +312,26 @@ function main()
         }
     );
 
-    loader6.load(
-        // resource URL
-        'assets/GLTF/GLASS_ROOM.glb',
-        // called when the resource is loaded  
-        function ( gltf ) {
-            model6 = gltf.scene;
-        //    scene.add( model6 );
-            gltf.animations; // Array<THREE.AnimationClip>
-            gltf.scene; // THREE.Group
-            gltf.scenes; // Array<THREE.Group>
-            gltf.cameras; // Array<THREE.Camera>
-            gltf.asset; // Object
-           // model2.scale += 20;
-            model6.rotation.y += 1/2 * -3.14;
-            model6.position.x = 0;
-            model6.position.y = 0;
-            model6.position.z = 0;
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-        function ( error ) {
-            console.log( 'An error happened' );
-        }
-    );
-
-    loader7.load(
+    instrument1_loader.load(
         // resource URL
         'assets/GLTF/INSTRUMENT1.glb',
         // called when the resource is loaded  
         function ( gltf ) {
-            model7 = gltf.scene;
-            scene.add( model7 );
+            instrument1 = gltf.scene;
+            scene.add( instrument1 );
             gltf.animations; // Array<THREE.AnimationClip>
             gltf.scene; // THREE.Group
             gltf.scenes; // Array<THREE.Group>
             gltf.cameras; // Array<THREE.Camera>
             gltf.asset; // Object
            // model2.scale += 20;
-            model7.rotation.y += 1/2 * 3.14;
-            model7.position.x = 100;
-            model7.position.y = -100;
-            model7.position.z = 470;
+            instrument1.rotation.y += 1/2 * 3.14;
+            instrument1.rotation.z += 3.14;
+            
+            instrument1.rotation.x = -1/2 * 3.14;
+            instrument1.position.x = 100;
+            instrument1.position.y = -95;
+            instrument1.position.z = 410;
         },
         // called while loading is progressing
         function ( xhr ) {
@@ -392,18 +364,18 @@ function main()
     
     camera.position.y = -50;
     camera.position.z = 30;
-    videoScreen1.position.x = 230;
+    videoScreen1.position.x = 230 + 600;
     videoScreen1.rotation.y = 0.5 * Math.PI;
     videoScreen1.position.z = -250;
-    videoScreen2.position.x = 230;
+    videoScreen2.position.x = 230 + 600;
     videoScreen2.position.z = -150;   
     videoScreen2.position.y = -30;
     videoScreen2.rotation.y = 0.5 * Math.PI;
-    videoScreen3.position.x = 230;
+    videoScreen3.position.x = 230 + 600;
     videoScreen3.position.y = 25;
     videoScreen3.position.z = -200;
     videoScreen3.rotation.y = 0.5 * Math.PI;
-    videoScreen4.position.x = 220;
+    videoScreen4.position.x = 220 + 600;
     videoScreen4.position.y = 20;
     videoScreen4.position.z = -300;
     videoScreen4.rotation.y = 0.5 * Math.PI;
@@ -412,8 +384,9 @@ function main()
     gradient_canvas.position.y = 30;
 
     instrument1_proxy.rotation.y += 1/2 * 3.14;
+    instrument1_proxy.rotation.y += 1/2 * 3.14;
     instrument1_proxy.position.x = 100;
-    instrument1_proxy.position.y = -50;
+    instrument1_proxy.position.y = -99;
     instrument1_proxy.position.z = 470;
     instrument1_proxy.rotation.y = -3.14;
  
@@ -421,7 +394,7 @@ function main()
     let center = new THREE.Vector3();
     floor.position.y = -95
     floor.rotation.x = 0.5 * 3.14;
-    text_plane.position.x = -230;
+    text_plane.position.x = -900;
 
     song_group.position.z = -488;
     song1.position.x = -30;
@@ -431,7 +404,7 @@ function main()
     song2.position.x = -20;
     song2.position.y = -45;
 
-    
+    console.log(song_group);
 
     
     ////             ////
@@ -452,6 +425,7 @@ function main()
     scene.add(instrument1_proxy);
     instrument1_proxy.visible = false;
     scene.add(gradient_canvas);
+    
 
     let x = 0;
 
@@ -465,9 +439,12 @@ function main()
    // controls.enabled = false;
    controls.target.set(0, -50, 0);
    controls.minDistance = 20;
-  // controls.maxDistance = 38;
-   controls.maxAzimuthAngle = (0, Math.PI + 20);
+ 
+   controls.maxDistance = 38;
+   controls.maxAzimuthAngle = (-.1, .1);
     controls.enableDamping = true;
+    controls.minPolarAngle = .8;
+    controls.maxPolarAngle = 2;
    // controls.enableZoom = false;
     controls.dampingFactor = 0.06;
     controls.keys = {
@@ -485,7 +462,7 @@ function main()
     //// FEVENT LISTENERS ////
     ////                 ////
 
-   /* window.addEventListener('resize', onWindowResize, false)
+   /* kuk.addEventListener('resize', onWindowResize, false)
         function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight
         camera.updateProjectionMatrix()
@@ -520,8 +497,14 @@ function main()
         document.getElementById('music-menu').style.display = "none";
         document.getElementById("contact").innerHTML = "contact";
 
-        controls.enabled = true;
+
         controls.target.set(0, -50, 0);
+        controls.minDistance = 20;
+      
+        controls.maxDistance = 38;
+
+        controls.minPolarAngle = .8;
+        controls.maxPolarAngle = 2;
         sound.play();
         room.visible = true;
         roomEntered = true;
@@ -530,28 +513,38 @@ function main()
     document.onkeydown = function(e) {
         console.log("KUK");
     }   
+    console.log(videoScreen1.position);
     function aboutMove(){
-        controls.target = text_plane.position;
+        controls.target.set(-230, 0, 0);
+        
         room.visible = true;
         roomEntered = true;
     }
     function netMove(){
-        controls.target = videoScreen1.position;
-        controls.minDistance = 60;
-        controls.maxDistance = 250;
+        controls.target.set(700, 0, -250);
+        camera.position.set(400, 0, -230);
+        controls.minDistance = 0;
+        controls.maxDistance = 130;
         room.visible = true; 
         roomEntered = true;
+        controls.minPolarAngle = .8;
+        controls.maxPolarAngle = 2;
     }
     function musicMove(){
         document.getElementById('first-menu').style.display = "none";
         document.getElementById('music-menu').style.display = "inline";
         room.visible = true;
         roomEntered = true;
+        controls.minPolarAngle = .8;
+        controls.maxPolarAngle = 2;
     }
     function instrumentsMove(){
         document.getElementById('first-menu').style.display = "none";
         document.getElementById('music-menu').style.display = "inline";
-        controls.target.set(0, -30, 400);
+        controls.target.set(0, -30, 320);
+        controls.minPolarAngle = .8;
+        controls.maxPolarAngle = 1.1;
+        
         controls.minDistance = 20;
         controls.maxDistance = 150;
         room.visible = true;
@@ -731,7 +724,7 @@ function main()
         cube1.rotation.y += 0.01;
         raycaster.setFromCamera( pointer, camera );
         const intersects = raycaster.intersectObjects( song_group.children);
-       // console.log(intersects.length);
+     //   console.log(intersects.length);
 
         if (x > 0 && x < 128 && roomEntered == false){
             room.visible = true; 
@@ -740,7 +733,9 @@ function main()
             room.visible = false; 
         }
         if (roomEntered){
-            model5.visible = false;
+            glassCylinder.visible = false;
+            mainSculpture.visible = false;
+            room_mat.map = false;
         }
         console.log(roomEntered);
 
