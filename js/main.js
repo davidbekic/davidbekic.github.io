@@ -455,7 +455,7 @@ function main()
  //   scene.add(cube1);
     scene.add(light1);
     scene.add(light2);
-    scene.add(light3);
+    //scene.add(light3);
     scene.add(text_plane);
     scene.add(song_group);
     scene.add(videoScreen1);
@@ -797,7 +797,7 @@ function main()
         TWEEN.update();
         controls.update();
         light1.color.setHex(0xFFFEFF);
-        light2.color.setHex( 0x11 + x + 20);
+        light2.color.setHex( 0xFFFFFF + x);
         camera.rotation.z += 0.005 * Math.cos(x/20) + (0.001 * Math.random());
         camera.rotation.y += 0.009 * Math.cos(x/20) + (0.001 * Math.random());
         camera.rotation.x += 0.009 * Math.sin(x/20) + (0.001 * Math.random());
