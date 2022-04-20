@@ -21,11 +21,12 @@ function main()
     let   INTERSECTED;
     let   domEvents	= new THREEx.DomEvents(camera, renderer.domElement);
     let   frontText_loader = new THREE.GLTFLoader();
-    var   caged_loader = new THREE.GLTFLoader();
-    var   roomsText_loader = new THREE.GLTFLoader();
-    var   mainSculpture_loader = new THREE.GLTFLoader();
-    var   glassCylinder_loader = new THREE.GLTFLoader();
-    var   instrument1_loader = new THREE.GLTFLoader();
+    let   caged_loader = new THREE.GLTFLoader();
+    let   roomsText_loader = new THREE.GLTFLoader();
+    let   mainSculpture_loader = new THREE.GLTFLoader();
+    let   glassCylinder_loader = new THREE.GLTFLoader();
+    let instrument1_loader = new THREE.GLTFLoader();
+    let screamerText_loader = new THREE.GLTFLoader();
     renderer.shadowMap.enabled = true;
     document.getElementById('music-menu').style.display = "none";
     
@@ -41,6 +42,7 @@ function main()
     let cube1_geo = new THREE.BoxGeometry(10, 10, 10);
     let song1_geo = new THREE.BoxGeometry(60, 25, 20);
     let song2_geo = new THREE.BoxGeometry(25, 60, 20);
+    let ceiling_geo = new THREE.PlaneGeometry(2200, 1000);
     const screen = new THREE.PlaneGeometry(30, 80);
     const instrument1_proxy_geo = new THREE.PlaneGeometry(50, 50);
     const gradient_canvas_geo = new THREE.PlaneGeometry(200, 30);
@@ -58,17 +60,17 @@ function main()
 
     const song1_texture = new THREE.TextureLoader().load( 'assets/imgs/song1.png' );
     const song2_texture = new THREE.TextureLoader().load( 'assets/imgs/song2.png' );
-    const concrete_texture = new THREE.TextureLoader().load( 'assets/imgs/concrete_1.jpg' );
+    const concrete_texture = new THREE.TextureLoader().load( 'assets/imgs/cloth.webp' );
     const text_plane_texture = new THREE.TextureLoader().load( 'assets/imgs/text_test1.png' );
     const silverfoil_texture = new THREE.TextureLoader().load( 'assets/imgs/glass1.jpeg' );
     //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
     silverfoil_texture.wrapS = silverfoil_texture.wrapT = THREE.RepeatWrapping;
-    silverfoil_texture.offset.set( 1, 1 );
-    silverfoil_texture.repeat.set( 1, 1 );
+    //silverfoil_texture.offset.set( 1, 1 );
+    silverfoil_texture.repeat.set( 5, 5);
     
     concrete_texture.wrapS = silverfoil_texture.wrapT = THREE.RepeatWrapping;
    // concrete_texture.offset.set( 1, 1 );
-    concrete_texture.repeat.set(1, 1);
+    //concrete_texture.repeat.set(60, 60);
    
     song1_texture.generateMipmaps = false;
     silverfoil_texture.generateMipmaps = false;
@@ -102,9 +104,11 @@ function main()
     let text_plane_mat = new THREE.MeshLambertMaterial({color: 0xA6A6A6});
     let instrument1_proxy_mat = new THREE.MeshStandardMaterial();
     const gradient_canvas_mat = new THREE.MeshPhysicalMaterial({color: 0xCCAA99CC, roughness: 1, metalness: 0});
+    let ceiling_mat = new THREE.MeshStandardMaterial({color: 0xFFFFFF});
     room_mat.side = THREE.DoubleSide;
     room_mat.map = concrete_texture;
     gradient_canvas_mat.side = THREE.BackSide;
+    ceiling_mat.side = THREE.DoubleSide;
     //room_mat.map = silverfoil_texture;
     floor_mat.side = THREE.DoubleSide;
     song1_mat.map = song1_texture;
@@ -132,7 +136,8 @@ function main()
     let song2 = new THREE.Mesh(song2_geo, song2_mat);
     let text_plane = new THREE.Mesh(text_plane_geo, text_plane_mat);
     const gradient_canvas = new THREE.Mesh(gradient_canvas_geo, gradient_canvas_mat);
-    let instrument1_proxy = new THREE.Mesh(instrument1_proxy_geo, instrument1_proxy_mat)
+    let instrument1_proxy = new THREE.Mesh(instrument1_proxy_geo, instrument1_proxy_mat);
+    let ceiling = new THREE.Mesh(ceiling_geo, ceiling_mat);
     const song_group = new THREE.Group();
     let frontText;
     let caged;
@@ -140,6 +145,7 @@ function main()
     let mainSculpture;
     let glassCylinder;
     let instrument1;
+    let screamerText;
     //  console.log(song_group);
     
     song_group.add(song1);
@@ -324,7 +330,7 @@ function main()
             gltf.scenes; // Array<THREE.Group>
             gltf.cameras; // Array<THREE.Camera>
             gltf.asset; // Object
-           // model2.scale += 20;
+            
             instrument1.rotation.y += 1/2 * 3.14;
             instrument1.rotation.z += 3.14;
             
@@ -332,6 +338,37 @@ function main()
             instrument1.position.x = 100;
             instrument1.position.y = -95;
             instrument1.position.z = 410;
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        },
+        // called when loading has errors
+        function ( error ) {
+            console.log( 'An error happened' );
+        }
+    );
+
+    screamerText_loader.load(
+        // resource URL
+        'assets/GLTF/SCREAMERTEXT.glb',
+        // called when the resource is loaded  
+        function ( gltf ) {
+            screamerText = gltf.scene;
+            scene.add( screamerText );
+            gltf.animations; // Array<THREE.AnimationClip>
+            gltf.scene; // THREE.Group
+            gltf.scenes; // Array<THREE.Group>
+            gltf.cameras; // Array<THREE.Camera>
+            gltf.asset; // Object
+            
+            screamerText.rotation.y += 1/2 * 3.14;
+            screamerText.rotation.z += 3.14;
+            
+            screamerText.rotation.x = -1/2 * 3.14;
+            screamerText.position.x = 100;
+            screamerText.position.y = -99;
+            screamerText.position.z = 315;
         },
         // called while loading is progressing
         function ( xhr ) {
@@ -355,6 +392,7 @@ function main()
     light2.position.set( -50, 300, -1490 );
     light3.position.set( -50, 700, 1490 );
     light1.rotation.x = 200
+
 
 
     ////             ////
@@ -382,6 +420,8 @@ function main()
     text_plane.rotation.y = 0.5 * Math.PI;
     gradient_canvas.position.z = 490;
     gradient_canvas.position.y = 30;
+    ceiling.rotation.x = 3.14 / 2;
+    ceiling.position.y = -99;
 
     instrument1_proxy.rotation.y += 1/2 * 3.14;
     instrument1_proxy.rotation.y += 1/2 * 3.14;
@@ -425,6 +465,7 @@ function main()
     scene.add(instrument1_proxy);
     instrument1_proxy.visible = false;
     scene.add(gradient_canvas);
+    //scene.add(ceiling);
     
 
     let x = 0;
@@ -735,7 +776,7 @@ function main()
         if (roomEntered){
             glassCylinder.visible = false;
             mainSculpture.visible = false;
-            room_mat.map = false;
+            
         }
         console.log(roomEntered);
 
