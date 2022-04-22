@@ -25,6 +25,10 @@ ul {
     display: inline; 
 }
 
+.netstext
+{
+	color: blueviolet;
+}
 
 @font-face {
     font-family: 'ndot57'; /*a name to be used later*/
@@ -32,7 +36,7 @@ ul {
 }
 
 body {
-	background-color: #000;
+	background-color: rgb(255, 255, 255);
 	color: #fff;
 	margin: 0px;
 	font-size: 16px;
@@ -52,6 +56,7 @@ a {
 }
 p {
 	margin: 30px;
+	width: 25%;
 	color: rgb(229, 219, 233);
 	font-size: 12px;
 }
@@ -69,14 +74,21 @@ a, button, input, select, p {
 @media only screen and (max-width: 800px) {
 	body {
 	
-		background-color: #000;
+		background-color: rgb(255, 255, 255);
 		color: #fff;
 		font-family: Monospace;
 		font-size: 24px;
 		line-height: 24px;
 		overscroll-behavior: none;
+		
 	}
 	
+	.netvisuals {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+	}
 
 	a {
 		padding-top: 0px;
@@ -96,6 +108,7 @@ a, button, input, select, p {
 	}
 	p {
 		margin: 25px;
+		width: 50%;
 		color: rgb(229, 219, 233);
 		font-size: 18px;
 	}

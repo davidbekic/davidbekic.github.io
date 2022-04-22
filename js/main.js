@@ -23,6 +23,7 @@ function main()
     let   glassCylinder_loader = new THREE.GLTFLoader();
     let instrument1_loader = new THREE.GLTFLoader();
     let spectrum_loader = new THREE.GLTFLoader();
+    let runestone_loader = new THREE.GLTFLoader();
     let screamerText_loader = new THREE.GLTFLoader();
     renderer.shadowMap.enabled = true;
     document.getElementById('music-menu').style.display = "none";
@@ -102,10 +103,17 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
    // concrete_texture.offset.set( 1, 1 );
     //concrete_texture.repeat.set(60, 60);
    
-    song1_texture.generateMipmaps = false;
+    //song1_texture.generateMipmaps = false;
     silverfoil_texture.generateMipmaps = false;
-    song2_texture.generateMipmaps = false;
-    text_plane_texture.generateMipmaps = false;
+    //song2_texture.generateMipmaps = false;
+//    text_plane_texture.generateMipmaps = false;
+    text_plane_texture.magFilter = THREE.LinearFilter;
+    text_plane_texture.minFilter = THREE.LinearFilter;
+    song1_texture.magFilter = THREE.LinearFilter;
+    song1_texture.minFilter = THREE.LinearFilter;
+    song2_texture.magFilter = THREE.LinearFilter;
+    song2_texture.minFilter = THREE.LinearFilter;
+
 
 
     const videoTexture1 = new THREE.VideoTexture(video_song1);
@@ -177,6 +185,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     let instrument1;
     let screamerText;
     let spectrum;
+    let runestone;
     //  console.log(song_group);
     
     song_group.add(song1);
@@ -439,6 +448,34 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         }
     );
 
+    runestone_loader.load(
+        // resource URL
+        'assets/GLTF/BRAIN2.glb',
+        // called when the resource is loaded  
+        function ( gltf ) {
+            runestone = gltf.scene;
+            scene.add( runestone );
+            gltf.animations; // Array<THREE.AnimationClip>
+            gltf.scene; // THREE.Group
+            gltf.scenes; // Array<THREE.Group>
+            gltf.cameras; // Array<THREE.Camera>
+            gltf.asset; // Object
+
+            runestone.position.set(-940, -20, 450);
+            runestone.rotation.y = -1;
+          //runestone.position.x = 600;
+          //runestone.position.x += 300;
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        },
+        // called when loading has errors
+        function ( error ) {
+            console.log( 'An error happened' );
+        }
+    );
+
 
     ////             ////
     ////   FLIGHTS    ////
@@ -582,8 +619,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     ////             ////
     room.visible = false;
     
-    function moveHome()
-    {
+    function moveHome(){
         //camera.position.y += 4 * Math.random();
         //tween.start();
         document.getElementById('first-menu').style.display = "inline";
@@ -726,11 +762,21 @@ window.addEventListener( 'pointermove', onPointerMove );
 
     domEvents.addEventListener(videoScreen2, 'click', function(event){
         sound.play();
+        console.log(videoScreen2);
+        if (currentStation == "net")
+        {
+            window.location.href = "net.html";
+        }
     }, false)
 
     domEvents.addEventListener(videoScreen2, 'touchstart', function(event){
         sound.play();
+        if (currentStation == "net")
+        {
+            window.location.href = "net.html";
+        }
     }, false)
+    
 
     
     
