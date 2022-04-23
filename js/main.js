@@ -28,6 +28,8 @@ function main()
     renderer.shadowMap.enabled = true;
     document.getElementById('music-menu').style.display = "none";
     let currentStation = "landing";
+  //  renderer.gammaOutput = true;
+//renderer.gammaFactor = 1;
     
 
     // create an AudioListener and add it to the camera
@@ -281,82 +283,43 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
             roomsText.position.y = 0;
             roomsText.position.z = 0;
         },
-        // called while loading is progressing
         function ( xhr ) {
-    
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-    
         },
-        // called when loading has errors
         function ( error ) {
-    
-            console.log( 'An error happened' );
-    
-        }
+            console.log( 'An error happened' );}
     );
 
     mainSculpture_loader.load(
-        // resource URL
         'assets/GLTF/BRAIN.glb',
-        // called when the resource is loaded  
         function ( gltf ) {
             mainSculpture = gltf.scene;
             scene.add( mainSculpture );
-
             mainSculpture.position.x = -0;
             mainSculpture.position.y = -45;
             mainSculpture.position.z = 0;
-            mainSculpture.rotation.set(1, 2.3, 2.6);
-          //  model4.children[0].material.map = silverfoil_texture;
-    
+            mainSculpture.rotation.set(1, 2.2, 2.6);
         },
-        // called while loading is progressing
         function ( xhr ) {
-    
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-    
-        },
-        // called when loading has errors
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
         function ( error ) {
-    
-            console.log( 'An error happened' );
-    
-        }
-    );
+            console.log( 'An error happened' );}
+        );
 
     glassCylinder_loader.load(
-        // resource URL
         'assets/GLTF/CAGE.glb',
-        // called when the resource is loaded  
         function ( gltf ) {
             glassCylinder = gltf.scene;
             scene.add( glassCylinder );
-    
-            gltf.animations; // Array<THREE.AnimationClip>
-            gltf.scene; // THREE.Group
-            gltf.scenes; // Array<THREE.Group>
-            gltf.cameras; // Array<THREE.Camera>
-            gltf.asset; // Object
-           // model2.scale += 20;
             glassCylinder.rotation.y += 1/2 * -3.14;
             glassCylinder.position.x = 0;
             glassCylinder.position.y = -90;
-            glassCylinder.position.z = 0;
-    
-        },
-        // called while loading is progressing
+            glassCylinder.position.z = 0;},
         function ( xhr ) {
-    
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-    
-        },
-        // called when loading has errors
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
         function ( error ) {
-    
-            console.log( 'An error happened' );
-    
-        }
-    );
+            console.log( 'An error happened' );}
+        );
 
     instrument1_loader.load(
         // resource URL
@@ -365,28 +328,18 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         function ( gltf ) {
             instrument1 = gltf.scene;
             scene.add( instrument1 );
-            gltf.animations; // Array<THREE.AnimationClip>
-            gltf.scene; // THREE.Group
-            gltf.scenes; // Array<THREE.Group>
-            gltf.cameras; // Array<THREE.Camera>
-            gltf.asset; // Object
-            
             instrument1.rotation.y += 1/2 * 3.14;
             instrument1.rotation.z += 3.14;
-            
             instrument1.rotation.x = -1/2 * 3.14;
             instrument1.position.x = 100;
             instrument1.position.y = -95;
             instrument1.position.z = 410;
         },
-        // called while loading is progressing
         function ( xhr ) {
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
         },
-        // called when loading has errors
         function ( error ) {
-            console.log( 'An error happened' );
-        }
+            console.log( 'An error happened' );}
     );
 
     screamerText_loader.load(
@@ -396,25 +349,16 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         function ( gltf ) {
             screamerText = gltf.scene;
             scene.add( screamerText );
-            gltf.animations; // Array<THREE.AnimationClip>
-            gltf.scene; // THREE.Group
-            gltf.scenes; // Array<THREE.Group>
-            gltf.cameras; // Array<THREE.Camera>
-            gltf.asset; // Object
-            
             screamerText.rotation.y += 1/2 * 3.14;
             screamerText.rotation.z += 3.14;
-            
             screamerText.rotation.x = -1/2 * 3.14;
             screamerText.position.x = 100;
             screamerText.position.y = -99;
             screamerText.position.z = 315;
         },
-        // called while loading is progressing
         function ( xhr ) {
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
         },
-        // called when loading has errors
         function ( error ) {
             console.log( 'An error happened' );
         }
@@ -427,13 +371,6 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         function ( gltf ) {
             spectrum = gltf.scene;
             scene.add( spectrum );
-            gltf.animations; // Array<THREE.AnimationClip>
-            gltf.scene; // THREE.Group
-            gltf.scenes; // Array<THREE.Group>
-            gltf.cameras; // Array<THREE.Camera>
-            gltf.asset; // Object
-            
-          //  spectrum.position.set(400, 300, 200);
             spectrum.rotation.y = 1;
             spectrum.rotation.z = 1;
             spectrum.position.x += 300;
@@ -450,31 +387,24 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
 
     runestone_loader.load(
         // resource URL
-        'assets/GLTF/BRAIN2.glb',
-        // called when the resource is loaded  
+        'assets/GLTF/PIPE.glb',
         function ( gltf ) {
             runestone = gltf.scene;
-            scene.add( runestone );
+       //     scene.add( runestone );
+          //  runestone.position.set(-50, 199, 470);
+            //runestone.rotation.y = .5 * 3.14;
             gltf.animations; // Array<THREE.AnimationClip>
             gltf.scene; // THREE.Group
             gltf.scenes; // Array<THREE.Group>
             gltf.cameras; // Array<THREE.Camera>
             gltf.asset; // Object
-
-            runestone.position.set(-940, -20, 450);
-            runestone.rotation.y = -1;
-          //runestone.position.x = 600;
-          //runestone.position.x += 300;
         },
-        // called while loading is progressing
         function ( xhr ) {
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
         },
-        // called when loading has errors
         function ( error ) {
             console.log( 'An error happened' );
-        }
-    );
+        });
 
 
     ////             ////
