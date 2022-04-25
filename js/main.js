@@ -205,7 +205,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
             frontText = gltf.scene;
           
             //console.log(model1.children[0]);
-            scene.add( frontText );
+         //   scene.add( frontText );
     
             gltf.animations; // Array<THREE.AnimationClip>
             gltf.scene; // THREE.Group
