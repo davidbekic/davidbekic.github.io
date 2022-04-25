@@ -701,7 +701,7 @@ window.addEventListener( 'pointermove', onPointerMove );
     domEvents.addEventListener(videoScreen1, 'click', function(event){
         if (currentStation == "net")
         {
-            window.location.href = "lines.html";
+            window.location.href = "net.html";
         }
         sound.play();
         video_count++;
@@ -715,7 +715,7 @@ window.addEventListener( 'pointermove', onPointerMove );
     domEvents.addEventListener(videoScreen1, 'touchstart', function(event){
         if (currentStation == "net")
         {
-            window.location.href = "lines.html";
+            window.location.href = "net.html";
         }
         sound.play();
         video_count++;
@@ -753,7 +753,7 @@ window.addEventListener( 'pointermove', onPointerMove );
         video_count++;
         if (currentStation == "net")
         {
-            window.location.href = "ifc_test.html";
+            window.location.href = "net.html";
         }
 
         console.log("video_count: " + video_count);
@@ -768,7 +768,7 @@ window.addEventListener( 'pointermove', onPointerMove );
         video_count++;
         if (currentStation == "net")
         {
-            window.location.href = "ifc_test.html";
+            window.location.href = "net.html";
         }
         console.log("video_count: " + video_count);
         if (video_count % 2 != 0){
