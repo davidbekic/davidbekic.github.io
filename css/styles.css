@@ -78,6 +78,11 @@ a, button, input, select, p {
 	pointer-events: auto;
 }
 
+button {
+	margin-left: 27px;
+	font-family: ndot57;
+}
+
 @media only screen and (max-width: 800px) {
 	body {
 	

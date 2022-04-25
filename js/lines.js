@@ -12,7 +12,7 @@ function main()
         renderer.render(scene, camera);
 
         camera.lookAt(0, 0, 0);
-        camera.position.z = .4;
+        camera.position.z = 2;
         camera.position.y = .3;
         
         const backdrop_geo = new THREE.PlaneGeometry(2400, 2400);

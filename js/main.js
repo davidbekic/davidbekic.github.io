@@ -26,6 +26,8 @@ function main()
     let screamerText_loader = new THREE.GLTFLoader();
     renderer.shadowMap.enabled = true;
     document.getElementById('music-menu').style.display = "none";
+    document.getElementById('3d-menu').style.display = "none";
+    document.getElementById('generator-menu').style.display = "none";
     let currentStation = "landing";
   //  renderer.gammaOutput = true;
 //renderer.gammaFactor = 1;
@@ -565,7 +567,9 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         //tween.start();
         document.getElementById('first-menu').style.display = "inline";
         document.getElementById('music-menu').style.display = "none";
+        document.getElementById('3d-menu').style.display = "none";
         document.getElementById("contact").innerHTML = "contact";
+        document.getElementById('generator-menu').style.display = "none";
 
 
         controls.target.set(0, -50, 0);
@@ -609,6 +613,22 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         controls.minPolarAngle = .8;
         controls.maxPolarAngle = 2;
     }
+    function threeD_Move(){
+        document.getElementById('first-menu').style.display = "none";
+        document.getElementById('3d-menu').style.display = "inline";
+        /*room.visible = true;
+        roomEntered = true;
+        controls.minPolarAngle = .8;
+        controls.maxPolarAngle = 2;*/
+    }
+    function generatorMove(){
+        
+        room.visible = true;
+        roomEntered = true;
+        controls.minPolarAngle = .8;
+        controls.maxPolarAngle = 2;
+    }
+
     function instrumentsMove(){
         document.getElementById('first-menu').style.display = "none";
         document.getElementById('music-menu').style.display = "inline";
@@ -641,8 +661,15 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
 }*/
 document.getElementById("home").addEventListener("click", moveHome);
 document.getElementById("music").addEventListener("click", musicMove);
-document.getElementById("instruments").addEventListener("click", instrumentsMove);
+document.getElementById("3d").addEventListener("click", threeD_Move);
 document.getElementById("net").addEventListener("click", netMove);
+document.getElementById("generator").addEventListener("click", generatorMove);
+document.getElementById("instruments").addEventListener("click", instrumentsMove);
+document.getElementById("generator").addEventListener("click", function(){
+    document.getElementById('3d-menu').style.display = "none";
+    document.getElementById('generator-menu').style.display = "inline";
+});
+//document.getElementById("net").addEventListener("click", netMove);
 document.getElementById("contact").addEventListener("click", function(){
     document.getElementById("contact").innerHTML = "davidbekic@gmail.com";
 });
