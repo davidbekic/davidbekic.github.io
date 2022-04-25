@@ -10,7 +10,6 @@ function main()
     const canvas = document.querySelector('#c');
     const scene = new THREE.Scene();
     const renderer = new THREE.WebGLRenderer({canvas, antialias: true});
-    renderer.setSize(innerWidth, innerHeight);
     const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 10000);
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -549,6 +548,18 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     ////             ////
     room.visible = false;
     
+
+    function resizeRendererToDisplaySize(renderer) {
+        const canvas = renderer.domElement;
+        const width = innerWidth;
+        const height = innerHeight;
+        const needResize = canvas.width !== width || canvas.height !== height;
+        if (needResize) {
+          renderer.setSize(width, height, false);
+        }
+        return needResize;
+    }
+
     function moveHome(){
         //camera.position.y += 4 * Math.random();
         //tween.start();
@@ -823,6 +834,12 @@ window.addEventListener( 'pointermove', onPointerMove );
         raycaster.setFromCamera( pointer, camera );
         const intersects = raycaster.intersectObjects( song_group.children);
      //   console.log(intersects.length);
+
+    if (resizeRendererToDisplaySize(renderer)) {
+        const canvas = renderer.domElement;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+    };
 
         if (x > 0 && x < 128 && roomEntered == false){
             room.visible = true;

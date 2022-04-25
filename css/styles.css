@@ -6,10 +6,17 @@
 	background-color: #FFFFFF;
 	color: #fff;
 	margin: 0px;
+	height: 100%;
 	font-size: 16px;
 	line-height: 24px;
 	overscroll-behavior: none;
 }
+
+#c {
+	width: 100%;
+	height: 100%;
+	display: block;
+ }
 
   #info {
 	position: absolute;
@@ -51,7 +58,7 @@ a {
 	font-family: "ndot57";
 	padding-left: 0px;
 	margin-bottom: 50px;
-	color: rgb(176, 159, 184);
+	color: rgb(130, 15, 238);
 	text-decoration: none;
 }
 p {
