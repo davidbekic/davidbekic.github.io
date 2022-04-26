@@ -598,7 +598,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     }
 
     document.onkeydown = function(e) {
-        console.log("KUK");
+        console.log("KUKEN");
     }   
   //  console.log(videoScreen1.position);
     function aboutMove(){
