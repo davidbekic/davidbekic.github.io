@@ -78,6 +78,11 @@ button {
 	font-family: ndot57;
 }
 
+#loadingtext {
+	font-size: 60px;
+	margin-left: 0px;
+}
+
 @media only screen and (max-width: 800px) {
 	body {
 	

@@ -28,7 +28,11 @@ function main()
     document.getElementById('music-menu').style.display = "none";
     document.getElementById('3d-menu').style.display = "none";
     document.getElementById('generator-menu').style.display = "none";
+    document.getElementById('first-menu').style.display = "none";
+    document.getElementById('home').style.display = "none";
+    document.getElementById('instruments-menu').style.display = "none";
     let currentStation = "landing";
+    let loaded = 0;
   //  renderer.gammaOutput = true;
 //renderer.gammaFactor = 1;
     
@@ -84,6 +88,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const video_song2 = document.getElementById('video_song2');
     const video_song3 = document.getElementById('video_song3');
     const video_song4 = document.getElementById('video_song4');
+    const glasstube1_geo = new THREE.PlaneGeometry(1620/30, 2880/30);
 
     
     
@@ -97,6 +102,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const concrete_texture = new THREE.TextureLoader().load( 'assets/imgs/cloth.webp' );
     const text_plane_texture = new THREE.TextureLoader().load( 'assets/imgs/silkcolor.jpeg' );
     const silverfoil_texture = new THREE.TextureLoader().load( 'assets/imgs/glass1.jpeg' );
+    const glasstube1_texture = new THREE.TextureLoader().load( 'assets/imgs/glasstube1.jpg' );
     //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
     silverfoil_texture.wrapS = silverfoil_texture.wrapT = THREE.RepeatWrapping;
     //silverfoil_texture.offset.set( 1, 1 );
@@ -116,6 +122,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     song1_texture.minFilter = THREE.LinearFilter;
     song2_texture.magFilter = THREE.LinearFilter;
     song2_texture.minFilter = THREE.LinearFilter;
+    glasstube1_texture.magFilter = THREE.LinearFilter;
+    glasstube1_texture.minFilter = THREE.LinearFilter;
 
 
 
@@ -133,7 +141,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const videoScreen3 = new THREE.Mesh(screen, videoMaterial3);
     const videoScreen4 = new THREE.Mesh(screen, videoMaterial4);
 
-    ////             ////
+    ////              ////
     ////  FMATERIALS  ////
     ////             ////
 
@@ -161,6 +169,9 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     videoMaterial2.side = THREE.BackSide;
     videoMaterial3.side = THREE.BackSide;
     videoMaterial4.side = THREE.BackSide;
+    let glasstube1_mat = new THREE.MeshLambertMaterial();
+    glasstube1_mat.map = glasstube1_texture;
+    glasstube1_mat.side = THREE.BackSide;
     //instrument1_proxy_mat.side = THREE.DoubleSide;
     
 
@@ -189,6 +200,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     let screamerText;
     let spectrum;
     let runestone;
+    let glasstube1 = new THREE.Mesh(glasstube1_geo, glasstube1_mat);
     //  console.log(song_group);
     
     song_group.add(song1);
@@ -203,20 +215,14 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         // resource URL
         'assets/GLTF/RANDOMTEXT2.glb',
         // called when the resource is loaded  
-        function ( gltf ) {
+        function ( gltf ) { 
             frontText = gltf.scene;
           
             //console.log(model1.children[0]);
-         //   scene.add( frontText );
-    
-            gltf.animations; // Array<THREE.AnimationClip>
-            gltf.scene; // THREE.Group
-            gltf.scenes; // Array<THREE.Group>
-            gltf.cameras; // Array<THREE.Camera>
-            gltf.asset; // Object
+            scene.add( frontText );
             frontText.scale.x += 2000;
             frontText.rotation.y += 1/2 * -3.14;
-            frontText.position.x = -80;
+            frontText.position.x = 180;
             frontText.position.y = -97;
             frontText.position.z = -490;
             frontText.children[0].material.map = song2_texture;
@@ -302,7 +308,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
             mainSculpture.rotation.set(1, 2.2, 2.6);
         },
         function ( xhr ) {
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded of BRAIN' );},
         function ( error ) {
             console.log( 'An error happened' );}
         );
@@ -402,6 +408,9 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         },
         function ( xhr ) {
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+            if (xhr.loaded / xhr.total) {
+                loaded = 1;
+            };
         },
         function ( error ) {
             console.log( 'An error happened' );
@@ -454,6 +463,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     videoScreen4.position.z = -300;
     videoScreen4.rotation.y = 0.5 * Math.PI;
     text_plane.rotation.y = 0.5 * Math.PI;
+    glasstube1.position.set(-300, 100, 450);
+    //glasstube1.rotation.y = - Math.PI;
    // text_plane.rotation.x = -0.16 * Math.PI;
     gradient_canvas.position.z = 490;
     gradient_canvas.position.y = 80;
@@ -509,6 +520,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     instrument1_proxy.visible = false;
     scene.add(gradient_canvas);
     scene.add(ceiling);
+    scene.add(glasstube1);
     
 
     let x = 0;
@@ -570,6 +582,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         document.getElementById('3d-menu').style.display = "none";
         document.getElementById("contact").innerHTML = "contact";
         document.getElementById('generator-menu').style.display = "none";
+        document.getElementById('instruments-menu').style.display = "none";
 
 
         controls.target.set(0, -50, 0);
@@ -606,6 +619,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         controls.maxPolarAngle = 2;
     }
     function musicMove(){
+        currentStation = "music";
         document.getElementById('first-menu').style.display = "none";
         document.getElementById('music-menu').style.display = "inline";
         room.visible = true;
@@ -614,7 +628,9 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         controls.maxPolarAngle = 2;
     }
     function threeD_Move(){
+        currentStation = "3D3D3D3D3D3D3D3D3D";
         document.getElementById('first-menu').style.display = "none";
+        console.log("WOW WTF");
         document.getElementById('3d-menu').style.display = "inline";
         /*room.visible = true;
         roomEntered = true;
@@ -631,7 +647,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
 
     function instrumentsMove(){
         document.getElementById('first-menu').style.display = "none";
-        document.getElementById('music-menu').style.display = "inline";
+        document.getElementById('music-menu').style.display = "none";
+        document.getElementById('instruments-menu').style.display = "inline";
         controls.target.set(0, -30, 320);
         camera.lookAt(0, -190, 320);
         controls.minPolarAngle = .8;
@@ -854,7 +871,11 @@ window.addEventListener( 'pointermove', onPointerMove );
 
     console.log(controls.target);
 
+
+
+
     function animate(){
+      //  console.log("current station: " + currentStation);
         requestAnimationFrame(animate);
         cube1.rotation.x += 0.01;
         cube1.rotation.y += 0.01;
@@ -920,9 +941,17 @@ window.addEventListener( 'pointermove', onPointerMove );
         {
             x = 0;
         }
-       
+
        // console.log(light1.color);
-        renderer.render(scene, camera);
+        if (loaded){
+            if (currentStation == "landing"){
+                document.getElementById('first-menu').style.display = "inline";
+            }
+            document.getElementById('home').style.display = "inline";
+            document.getElementById('loading').style.display = "none";
+            renderer.render(scene, camera); 
+        };
+       
 
 }
 
