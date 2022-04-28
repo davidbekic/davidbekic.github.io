@@ -79,28 +79,28 @@ function main()
     G1_loader.load('assets/GLTF/PIPETEST.glb',
         function ( gltf ) { 
             g1 = gltf.scene;
-            g1.position.x = -10;
+            g1.position.x = 20;
             scene.add( g1 );
             g1.children[0].material.color.set( 0xffffff);
         },);
     A1_loader.load('assets/GLTF/PIPETEST.glb',
         function ( gltf ) { 
             a1 = gltf.scene;
-            a1.position.x = 20;
+            a1.position.x = 50;
             scene.add( a1 );
             a1.children[0].material.color.set( 0xffffff);
         },);
     B1_loader.load('assets/GLTF/PIPETEST.glb',
         function ( gltf ) { 
             b1 = gltf.scene;
-            b1.position.x = 50;
+            b1.position.x = 80;
             scene.add( b1 );
             b1.children[0].material.color.set( 0xffffff);
         },);
     C2_loader.load('assets/GLTF/PIPETEST.glb',
         function ( gltf ) { 
             c2 = gltf.scene;
-            c2.position.x = 80;
+            c2.position.x = 110;
             scene.add( c2 );
             c2.children[0].material.color.set( 0xffffff);
         },);
@@ -301,13 +301,13 @@ function main()
         {
             
             c1.children[0].material.color.set(0xffffff);
-            d1.children[0].color.set(0xffffff);
-            e1.children[0].color.set(0xffffff);
-            f1.children[0].color.set(0xffffff);
-            g1.children[0].color.set(0xffffff);
-            a1.children[0].color.set(0xffffff);
-            b1.children[0].color.set(0xffffff);
-            c2.children[0].color.set(0xffffff);
+            d1.children[0].material.color.set(0xffffff);
+            e1.children[0].material.color.set(0xffffff);
+            f1.children[0].material.color.set(0xffffff);
+            g1.children[0].material.color.set(0xffffff);
+            a1.children[0].material.color.set(0xffffff);
+            b1.children[0].material.color.set(0xffffff);
+            c2.children[0].material.color.set(0xffffff);
         }
       //  console.log(x);
         renderer.render(scene, camera);
