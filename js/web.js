@@ -99,15 +99,20 @@ function main()
                         console.log(camera.rotation.z);
                         z += y/20;
                         light1.position.set( points );
+                        if (i < 2000){
                         points.push( new THREE.Vector3(0.01*(x+y), 0.01*(x+y), 0.01*(x+y+z)));        
                         light1.color.set(0xFFEEcc);
+                        }
                 }
 
                 document.getElementById("text").innerHTML = i;
-            
+                if (i < 400){
+                        console.log("i is: " + i);
                 const geometry = new THREE.BufferGeometry().setFromPoints( points );
                 const line = new THREE.Line( geometry, material );
                 points.push( new THREE.Vector3(x+y, x+y, x+y+z));     
+                scene.add( line );
+        }
                if (x % 60 == 0)
                 {
                         y += 100/1+coefficient;
@@ -123,9 +128,9 @@ function main()
                 }
                i++;
                
-
-        scene.add( line );
-
+               
+        
+               
         }
  
 }

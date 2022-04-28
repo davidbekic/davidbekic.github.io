@@ -179,7 +179,13 @@ function main()
         camera.position.z += .001 * Math.cos(x/50);
         
         light1.distance = x;
-        light1.intensity = x/1000;
+        if (light1.intensity < 30)
+        {
+            light1.intensity += x/50000;
+        }
+        else
+        {light1.intensity = x/1000;
+    }
         console.log(x);
         if (resizeRendererToDisplaySize(renderer)) {
             const canvas = renderer.domElement;
