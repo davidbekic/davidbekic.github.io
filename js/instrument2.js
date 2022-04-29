@@ -317,7 +317,7 @@ function main()
     camera.add( listener_C2 );
     const sound_C2 = new THREE.Audio( listener_C2 );
     const audioLoader_C2 = new THREE.AudioLoader();
-    audioLoader_C2.load( 'assets/audio/instrument1/C2.mp3', function( buffer ) {
+    audioLoader_C2.load( 'assets/audio/instrument2/C2.mp3', function( buffer ) {
 	sound_C2.setBuffer( buffer );
 	sound_C2.setVolume( .5 );	
     });
@@ -326,7 +326,7 @@ function main()
     camera.add( listener_D2 );
     const sound_D2 = new THREE.Audio( listener_D2 );
     const audioLoader_D2 = new THREE.AudioLoader();
-    audioLoader_D2.load( 'assets/audio/instrument1/D2.mp3', function( buffer ) {
+    audioLoader_D2.load( 'assets/audio/instrument2/D2.mp3', function( buffer ) {
 	sound_D2.setBuffer( buffer );
 	sound_D2.setVolume( .5 );	
 });
@@ -335,7 +335,7 @@ const listener_E2 = new THREE.AudioListener();
 camera.add( listener_E2 );
 const sound_E2 = new THREE.Audio( listener_E2 );
 const audioLoader_E2 = new THREE.AudioLoader();
-audioLoader_E2.load( 'assets/audio/instrument1/E2.mp3', function( buffer ) {
+audioLoader_E2.load( 'assets/audio/instrument2/E2.mp3', function( buffer ) {
 sound_E2.setBuffer( buffer );
 sound_E2.setVolume( .5 );	
 });
@@ -344,7 +344,7 @@ const listener_F2 = new THREE.AudioListener();
 camera.add( listener_F2 );
 const sound_F2 = new THREE.Audio( listener_F2 );
 const audioLoader_F2 = new THREE.AudioLoader();
-audioLoader_F2.load( 'assets/audio/instrument1/F2.mp3', function( buffer ) {
+audioLoader_F2.load( 'assets/audio/instrument2/F2.mp3', function( buffer ) {
 sound_F2.setBuffer( buffer );
 sound_F2.setVolume( .5 );
 });
@@ -353,7 +353,7 @@ const listener_G2 = new THREE.AudioListener();
 camera.add( listener_G2 );
 const sound_G2 = new THREE.Audio( listener_G2 );
 const audioLoader_G2 = new THREE.AudioLoader();
-audioLoader_G2.load( 'assets/audio/instrument1/G2.mp3', function( buffer ) {
+audioLoader_G2.load( 'assets/audio/instrument2/G2.mp3', function( buffer ) {
 sound_G2.setBuffer( buffer );
 sound_G2.setVolume( .5 );
 });
@@ -362,7 +362,7 @@ const listener_A2 = new THREE.AudioListener();
 camera.add( listener_A2 );
 const sound_A2 = new THREE.Audio( listener_A2 );
 const audioLoader_A2 = new THREE.AudioLoader();
-audioLoader_A2.load( 'assets/audio/instrument1/A2.mp3', function( buffer ) {
+audioLoader_A2.load( 'assets/audio/instrument2/A2.mp3', function( buffer ) {
 sound_A2.setBuffer( buffer );
 sound_A2.setVolume( .5 );
 });
@@ -371,7 +371,7 @@ const listener_B2 = new THREE.AudioListener();
 camera.add( listener_B2 );
 const sound_B2 = new THREE.Audio( listener_B2 );
 const audioLoader_B2 = new THREE.AudioLoader();
-audioLoader_B2.load( 'assets/audio/instrument1/B2.mp3', function( buffer ) {
+audioLoader_B2.load( 'assets/audio/instrument2/B2.mp3', function( buffer ) {
 sound_B2.setBuffer( buffer );
 sound_B2.setVolume( .5 );
 });
@@ -380,7 +380,7 @@ const listener_C3 = new THREE.AudioListener();
 camera.add( listener_C3 );
 const sound_C3 = new THREE.Audio( listener_C3 );
 const audioLoader_C3 = new THREE.AudioLoader();
-audioLoader_C3.load( 'assets/audio/instrument1/C3.mp3', function( buffer ) {
+audioLoader_C3.load( 'assets/audio/instrument2/C3.mp3', function( buffer ) {
 sound_C3.setBuffer( buffer );
 sound_C3.setVolume( .5 );
 });
