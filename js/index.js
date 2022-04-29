@@ -75,7 +75,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     ////             ////
 
     let room_geo = new THREE.BoxGeometry(2000, 350, 1000);
-    let text_plane_geo = new THREE.PlaneGeometry(192/1.3, 108/1.3);
+    let text_plane_geo = new THREE.PlaneGeometry(960/6, 540/6);
     let floor_geo = new THREE.PlaneGeometry(300, 1000);
     let cube1_geo = new THREE.BoxGeometry(10, 10, 10);
     let song1_geo = new THREE.BoxGeometry(60, 25, 20);
@@ -100,7 +100,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const song1_texture = new THREE.TextureLoader().load( 'assets/imgs/song1.png' );
     const song2_texture = new THREE.TextureLoader().load( 'assets/imgs/song2.png' );
     const concrete_texture = new THREE.TextureLoader().load( 'assets/imgs/cloth.webp' );
-    const text_plane_texture = new THREE.TextureLoader().load( 'assets/imgs/silkcolor.jpeg' );
+    const text_plane_texture = new THREE.TextureLoader().load( 'assets/imgs/tunnel_1477x540.jpg' );
     const silverfoil_texture = new THREE.TextureLoader().load( 'assets/imgs/glass1.jpeg' );
     const glasstube1_texture = new THREE.TextureLoader().load( 'assets/imgs/glasstube1.jpg' );
     //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
@@ -115,7 +115,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     //song1_texture.generateMipmaps = false;
     silverfoil_texture.generateMipmaps = false;
     //song2_texture.generateMipmaps = false;
-//    text_plane_texture.generateMipmaps = false;
+    //text_plane_texture.generateMipmaps = false;
     text_plane_texture.magFilter = THREE.LinearFilter;
     text_plane_texture.minFilter = THREE.LinearFilter;
     song1_texture.magFilter = THREE.LinearFilter;
@@ -124,6 +124,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     song2_texture.minFilter = THREE.LinearFilter;
     glasstube1_texture.magFilter = THREE.LinearFilter;
     glasstube1_texture.minFilter = THREE.LinearFilter;
+
 
 
 
@@ -285,7 +286,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         function ( gltf ) {
             roomsText = gltf.scene;
 
-            scene.add( roomsText );
+           // scene.add( roomsText );
             roomsText.position.x = 10;
             roomsText.position.y = 0;
             roomsText.position.z = 0;
@@ -485,7 +486,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     floor.position.y = -95
     floor.rotation.x = 0.5 * 3.14;
     text_plane.position.x = -900;
-    text_plane.position.y = 30;
+    text_plane.position.y = 50;
 
     song_group.position.z = -488;
     song1.position.x = -30;
@@ -929,12 +930,11 @@ window.addEventListener( 'pointermove', onPointerMove );
         camera.rotation.x += 0.009 * Math.sin(x/20) + (0.001 * Math.random());
 
         roomsText.rotation.x += 0.009 * Math.sin(x/20);
-        text_plane.rotation.y -= 0.002 * Math.sin(x/80);
+       // text_plane.rotation.y -= .01 * Math.sin(x);
         
         //  camera.lookAt(cube1);
         //cube2.position.y += 2 * Math.cos(x/20);
-    //    cube2.position.z += 20 * Math.cos(x/40);
-        
+        //  cube2.position.z += 20 * Math.cos(x/40);
         
         x += 1;
         if(x == 256)
@@ -949,7 +949,7 @@ window.addEventListener( 'pointermove', onPointerMove );
             }
             document.getElementById('home').style.display = "inline";
             document.getElementById('loading').style.display = "none";
-            renderer.render(scene, camera); 
+            renderer.render(scene, camera);
         };
        
 
