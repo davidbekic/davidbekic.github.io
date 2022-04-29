@@ -27,10 +27,11 @@ function main()
     renderer.shadowMap.enabled = true;
     document.getElementById('music-menu').style.display = "none";
     document.getElementById('3d-menu').style.display = "none";
-    document.getElementById('generator-menu').style.display = "none";
+    document.getElementById('rooms-menu').style.display = "none";
     document.getElementById('first-menu').style.display = "none";
     document.getElementById('home').style.display = "none";
     document.getElementById('instruments-menu').style.display = "none";
+    document.getElementById('images-menu').style.display = "none";
     let currentStation = "landing";
     let loaded = 0;
   //  renderer.gammaOutput = true;
@@ -570,7 +571,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         const height = innerHeight;
         const needResize = canvas.width !== width || canvas.height !== height;
         if (needResize) {
-          renderer.setSize(width, height, false);
+          renderer.setSize(width, height, false);f
         }
         return needResize;
     }
@@ -582,7 +583,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         document.getElementById('music-menu').style.display = "none";
         document.getElementById('3d-menu').style.display = "none";
         document.getElementById("contact").innerHTML = "contact";
-        document.getElementById('generator-menu').style.display = "none";
+        document.getElementById('rooms-menu').style.display = "none";
         document.getElementById('instruments-menu').style.display = "none";
 
 
@@ -638,10 +639,10 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         controls.minPolarAngle = .8;
         controls.maxPolarAngle = 2;*/
     }
-    function generatorMove(){
+    function roomsMove(){
         
-        room.visible = true;
-        roomEntered = true;
+        //room.visible = true;
+        //roomEntered = true;
         controls.minPolarAngle = .8;
         controls.maxPolarAngle = 2;
     }
@@ -681,11 +682,15 @@ document.getElementById("home").addEventListener("click", moveHome);
 document.getElementById("music").addEventListener("click", musicMove);
 document.getElementById("3d").addEventListener("click", threeD_Move);
 document.getElementById("net").addEventListener("click", netMove);
-document.getElementById("generator").addEventListener("click", generatorMove);
+document.getElementById("rooms").addEventListener("click", roomsMove);
 document.getElementById("instruments").addEventListener("click", instrumentsMove);
-document.getElementById("generator").addEventListener("click", function(){
+document.getElementById("rooms").addEventListener("click", function(){
     document.getElementById('3d-menu').style.display = "none";
-    document.getElementById('generator-menu').style.display = "inline";
+    document.getElementById('rooms-menu').style.display = "inline";
+});
+document.getElementById("images").addEventListener("click", function(){
+    document.getElementById('3d-menu').style.display = "none";
+    document.getElementById('images-menu').style.display = "inline";
 });
 //document.getElementById("net").addEventListener("click", netMove);
 document.getElementById("contact").addEventListener("click", function(){
