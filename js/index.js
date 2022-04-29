@@ -310,9 +310,14 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
             mainSculpture.rotation.set(1, 2.2, 2.6);
         },
         function ( xhr ) {
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded of BRAIN' );},
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded of BRAIN' );
+            if ((xhr.loaded / xhr.total) == 1) {
+                loaded = 1;
+            };
+        },
         function ( error ) {
             console.log( 'An error happened' );}
+
         );
 
     glassCylinder_loader.load(
@@ -410,9 +415,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         },
         function ( xhr ) {
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-            if (xhr.loaded / xhr.total) {
-                loaded = 1;
-            };
+
         },
         function ( error ) {
             console.log( 'An error happened' );
