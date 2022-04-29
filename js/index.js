@@ -311,7 +311,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         },
         function ( xhr ) {
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded of BRAIN' );
-            if ((xhr.loaded / xhr.total) == 1) {
+            if ((xhr.loaded / xhr.total)) {
                 loaded = 1;
             };
         },
@@ -951,7 +951,7 @@ window.addEventListener( 'pointermove', onPointerMove );
         }
 
        // console.log(light1.color);
-        if (loaded){
+        if (loaded === 1){
             if (currentStation == "landing"){
                 document.getElementById('first-menu').style.display = "inline";
             }
