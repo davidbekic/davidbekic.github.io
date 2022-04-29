@@ -206,6 +206,7 @@ function main()
         key_material.color.set(0xEEEEAA);
         x = 0;
         sound.play();
+        
     }
     
 
@@ -263,28 +264,37 @@ function main()
     
     document.onkeydown = function(a) {
         if (a.key  == 'a'){
+            let c2 = new Audio("assets/audio/instrument2/C2.mp3");
+            c2.play();
             keyPlay(c1.children[0].material, sound_C2)
         }
         if (a.key  == 's'){
-            keyPlay(d1.children[0].material, sound_D2)
+            let d2 = new Audio("assets/audio/instrument2/D2.mp3");
+            d2.play();
             }
             if (a.key  == 'd'){
-                keyPlay(e1.children[0].material, sound_E2)
+                let e2 = new Audio("assets/audio/instrument2/E2.mp3");
+            e2.play();
             }
             if (a.key  == 'f'){
-                keyPlay(f1.children[0].material, sound_F2)
+                let f2 = new Audio("assets/audio/instrument2/F2.mp3");
+            f2.play();
                 }
                 if (a.key  == 'g'){
-                    keyPlay(g1.children[0].material, sound_G2)
+                    let g2 = new Audio("assets/audio/instrument2/G2.mp3");
+                    g2.play();
                     }
                     if (a.key  == 'h'){
-                        keyPlay(a1.children[0].material, sound_A2)
+                        let a2 = new Audio("assets/audio/instrument2/A2.mp3");
+                    a2.play();
                     }
                     if (a.key  == 'j'){
-                        keyPlay(b1.children[0].material, sound_B2)
+                        let b2 = new Audio("assets/audio/instrument2/B2.mp3");
+                    b2.play();
                         }
                         if (a.key  == 'k'){
-                            keyPlay(c2.children[0].material, sound_C3)
+                            let c3 = new Audio("assets/audio/instrument2/C3.mp3");
+                    c3  .play();
                             }
         
     }   

@@ -116,11 +116,14 @@ function main()
         
     }
 
-    function keyPlay(key_material, sound)
+    function keyPlay(key_material, path)
     {
         key_material.color.set(0xFF1144);
         x = 0;
-        sound.play();
+        
+        let sound = new Audio(path);
+            sound.play();
+        
     }
 
 
@@ -129,78 +132,78 @@ function main()
 
 
     domEvents.addEventListener(key_C2, 'click', function(event){
-        keyPlay(key_mat_C2, sound_C2)
+        keyPlay(key_mat_C2, "assets/audio/instrument1/C2.mp3")
     }, false)
     domEvents.addEventListener(key_C2, 'touchstart', function(event){
-        keyPlay(key_mat_C2, sound_C2)
+        keyPlay(key_mat_C2, "assets/audio/instrument1/C2.mp3")
     }, false)
     domEvents.addEventListener(key_D2, 'click', function(event){
-        keyPlay(key_mat_D2, sound_D2)
+        keyPlay(key_mat_D2, "assets/audio/instrument1/D2.mp3")
     }, false)
     domEvents.addEventListener(key_D2, 'touchstart', function(event){
-        keyPlay(key_mat_D2, sound_D2)
+        keyPlay(key_mat_D2, "assets/audio/instrument1/D2.mp3")
     }, false)
     domEvents.addEventListener(key_E2, 'click', function(event){
-        keyPlay(key_mat_E2, sound_E2)
+        keyPlay(key_mat_E2, "assets/audio/instrument1/E2.mp3")
     }, false)
     domEvents.addEventListener(key_E2, 'touchstart', function(event){
-        keyPlay(key_mat_E2, sound_E2)
+        keyPlay(key_mat_E2, "assets/audio/instrument1/E2.mp3")
     }, false)
     domEvents.addEventListener(key_F2, 'click', function(event){
-        keyPlay(key_mat_F2, sound_F2)
+        keyPlay(key_mat_F2, "assets/audio/instrument1/F2.mp3")
     }, false)   
     domEvents.addEventListener(key_F2, 'touchstart', function(event){
-        keyPlay(key_mat_F2, sound_F2)
+        keyPlay(key_mat_F2, "assets/audio/instrument1/F2.mp3")
     }, false)
     domEvents.addEventListener(key_G2, 'click', function(event){
-        keyPlay(key_mat_G2, sound_G2)
+        keyPlay(key_mat_G2, "assets/audio/instrument1/G2.mp3")
     }, false)
     domEvents.addEventListener(key_G2, 'touchstart', function(event){
-        keyPlay(key_mat_G2, sound_G2)
+        keyPlay(key_mat_G2, "assets/audio/instrument1/G2.mp3")
     }, false)
     domEvents.addEventListener(key_A2, 'click', function(event){
-        keyPlay(key_mat_A2, sound_A2)
+        keyPlay(key_mat_A2, "assets/audio/instrument1/A2.mp3")
     }, false)
     domEvents.addEventListener(key_A2, 'touchstart', function(event){
-        keyPlay(key_mat_A2, sound_A2)
+        keyPlay(key_mat_A2, "assets/audio/instrument1/A2.mp3")
     }, false)
     domEvents.addEventListener(key_B2, 'click', function(event){
-        keyPlay(key_mat_B2, sound_B2)
+        keyPlay(key_mat_B2, "assets/audio/instrument1/B2.mp3")
     }, false)
     domEvents.addEventListener(key_B2, 'touchstart', function(event){
-        keyPlay(key_mat_B2, sound_B2)
+        keyPlay(key_mat_B2, "assets/audio/instrument1/B2.mp3")
     }, false)
     domEvents.addEventListener(key_C3, 'click', function(event){
-        keyPlay(key_mat_C3, sound_C3)
+        keyPlay(key_mat_C3, "assets/audio/instrument1/C3.mp3")
     }, false)    
     domEvents.addEventListener(key_C3, 'touchstart', function(event){
-        keyPlay(key_mat_C3, sound_C3)
+        keyPlay(key_mat_C3, "assets/audio/instrument1/C3.mp3")
     }, false)
     
     document.onkeydown = function(a) {
         if (a.key  == 'a'){
-            keyPlay(key_mat_C2, sound_C2)
+            keyPlay(key_mat_C2, "assets/audio/instrument1/C2.mp3")
         }
         if (a.key  == 's'){
-            keyPlay(key_mat_D2, sound_D2)
+            keyPlay(key_mat_D2, "assets/audio/instrument1/D2.mp3")
             }
             if (a.key  == 'd'){
-                keyPlay(key_mat_E2, sound_E2)
+                keyPlay(key_mat_E2, "assets/audio/instrument1/E2.mp3")
             }
             if (a.key  == 'f'){
-                keyPlay(key_mat_F2, sound_F2)
+                keyPlay(key_mat_F2, "assets/audio/instrument1/F2.mp3")
                 }
                 if (a.key  == 'g'){
-                    keyPlay(key_mat_G2, sound_G2)
+                    keyPlay(key_mat_G2, "assets/audio/instrument1/G2.mp3")
                     }
                     if (a.key  == 'h'){
-                        keyPlay(key_mat_A2, sound_A2)
+                        keyPlay(key_mat_A2, "assets/audio/instrument1/A2.mp3")
                     }
                     if (a.key  == 'j'){
-                        keyPlay(key_mat_B2, sound_B2)
+                        keyPlay(key_mat_B2, "assets/audio/instrument1/B2.mp3")
                         }
                         if (a.key  == 'k'){
-                            keyPlay(key_mat_C3, sound_C3)
+                            keyPlay(key_mat_C3, "assets/audio/instrument1/C3.mp3")
                             }
         
     }   
