@@ -12,6 +12,9 @@
 	overscroll-behavior: none;
 }
 
+img {
+	width: 50%;
+}
 
   #info {
 	position: absolute;
