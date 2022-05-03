@@ -90,6 +90,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const video_song3 = document.getElementById('video_song3');
     const video_song4 = document.getElementById('video_song4');
     const glasstube1_geo = new THREE.PlaneGeometry(1620/30, 2880/30);
+    const simon_geo = new THREE.PlaneGeometry(1620/20, 2880/20);
 
     
     
@@ -104,6 +105,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const text_plane_texture = new THREE.TextureLoader().load( 'assets/imgs/tunnel_1477x540.jpg' );
     const silverfoil_texture = new THREE.TextureLoader().load( 'assets/imgs/glass1.jpeg' );
     const glasstube1_texture = new THREE.TextureLoader().load( 'assets/imgs/glasstube1.jpg' );
+    const simon_texture = new THREE.TextureLoader().load( 'assets/imgs/simon2.jpg' );
     //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
     silverfoil_texture.wrapS = silverfoil_texture.wrapT = THREE.RepeatWrapping;
     //silverfoil_texture.offset.set( 1, 1 );
@@ -125,6 +127,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     song2_texture.minFilter = THREE.LinearFilter;
     glasstube1_texture.magFilter = THREE.LinearFilter;
     glasstube1_texture.minFilter = THREE.LinearFilter;
+    simon_texture.magFilter = THREE.LinearFilter;
+    simon_texture.minFilter = THREE.LinearFilter;
 
 
 
@@ -172,6 +176,9 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     videoMaterial3.side = THREE.BackSide;
     videoMaterial4.side = THREE.BackSide;
     let glasstube1_mat = new THREE.MeshLambertMaterial();
+    let simon_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+    simon_mat.map = simon_texture;
+    //simon_mat.side = THREE.BackSide;
     glasstube1_mat.map = glasstube1_texture;
     glasstube1_mat.side = THREE.BackSide;
     //instrument1_proxy_mat.side = THREE.DoubleSide;
@@ -203,6 +210,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     let spectrum;
     let runestone;
     let glasstube1 = new THREE.Mesh(glasstube1_geo, glasstube1_mat);
+    let simon = new THREE.Mesh(simon_geo, simon_mat);
     //  console.log(song_group);
     
     song_group.add(song1);
@@ -472,6 +480,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     videoScreen4.rotation.y = 0.5 * Math.PI;
     text_plane.rotation.y = 0.5 * Math.PI;
     glasstube1.position.set(-300, 100, 450);
+    simon.position.set(-450, 100, 450);
+    simon.rotation.y =  Math.PI;
     //glasstube1.rotation.y = - Math.PI;
    // text_plane.rotation.x = -0.16 * Math.PI;
     gradient_canvas.position.z = 490;
@@ -529,6 +539,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     scene.add(gradient_canvas);
     scene.add(ceiling);
     scene.add(glasstube1);
+    scene.add(simon);
     
 
     let x = 0;
@@ -577,7 +588,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         const height = innerHeight;
         const needResize = canvas.width !== width || canvas.height !== height;
         if (needResize) {
-          renderer.setSize(width, height, false);f
+          renderer.setSize(width, height, false);
         }
         return needResize;
     }
@@ -957,7 +968,7 @@ window.addEventListener( 'pointermove', onPointerMove );
         if (loaded){
             
             if (currentStation == "landing"){
-                console.log("loaded is: " + loaded);
+          //      console.log("loaded is: " + loaded);
                 document.getElementById('first-menu').style.display = "inline";
             }
             document.getElementById('home').style.display = "inline";
