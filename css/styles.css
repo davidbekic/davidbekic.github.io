@@ -1,6 +1,7 @@
   #labels>div:hover {
     color: rgb(177, 136, 194);
   }
+ 
 
   body {
 	background-color: #FFFFFF;
@@ -13,7 +14,31 @@
 }
 
 img {
-	width: 20%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.IMGS_WIDE {
+	margin-left: 300px;
+	margin-right: 100px;
+	max-width: 63%;
+	height: auto;
+	
+}
+
+.IMGS_TALL {
+	margin-left: 300px;
+	margin-right: 100px;
+	max-width: 30%;
+	
+}
+
+.fixed_nav
+{
+	position: fixed;
 }
 
   #info {
@@ -41,6 +66,17 @@ ul {
 .visualtexts
 {
 	color: blueviolet;
+	position: fixed;
+	width: 10%;
+}
+
+.imgdesc
+{
+	font-size: 12px;
+	color: black;
+	
+	margin-left: 300px;
+	margin-right: 100px;
 }
 
 @font-face {
@@ -94,16 +130,11 @@ button {
 		font-family: Monospace;
 		font-size: 24px;
 		line-height: 24px;
-		overscroll-behavior: none;
+		
 		
 	}
 	
-	.visualtexts {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		width: 100%;
-	}
+
 
 	a {
 		padding-top: 0px;
@@ -127,5 +158,50 @@ button {
 		color: rgb(229, 219, 233);
 		font-size: 18px;
 	}
+	#IMGS {
+		
+		padding: 20px;
+		height: auto;
+		max-width: 100%;
+		
+	}
+
+	.IMGS_WIDE {
+		margin:0px;
+		
+		max-width: 100%;
+		height: auto;
+		
+	}
+	
+	.imgdesc
+{
+	font-size: 12px;
+	color: black;
+	margin: 0px;
+}
+
+	.IMGS_TALL {
+		margin-left: 0px;
+		margin-right: auto;
+		
+		max-width: 85%;
+		
+		
+	}
+
+	.visualtexts
+{
+	color: blueviolet;
+	position:  static;
+	width: 90%;
+}
+
+.fixed_nav
+{
+	position: static;
+}
+
+
   }
 

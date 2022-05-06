@@ -90,7 +90,9 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const video_song3 = document.getElementById('video_song3');
     const video_song4 = document.getElementById('video_song4');
     const glasstube1_geo = new THREE.PlaneGeometry(1620/30, 2880/30);
-    const simon_geo = new THREE.PlaneGeometry(1620/20, 2880/20);
+    const simon_geo = new THREE.PlaneGeometry(1620/37, 2880/37);
+    const wings_geo = new THREE.PlaneGeometry(1620/50, 2880/50);
+    const mars_geo = new THREE.PlaneGeometry(2880/37, 1620/37);
 
     
     
@@ -106,6 +108,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const silverfoil_texture = new THREE.TextureLoader().load( 'assets/imgs/glass1.jpeg' );
     const glasstube1_texture = new THREE.TextureLoader().load( 'assets/imgs/glasstube1.jpg' );
     const simon_texture = new THREE.TextureLoader().load( 'assets/imgs/simon2.jpg' );
+    const wings_texture = new THREE.TextureLoader().load( 'assets/imgs/wings3.jpg' );
+    const mars_texture = new THREE.TextureLoader().load( 'assets/imgs/tunnel_1477x540.jpg' );
     //const text_plane_texture = THREE.ImageUtils.loadTexture('text2.jpeg');
     silverfoil_texture.wrapS = silverfoil_texture.wrapT = THREE.RepeatWrapping;
     //silverfoil_texture.offset.set( 1, 1 );
@@ -129,6 +133,10 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     glasstube1_texture.minFilter = THREE.LinearFilter;
     simon_texture.magFilter = THREE.LinearFilter;
     simon_texture.minFilter = THREE.LinearFilter;
+    wings_texture.magFilter = THREE.LinearFilter;
+    wings_texture.minFilter = THREE.LinearFilter;
+    mars_texture.magFilter = THREE.LinearFilter;
+    mars_texture.minFilter = THREE.LinearFilter;
 
 
 
@@ -160,6 +168,10 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     let instrument1_proxy_mat = new THREE.MeshStandardMaterial();
     const gradient_canvas_mat = new THREE.MeshPhysicalMaterial({color: 0xCCAA99CC, roughness: 1, metalness: 0});
     let ceiling_mat = new THREE.MeshStandardMaterial({color: 0x00FFFFFF});
+    let glasstube1_mat = new THREE.MeshLambertMaterial();
+    let simon_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+    let wings_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+    let mars_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     room_mat.side = THREE.DoubleSide;
     //room_mat.map = concrete_texture;
     gradient_canvas_mat.side = THREE.BackSide;
@@ -175,12 +187,14 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     videoMaterial2.side = THREE.BackSide;
     videoMaterial3.side = THREE.BackSide;
     videoMaterial4.side = THREE.BackSide;
-    let glasstube1_mat = new THREE.MeshLambertMaterial();
-    let simon_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     simon_mat.map = simon_texture;
-    //simon_mat.side = THREE.BackSide;
+    simon_mat.side = THREE.BackSide;
+    wings_mat.map = mars_texture;
+    wings_mat.side = THREE.BackSide;
+    mars_mat.map = wings_texture;
+    mars_mat.side = THREE.BackSide;
     glasstube1_mat.map = glasstube1_texture;
-    glasstube1_mat.side = THREE.BackSide;
+    glasstube1_mat.side = THREE.DoubleSide;
     //instrument1_proxy_mat.side = THREE.DoubleSide;
     
 
@@ -211,6 +225,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     let runestone;
     let glasstube1 = new THREE.Mesh(glasstube1_geo, glasstube1_mat);
     let simon = new THREE.Mesh(simon_geo, simon_mat);
+    let wings = new THREE.Mesh(wings_geo, wings_mat);
+    let mars = new THREE.Mesh(mars_geo, mars_mat);
     //  console.log(song_group);
     
     song_group.add(song1);
@@ -466,22 +482,28 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     videoScreen1.position.x = 230 + 600;
     videoScreen1.rotation.y = 0.5 * Math.PI;
     videoScreen1.position.z = -250;
-    videoScreen2.position.x = 230 + 600;
-    videoScreen2.position.z = -150;   
+    videoScreen2.position.x = 230 + 650;
+    videoScreen2.position.z = -140;   
     videoScreen2.position.y = -30;
     videoScreen2.rotation.y = 0.5 * Math.PI;
     videoScreen3.position.x = 230 + 600;
     videoScreen3.position.y = 25;
     videoScreen3.position.z = -200;
     videoScreen3.rotation.y = 0.5 * Math.PI;
-    videoScreen4.position.x = 220 + 600;
+    videoScreen4.position.x = 220 + 800;
     videoScreen4.position.y = 20;
     videoScreen4.position.z = -300;
     videoScreen4.rotation.y = 0.5 * Math.PI;
     text_plane.rotation.y = 0.5 * Math.PI;
     glasstube1.position.set(-300, 100, 450);
-    simon.position.set(-450, 100, 450);
-    simon.rotation.y =  Math.PI;
+    simon.position.set(850, -40, -202);
+    simon.rotation.y = .5 * Math.PI;
+    wings.position.set(800, 30, -285);
+    wings.rotation.y = .5 * Math.PI;
+    wings.rotation.z =  Math.PI;
+    mars.position.set(820, 40, -185);
+    mars.rotation.y = .5 * Math.PI;
+    mars.rotation.y = .5 * Math.PI;
     //glasstube1.rotation.y = - Math.PI;
    // text_plane.rotation.x = -0.16 * Math.PI;
     gradient_canvas.position.z = 490;
@@ -532,14 +554,16 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     scene.add(song_group);
     scene.add(videoScreen1);
     scene.add(videoScreen2);
-    scene.add(videoScreen3);
+   // scene.add(videoScreen3);
     scene.add(videoScreen4);
     scene.add(instrument1_proxy);
     instrument1_proxy.visible = false;
-    scene.add(gradient_canvas);
+  //  scene.add(gradient_canvas);
     scene.add(ceiling);
     scene.add(glasstube1);
     scene.add(simon);
+    scene.add(wings);
+    scene.add(mars);
     
 
     let x = 0;
@@ -602,6 +626,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         document.getElementById("contact").innerHTML = "contact";
         document.getElementById('rooms-menu').style.display = "none";
         document.getElementById('instruments-menu').style.display = "none";
+        document.getElementById('images-menu').style.display = "none";
 
 
         controls.target.set(0, -50, 0);
@@ -698,7 +723,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
 document.getElementById("home").addEventListener("click", moveHome);
 document.getElementById("music").addEventListener("click", musicMove);
 document.getElementById("3d").addEventListener("click", threeD_Move);
-document.getElementById("net").addEventListener("click", netMove);
+
+document.getElementById("images").addEventListener("click", netMove);
 document.getElementById("rooms").addEventListener("click", roomsMove);
 document.getElementById("instruments").addEventListener("click", instrumentsMove);
 document.getElementById("rooms").addEventListener("click", function(){
@@ -739,10 +765,7 @@ window.addEventListener( 'pointermove', onPointerMove );
 
     let video_count = 0;
     domEvents.addEventListener(videoScreen1, 'click', function(event){
-        if (currentStation == "net")
-        {
-            window.location.href = "net.html";
-        }
+
         sound.play();
         video_count++;
         console.log("video_count: " + video_count);
@@ -753,10 +776,7 @@ window.addEventListener( 'pointermove', onPointerMove );
         }
     }, false)
     domEvents.addEventListener(videoScreen1, 'touchstart', function(event){
-        if (currentStation == "net")
-        {
-            window.location.href = "net.html";
-        }
+
         sound.play();
         video_count++;
         console.log("video_count: " + video_count);
@@ -771,18 +791,11 @@ window.addEventListener( 'pointermove', onPointerMove );
     domEvents.addEventListener(videoScreen2, 'click', function(event){
         sound.play();
         console.log(videoScreen2);
-        if (currentStation == "net")
-        {
-            window.location.href = "net.html";
-        }
     }, false)
 
     domEvents.addEventListener(videoScreen2, 'touchstart', function(event){
         sound.play();
-        if (currentStation == "net")
-        {
-            window.location.href = "net.html";
-        }
+
     }, false)
     
 
@@ -791,10 +804,8 @@ window.addEventListener( 'pointermove', onPointerMove );
     domEvents.addEventListener(videoScreen3, 'click', function(event){
         sound.play();
         video_count++;
-        if (currentStation == "net")
-        {
-            window.location.href = "net.html";
-        }
+
+
 
         console.log("video_count: " + video_count);
         if (video_count % 2 != 0){
@@ -806,10 +817,7 @@ window.addEventListener( 'pointermove', onPointerMove );
     domEvents.addEventListener(videoScreen3, 'touchstart', function(event){
         sound.play();
         video_count++;
-        if (currentStation == "net")
-        {
-            window.location.href = "net.html";
-        }
+
         console.log("video_count: " + video_count);
         if (video_count % 2 != 0){
             video_song3.play(); }     
