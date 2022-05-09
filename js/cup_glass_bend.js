@@ -32,7 +32,8 @@ function main()
     document.getElementById('home').style.display = "none";
     document.getElementById('instruments-menu').style.display = "none";
     document.getElementById('images-menu').style.display = "none";
-    document.getElementById('web-sculptures-menu').style.display = "none";
+    document.getElementById('home').style.display = "none";
+    
     let currentStation = "landing";
     let loaded = 0;
   //  renderer.gammaOutput = true;
@@ -285,7 +286,9 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
             gltf.scenes; // Array<THREE.Group>
             gltf.cameras; // Array<THREE.Camera>
             gltf.asset; // Object
-           // model2.scale += 20;
+            model2.scale.x += 4;
+            model2.scale.y += 4;
+            model2.scale.z += 4;
             caged.rotation.y += 1/2 * -3.14;
             caged.position.x = 230;
             caged.position.y = -50;
@@ -326,14 +329,14 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     );
 
     mainSculpture_loader.load(
-        'assets/GLTF/BRAIN.glb',
+        'assets/GLTF/BALLOON.glb',
         function ( gltf ) {
             mainSculpture = gltf.scene;
             scene.add( mainSculpture );
             mainSculpture.position.x = -0;
-            mainSculpture.position.y = -45;
+            mainSculpture.position.y = -50;
             mainSculpture.position.z = 0;
-            mainSculpture.rotation.set(1, 2.2, 2.6);
+            //mainSculpture.rotation.set(1, 2.2, 2.6);
         },
         function ( xhr ) {
             if ((xhr.loaded / xhr.total)) {
@@ -356,6 +359,9 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
             scene.add( glassCylinder );
             glassCylinder.rotation.y += 1/2 * -3.14;
             glassCylinder.position.x = 0;
+            glassCylinder.scale.x += 4;
+            glassCylinder.scale.y += 4;
+            glassCylinder.scale.z += 4;
             glassCylinder.position.y = -90;
             glassCylinder.position.z = 0;},
         function ( xhr ) {
@@ -456,15 +462,17 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     ////             ////
     
     let light1 = new THREE.PointLight(0xEEEEFF, .7, 3000);
-    let light2 = new THREE.PointLight(0xEEEEFF, .7, 3000);
+    let light2 = new THREE.PointLight(0xEEEEFF, .2, 3000);
     let light3 = new THREE.PointLight(0xEEEEFF, .7, 300);
     let ambientLight1 = new THREE.AmbientLight(0xDDDDEE, .45, 1000);
     
-    light1.position.set(870, -20, -241);
+    light1.position.set(0, -0, -150);
     //    light1.lookAt(-570, 8, 241);
-    light2.position.set(0, 8, 401);
-    light3.position.set(-870, -20, 0);
-  //  light2.lookAt(570, 8, -241);
+    light2.position.set(0, 110, 0);
+
+    light3.position.set(0, 0, 150);
+    //light2.lookAt(mainSculpture.position);
+  //  console.log(mainSculpture.position);
 
   //  light1.lookAt(videoScreen1.position);
 
@@ -479,8 +487,10 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     ////             ////
 
     
-    camera.position.y = -199;
-    camera.position.z = 30;
+    camera.position.y = -50;
+    camera.position.z = 10;
+    camera.position.x = 1;
+    
     videoScreen1.position.x = 230 + 600;
     videoScreen1.rotation.y = 0.5 * Math.PI;
     videoScreen1.position.z = -250;
@@ -579,9 +589,9 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const controls = new OrbitControls( camera, renderer.domElement );
    // controls.enabled = false;
    controls.target.set(0, -50, 0);
-   controls.minDistance = 20;
+   controls.minDistance = 5;
  
-   controls.maxDistance = 38;
+   controls.maxDistance = 15;
    controls.maxAzimuthAngle = (-.1, .1);
     controls.enableDamping = true;
     controls.minPolarAngle = .8;
@@ -683,16 +693,6 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         controls.minPolarAngle = .8;
         controls.maxPolarAngle = 2;*/
     }
-    function webSculpturesMove(){
-        currentStation = "3D3D3D3D3D3D3D3D3D";
-        roomEntered = 1;
-        document.getElementById('3d-menu').style.display = "none";
-        document.getElementById('web-sculptures-menu').style.display = "inline";
-        /*room.visible = true;
-        roomEntered = true;
-        controls.minPolarAngle = .8;
-        controls.maxPolarAngle = 2;*/
-    }
     function roomsMove(){
         
         //room.visible = true;
@@ -733,7 +733,6 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         render()
 }*/
 document.getElementById("home").addEventListener("click", moveHome);
-document.getElementById("web-sculptures").addEventListener("click", webSculpturesMove);
 document.getElementById("music").addEventListener("click", musicMove);
 document.getElementById("3d").addEventListener("click", threeD_Move);
 
@@ -916,7 +915,7 @@ window.addEventListener( 'pointermove', onPointerMove );
     console.log(controls.target);
 
 
-
+    let k = 0;
 
     function animate(){
       //  console.log("current station: " + currentStation);
@@ -941,7 +940,7 @@ window.addEventListener( 'pointermove', onPointerMove );
             video_song4.play(); 
         }
         else if (x / 380 && roomEntered == false){
-            room.visible = false; 
+           // room.visible = false; 
         }
         if (roomEntered){
             glassCylinder.visible = false;
@@ -980,22 +979,24 @@ window.addEventListener( 'pointermove', onPointerMove );
         //  cube2.position.z += 20 * Math.cos(x/40);
         
         x += 1;
-        if(x == 256)
+        if(x == 256*2)
         {
             x = 0;
         }
+        if (k > 20){
+        mainSculpture.scale.z += .04 * Math.cos(k/60);
+       // mainSculpture.scale.y +=  .004 * Math.sin(x/40);
+        //mainSculpture.scale.y += .01 * Math.sin(x/100);
+    };
 
-        
         if (loaded){
             
-            if (currentStation == "landing"){
-          //      console.log("loaded is: " + loaded);
-                document.getElementById('first-menu').style.display = "inline";
-            }
-            document.getElementById('home').style.display = "inline";
+
+ 
             document.getElementById('loading').style.display = "none";
             renderer.render(scene, camera);
         };
+        k++;
        
 
 }
