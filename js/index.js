@@ -246,7 +246,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
             frontText = gltf.scene;
           
             //console.log(model1.children[0]);
-            scene.add( frontText );
+          //  scene.add( frontText );
             frontText.scale.x += 6;
             frontText.scale.y += 6;
             frontText.rotation.y += -1/2 * -3.14;
@@ -430,12 +430,13 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
 
     runestone_loader.load(
         // resource URL
-        'assets/GLTF/PIPE.glb',
+        'assets/GLTF/INSTRU2.glb',
         function ( gltf ) {
             runestone = gltf.scene;
-       //     scene.add( runestone );
+            scene.add( runestone );
           //  runestone.position.set(-50, 199, 470);
-            //runestone.rotation.y = .5 * 3.14;
+            runestone.rotation.y = .5 * 3.14;
+            runestone.position.set(-80, -50, 400);
             gltf.animations; // Array<THREE.AnimationClip>
             gltf.scene; // THREE.Group
             gltf.scenes; // Array<THREE.Group>
@@ -458,12 +459,18 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     let light1 = new THREE.PointLight(0xEEEEFF, .7, 3000);
     let light2 = new THREE.PointLight(0xEEEEFF, .7, 3000);
     let light3 = new THREE.PointLight(0xEEEEFF, .7, 300);
+    let light4 = new THREE.PointLight(0xEEEEFF, 500, 100, 2000);
     let ambientLight1 = new THREE.AmbientLight(0xDDDDEE, .45, 1000);
     
     light1.position.set(870, -20, -241);
     //    light1.lookAt(-570, 8, 241);
     light2.position.set(0, 8, 401);
     light3.position.set(-870, -20, 0);
+    light4.lookAt(-80, -30, 400)
+    light4.position.z = 400;
+    light4.position.y = 90;
+    light4.position.x = -80;
+    //light4.position.set((-80, 50, 0));
   //  light2.lookAt(570, 8, -241);
 
   //  light1.lookAt(videoScreen1.position);
@@ -537,7 +544,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     song2.position.x = -20;
     song2.position.y = -45;
 
-    console.log(song_group);
+    console.log(runestone);
 
 
     console.log(videoScreen1.position);
@@ -551,6 +558,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     scene.add(light1);
     scene.add(light2);
     scene.add(light3);
+    scene.add(light4);
     scene.add(ambientLight1);
    // scene.add(text_plane);
     scene.add(song_group);
@@ -629,6 +637,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         document.getElementById('rooms-menu').style.display = "none";
         document.getElementById('instruments-menu').style.display = "none";
         document.getElementById('images-menu').style.display = "none";
+        document.getElementById('web-sculptures-menu').style.display = "none";
 
 
         controls.target.set(0, -50, 0);
@@ -738,12 +747,12 @@ document.getElementById("music").addEventListener("click", musicMove);
 document.getElementById("3d").addEventListener("click", threeD_Move);
 
 document.getElementById("images").addEventListener("click", netMove);
-document.getElementById("rooms").addEventListener("click", roomsMove);
+//document.getElementById("rooms").addEventListener("click", roomsMove);
 document.getElementById("instruments").addEventListener("click", instrumentsMove);
-document.getElementById("rooms").addEventListener("click", function(){
+/*document.getElementById("rooms").addEventListener("click", function(){
     document.getElementById('3d-menu').style.display = "none";
     document.getElementById('rooms-menu').style.display = "inline";
-});
+});*/
 document.getElementById("images").addEventListener("click", function(){
     document.getElementById('3d-menu').style.display = "none";
     document.getElementById('images-menu').style.display = "inline";
