@@ -684,7 +684,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     }   
   //  console.log(videoScreen1.position);
     function aboutMove(){
-        controls.target.set(-700, -20, 0);
+        controls.target.set(-700, -30, 0);
         
         room.visible = true;
         roomEntered = true;
@@ -741,7 +741,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         document.getElementById('first-menu').style.display = "none";
         document.getElementById('music-menu').style.display = "none";
         document.getElementById('instruments-menu').style.display = "inline";
-        controls.target.set(0, -30, 320);
+        controls.target.set(0, -40, 320);
         camera.lookAt(0, -190, 320);
         controls.minPolarAngle = .8;
         controls.maxPolarAngle = 1.9;
@@ -982,6 +982,7 @@ window.addEventListener( 'pointermove', onPointerMove );
         if (roomEntered){
             glassCylinder.visible = false;
             mainSculpture.visible = false;
+            //camera.y = -0;
             
         }
         console.log(roomEntered);
