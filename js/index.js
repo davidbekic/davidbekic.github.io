@@ -24,6 +24,7 @@ function main()
     let spectrum_loader = new THREE.GLTFLoader();
     let runestone_loader = new THREE.GLTFLoader();
     let screamerText_loader = new THREE.GLTFLoader();
+    let windText_loader = new THREE.GLTFLoader();
     renderer.shadowMap.enabled = true;
     document.getElementById('music-menu').style.display = "none";
     document.getElementById('3d-menu').style.display = "none";
@@ -77,14 +78,14 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     ////             ////
 
     let room_geo = new THREE.BoxGeometry(2000, 350, 1000);
-    let text_plane_geo = new THREE.PlaneGeometry(960/6, 540/6);
+    let text_plane_geo = new THREE.PlaneGeometry(540/7, 960/7);
     let floor_geo = new THREE.PlaneGeometry(300, 1000);
     let cube1_geo = new THREE.BoxGeometry(10, 10, 10);
     let song1_geo = new THREE.BoxGeometry(60, 25, 20);
     let song2_geo = new THREE.BoxGeometry(25, 60, 20);
     let ceiling_geo = new THREE.PlaneGeometry(2200, 1000);
     const screen = new THREE.PlaneGeometry(30, 80);
-    const instrument1_proxy_geo = new THREE.PlaneGeometry(50, 50);
+    const instrument1_proxy_geo = new THREE.PlaneGeometry(100, 100);
     const gradient_canvas_geo = new THREE.PlaneGeometry(200, 30);
     const video_song1 = document.getElementById('video_song1');
     const video_song2 = document.getElementById('video_song2');
@@ -105,7 +106,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     const song1_texture = new THREE.TextureLoader().load( 'assets/imgs/song1.png' );
     const song2_texture = new THREE.TextureLoader().load( 'assets/imgs/song2.png' );
     const concrete_texture = new THREE.TextureLoader().load( 'assets/imgs/cloth.webp' );
-    const text_plane_texture = new THREE.TextureLoader().load( 'assets/imgs/tunnel_1477x540.jpg' );
+    const text_plane_texture = new THREE.TextureLoader().load( 'assets/imgs/meta1.png' );
     const silverfoil_texture = new THREE.TextureLoader().load( 'assets/imgs/glass1.jpeg' );
     const glasstube1_texture = new THREE.TextureLoader().load( 'assets/imgs/glasstube1.jpg' );
     const simon_texture = new THREE.TextureLoader().load( 'assets/imgs/simon2.jpg' );
@@ -222,6 +223,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     let glassCylinder;
     let instrument1;
     let screamerText;
+    let windText;
     let spectrum;
     let runestone;
     let glasstube1 = new THREE.Mesh(glasstube1_geo, glasstube1_mat);
@@ -246,13 +248,13 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
             frontText = gltf.scene;
           
             //console.log(model1.children[0]);
-          //  scene.add( frontText );
+            scene.add( frontText );
             frontText.scale.x += 6;
             frontText.scale.y += 6;
             frontText.rotation.y += -1/2 * -3.14;
             frontText.position.x = -890;
-            frontText.position.y = 30;
-            frontText.position.z = 40;
+            frontText.position.y = -40;
+            frontText.position.z = 0;
             frontText.children[0].material.map = song2_texture;
     
         },
@@ -366,15 +368,15 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
 
     instrument1_loader.load(
         // resource URL
-        'assets/GLTF/INSTRUMENT1.glb',
+        'assets/GLTF/INSTRU1.glb',
         // called when the resource is loaded  
         function ( gltf ) {
             instrument1 = gltf.scene;
             scene.add( instrument1 );
-            instrument1.rotation.y += 1/2 * 3.14;
-            instrument1.rotation.z += 3.14;
-            instrument1.rotation.x = -1/2 * 3.14;
-            instrument1.position.x = 100;
+            //instrument1.rotation.y += 1/2 * 3.14;
+            //instrument1.rotation.z += 3.14;
+            //instrument1.rotation.x = -1/2 * 3.14;
+            instrument1.position.x = 20;
             instrument1.position.y = -95;
             instrument1.position.z = 410;
         },
@@ -395,15 +397,37 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
             screamerText.rotation.y += 1/2 * 3.14;
             screamerText.rotation.z += 3.14;
             screamerText.rotation.x = -1/2 * 3.14;
-            screamerText.position.x = 100;
+            screamerText.position.x = -78;
             screamerText.position.y = -99;
-            screamerText.position.z = 315;
+            screamerText.position.z = 395;
         },
         function ( xhr ) {
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
         },
         function ( error ) {
-            console.log( 'An error happened' );
+            console.log( 'An error happened' ); 
+        }
+    );
+
+    windText_loader.load(
+        // resource URL
+        'assets/GLTF/WINDTEXT.glb',
+        // called when the resource is loaded  
+        function ( gltf ) {
+            windText = gltf.scene;
+            scene.add(windText);
+            //windText.rotation.y += 1/2 * 3.14;
+            windText.rotation.z += 3.14;
+            windText.rotation.x = -1/2 * 3.14;
+            windText.position.x = 135;
+            windText.position.y = -99;
+            windText.position.z = 355;
+        },
+        function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        },
+        function ( error ) {
+            console.log( 'An error happened' ); 
         }
     );
 
@@ -428,15 +452,17 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         }
     );
 
+    
+
     runestone_loader.load(
         // resource URL
-        'assets/GLTF/INSTRU2.glb',
+        'assets/GLTF/woodINSTRU.glb',
         function ( gltf ) {
             runestone = gltf.scene;
             scene.add( runestone );
           //  runestone.position.set(-50, 199, 470);
             runestone.rotation.y = .5 * 3.14;
-            runestone.position.set(-80, -50, 400);
+            runestone.position.set(-80, -50, 450);
             gltf.animations; // Array<THREE.AnimationClip>
             gltf.scene; // THREE.Group
             gltf.scenes; // Array<THREE.Group>
@@ -524,8 +550,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
 
     instrument1_proxy.rotation.y += 1/2 * 3.14;
     instrument1_proxy.rotation.y += 1/2 * 3.14;
-    instrument1_proxy.position.x = 100;
-    instrument1_proxy.position.y = -99;
+    instrument1_proxy.position.x = -90;
+    instrument1_proxy.position.y = -59;
     instrument1_proxy.position.z = 470;
     instrument1_proxy.rotation.y = -3.14;
  
@@ -544,7 +570,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     song2.position.x = -20;
     song2.position.y = -45;
 
-    console.log(runestone);
+   //console.log(runestone);
 
 
     console.log(videoScreen1.position);
@@ -560,7 +586,7 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
     scene.add(light3);
     scene.add(light4);
     scene.add(ambientLight1);
-   // scene.add(text_plane);
+    scene.add(text_plane);
     scene.add(song_group);
     scene.add(videoScreen1);
     scene.add(videoScreen2);
@@ -640,7 +666,8 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         document.getElementById('web-sculptures-menu').style.display = "none";
 
 
-        controls.target.set(0, -50, 0);
+        controls.target.set(0, -70, 0);
+        camera.rotation.x = Math.PI * .5;
         controls.minDistance = 20;
       
         controls.maxDistance = 38;

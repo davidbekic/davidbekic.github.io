@@ -11,30 +11,42 @@ function main()
     let x = 0;
     let y = 0;
 
-    camera.position.z = 150;
-    camera.position.y = 80;
+    camera.position.z = 30;
+    camera.position.y = -120;
+    camera.position.x = 40;
     camera.lookAt(0, 0, 0);
 
-    const key_geo1 = new THREE.CylinderGeometry(6, 6, 100, 100, 50);
+    const key_geo1 = new THREE.CylinderGeometry(6, 6, 100, 120, 50);
     const room_geo = new THREE.CylinderGeometry(300, 200, 300);
     const backdrop_geo = new THREE.PlaneGeometry(1200, 1200);
 
 
-    const controls = new OrbitControls( camera, renderer.domElement );
+    //const controls = new OrbitControls( camera, renderer.domElement );
 
     // F_MATERIALS //
 
-    const key_mat_C2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: .5, thickness: .5});
-    const key_mat_D2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 1, thickness: .5});
-    const key_mat_E2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 1, thickness: .5});
-    const key_mat_F2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 1, thickness: .5});
-    const key_mat_G2 = new THREE.MeshPhysicalMaterial({color: 0xCC22EE,  roughness: 1, transmission: 1,  thickness: .5});
-    const key_mat_A2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF,  roughness: 1, transmission: 1,  thickness: .5});
-    const key_mat_B2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF,  roughness: 1, transmission: 1,  thickness: .5});
-    const key_mat_C3 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF,  roughness: 1, transmission: 1,  thickness: .5});
+    const backdrop_texture = new THREE.TextureLoader().load( 'assets/imgs/glass1.jpeg' );
+
+    const key_mat_C2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 1, thickness: 10, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_D2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_E2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_F2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_G2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_A2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_B2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_C3 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
     //const backdrop_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     const backdrop_mat = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, metalness: 0});
     backdrop_mat.side = THREE.DoubleSide;
+
+    key_mat_C2.map = backdrop_texture;
+    key_mat_D2.map = backdrop_texture;
+    key_mat_E2.map = backdrop_texture;
+    key_mat_F2.map = backdrop_texture;
+    key_mat_G2.map = backdrop_texture;
+    key_mat_A2.map = backdrop_texture;
+    key_mat_B2.map = backdrop_texture;
+    key_mat_C3.map = backdrop_texture;
 
     const room_mat = new THREE.MeshLambertMaterial({color: 0x223333});
     room_mat.side = THREE.BackSide;
@@ -52,7 +64,7 @@ function main()
     const room = new THREE.Mesh(room_geo, room_mat);
     const backdrop = new THREE.Mesh(backdrop_geo, backdrop_mat);
 
-    const ambient_light1 = new THREE.AmbientLight({color: 0xFFFFFF}, .1, 100);
+    const ambient_light1 = new THREE.AmbientLight({color: 0xFFFFFF}, .4, 100);
     const point_light1 = new THREE.PointLight({color: 0xCFFFFF}, 1, 1000);
     const point_light2 = new THREE.PointLight({color: 0xCFFFFF}, .1, 1000);
     
@@ -70,6 +82,10 @@ function main()
     spot_light4.position.y = 0;
     spot_light4.position.z = 400;
     //spot_light4.lookAt(-900, 100, 30);
+    backdrop.rotation.y += .8;
+    backdrop.scale.y += 20;
+    backdrop.scale.x += 100;
+    backdrop.position.y -= 900;
 
     scene.add(key_C2);
     scene.add(key_D2);
@@ -80,9 +96,9 @@ function main()
     scene.add(key_B2);
     scene.add(key_C3);
     scene.add(backdrop);
-    //scene.add(ambient_light1);
-   // scene.add(point_light1);
-  //  scene.add(point_light2);
+    scene.add(ambient_light1);
+    //scene.add(point_light1);
+    scene.add(point_light2);
     scene.add(spot_light3);
     scene.add(spot_light4);
    // scene.add(room);
@@ -132,78 +148,78 @@ function main()
 
 
     domEvents.addEventListener(key_C2, 'click', function(event){
-        keyPlay(key_mat_C2, "assets/audio/instrument1/C2.mp3")
+        keyPlay(key_mat_C2, "assets/audio/instrument2/C2.mp3")
     }, false)
     domEvents.addEventListener(key_C2, 'touchstart', function(event){
-        keyPlay(key_mat_C2, "assets/audio/instrument1/C2.mp3")
+        keyPlay(key_mat_C2, "assets/audio/instrument2/C2.mp3")
     }, false)
     domEvents.addEventListener(key_D2, 'click', function(event){
-        keyPlay(key_mat_D2, "assets/audio/instrument1/D2.mp3")
+        keyPlay(key_mat_D2, "assets/audio/instrument2/D2.mp3")
     }, false)
     domEvents.addEventListener(key_D2, 'touchstart', function(event){
-        keyPlay(key_mat_D2, "assets/audio/instrument1/D2.mp3")
+        keyPlay(key_mat_D2, "assets/audio/instrument2/D2.mp3")
     }, false)
     domEvents.addEventListener(key_E2, 'click', function(event){
-        keyPlay(key_mat_E2, "assets/audio/instrument1/E2.mp3")
+        keyPlay(key_mat_E2, "assets/audio/instrument2/E2.mp3")
     }, false)
     domEvents.addEventListener(key_E2, 'touchstart', function(event){
-        keyPlay(key_mat_E2, "assets/audio/instrument1/E2.mp3")
+        keyPlay(key_mat_E2, "assets/audio/instrument2/E2.mp3")
     }, false)
     domEvents.addEventListener(key_F2, 'click', function(event){
-        keyPlay(key_mat_F2, "assets/audio/instrument1/F2.mp3")
+        keyPlay(key_mat_F2, "assets/audio/instrument2/F2.mp3")
     }, false)   
     domEvents.addEventListener(key_F2, 'touchstart', function(event){
-        keyPlay(key_mat_F2, "assets/audio/instrument1/F2.mp3")
+        keyPlay(key_mat_F2, "assets/audio/instrument2/F2.mp3")
     }, false)
     domEvents.addEventListener(key_G2, 'click', function(event){
-        keyPlay(key_mat_G2, "assets/audio/instrument1/G2.mp3")
+        keyPlay(key_mat_G2, "assets/audio/instrument2/G2.mp3")
     }, false)
     domEvents.addEventListener(key_G2, 'touchstart', function(event){
-        keyPlay(key_mat_G2, "assets/audio/instrument1/G2.mp3")
+        keyPlay(key_mat_G2, "assets/audio/instrument2/G2.mp3")
     }, false)
     domEvents.addEventListener(key_A2, 'click', function(event){
-        keyPlay(key_mat_A2, "assets/audio/instrument1/A2.mp3")
+        keyPlay(key_mat_A2, "assets/audio/instrument2/A2.mp3")
     }, false)
     domEvents.addEventListener(key_A2, 'touchstart', function(event){
-        keyPlay(key_mat_A2, "assets/audio/instrument1/A2.mp3")
+        keyPlay(key_mat_A2, "assets/audio/instrument2/A2.mp3")
     }, false)
     domEvents.addEventListener(key_B2, 'click', function(event){
-        keyPlay(key_mat_B2, "assets/audio/instrument1/B2.mp3")
+        keyPlay(key_mat_B2, "assets/audio/instrument2/B2.mp3")
     }, false)
     domEvents.addEventListener(key_B2, 'touchstart', function(event){
-        keyPlay(key_mat_B2, "assets/audio/instrument1/B2.mp3")
+        keyPlay(key_mat_B2, "assets/audio/instrument2/B2.mp3")
     }, false)
     domEvents.addEventListener(key_C3, 'click', function(event){
-        keyPlay(key_mat_C3, "assets/audio/instrument1/C3.mp3")
+        keyPlay(key_mat_C3, "assets/audio/instrument2/C3.mp3")
     }, false)    
     domEvents.addEventListener(key_C3, 'touchstart', function(event){
-        keyPlay(key_mat_C3, "assets/audio/instrument1/C3.mp3")
+        keyPlay(key_mat_C3, "assets/audio/instrument2/C3.mp3")
     }, false)
     
     document.onkeydown = function(a) {
         if (a.key  == 'a'){
-            keyPlay(key_mat_C2, "assets/audio/instrument1/C2.mp3")
+            keyPlay(key_mat_C2, "assets/audio/instrument2/C2.mp3")
         }
         if (a.key  == 's'){
-            keyPlay(key_mat_D2, "assets/audio/instrument1/D2.mp3")
+            keyPlay(key_mat_D2, "assets/audio/instrument2/D2.mp3")
             }
             if (a.key  == 'd'){
-                keyPlay(key_mat_E2, "assets/audio/instrument1/E2.mp3")
+                keyPlay(key_mat_E2, "assets/audio/instrument2/E2.mp3")
             }
             if (a.key  == 'f'){
-                keyPlay(key_mat_F2, "assets/audio/instrument1/F2.mp3")
+                keyPlay(key_mat_F2, "assets/audio/instrument2/F2.mp3")
                 }
                 if (a.key  == 'g'){
-                    keyPlay(key_mat_G2, "assets/audio/instrument1/G2.mp3")
+                    keyPlay(key_mat_G2, "assets/audio/instrument2/G2.mp3")
                     }
                     if (a.key  == 'h'){
-                        keyPlay(key_mat_A2, "assets/audio/instrument1/A2.mp3")
+                        keyPlay(key_mat_A2, "assets/audio/instrument2/A2.mp3")
                     }
                     if (a.key  == 'j'){
-                        keyPlay(key_mat_B2, "assets/audio/instrument1/B2.mp3")
+                        keyPlay(key_mat_B2, "assets/audio/instrument2/B2.mp3")
                         }
                         if (a.key  == 'k'){
-                            keyPlay(key_mat_C3, "assets/audio/instrument1/C3.mp3")
+                            keyPlay(key_mat_C3, "assets/audio/instrument2/C3.mp3")
                             }
         
     }   
@@ -236,7 +252,7 @@ function main()
     camera.add( listener_C2 );
     const sound_C2 = new THREE.Audio( listener_C2 );
     const audioLoader_C2 = new THREE.AudioLoader();
-    audioLoader_C2.load( 'assets/audio/instrument1/C2.mp3', function( buffer ) {
+    audioLoader_C2.load( 'assets/audio/instrument2/C2.mp3', function( buffer ) {
 	sound_C2.setBuffer( buffer );
 	sound_C2.setVolume( .5 );	
     });
@@ -245,7 +261,7 @@ function main()
     camera.add( listener_D2 );
     const sound_D2 = new THREE.Audio( listener_D2 );
     const audioLoader_D2 = new THREE.AudioLoader();
-    audioLoader_D2.load( 'assets/audio/instrument1/D2.mp3', function( buffer ) {
+    audioLoader_D2.load( 'assets/audio/instrument2/D2.mp3', function( buffer ) {
 	sound_D2.setBuffer( buffer );
 	sound_D2.setVolume( .5 );	
 });
@@ -254,7 +270,7 @@ const listener_E2 = new THREE.AudioListener();
 camera.add( listener_E2 );
 const sound_E2 = new THREE.Audio( listener_E2 );
 const audioLoader_E2 = new THREE.AudioLoader();
-audioLoader_E2.load( 'assets/audio/instrument1/E2.mp3', function( buffer ) {
+audioLoader_E2.load( 'assets/audio/instrument2/E2.mp3', function( buffer ) {
 sound_E2.setBuffer( buffer );
 sound_E2.setVolume( .5 );	
 });
@@ -263,7 +279,7 @@ const listener_F2 = new THREE.AudioListener();
 camera.add( listener_F2 );
 const sound_F2 = new THREE.Audio( listener_F2 );
 const audioLoader_F2 = new THREE.AudioLoader();
-audioLoader_F2.load( 'assets/audio/instrument1/F2.mp3', function( buffer ) {
+audioLoader_F2.load( 'assets/audio/instrument2/F2.mp3', function( buffer ) {
 sound_F2.setBuffer( buffer );
 sound_F2.setVolume( .5 );
 });
@@ -272,7 +288,7 @@ const listener_G2 = new THREE.AudioListener();
 camera.add( listener_G2 );
 const sound_G2 = new THREE.Audio( listener_G2 );
 const audioLoader_G2 = new THREE.AudioLoader();
-audioLoader_G2.load( 'assets/audio/instrument1/G2.mp3', function( buffer ) {
+audioLoader_G2.load( 'assets/audio/instrument2/G2.mp3', function( buffer ) {
 sound_G2.setBuffer( buffer );
 sound_G2.setVolume( .5 );
 });
@@ -281,7 +297,7 @@ const listener_A2 = new THREE.AudioListener();
 camera.add( listener_A2 );
 const sound_A2 = new THREE.Audio( listener_A2 );
 const audioLoader_A2 = new THREE.AudioLoader();
-audioLoader_A2.load( 'assets/audio/instrument1/A2.mp3', function( buffer ) {
+audioLoader_A2.load( 'assets/audio/instrument2/A2.mp3', function( buffer ) {
 sound_A2.setBuffer( buffer );
 sound_A2.setVolume( .5 );
 });
@@ -290,7 +306,7 @@ const listener_B2 = new THREE.AudioListener();
 camera.add( listener_B2 );
 const sound_B2 = new THREE.Audio( listener_B2 );
 const audioLoader_B2 = new THREE.AudioLoader();
-audioLoader_B2.load( 'assets/audio/instrument1/B2.mp3', function( buffer ) {
+audioLoader_B2.load( 'assets/audio/instrument2/B2.mp3', function( buffer ) {
 sound_B2.setBuffer( buffer );
 sound_B2.setVolume( .5 );
 });
@@ -299,7 +315,7 @@ const listener_C3 = new THREE.AudioListener();
 camera.add( listener_C3 );
 const sound_C3 = new THREE.Audio( listener_C3 );
 const audioLoader_C3 = new THREE.AudioLoader();
-audioLoader_C3.load( 'assets/audio/instrument1/C3.mp3', function( buffer ) {
+audioLoader_C3.load( 'assets/audio/instrument2/C3.mp3', function( buffer ) {
 sound_C3.setBuffer( buffer );
 sound_C3.setVolume( .5 );
 });

@@ -17,12 +17,14 @@ function main()
 
     const key_geo1 = new THREE.BoxGeometry(10, 10, 100);
     const room_geo = new THREE.BoxGeometry(300, 200, 300);
-    const backdrop_geo = new THREE.PlaneGeometry(1200, 1200);
+    const backdrop_geo = new THREE.PlaneGeometry(1920, 1080);
 
 
     const controls = new OrbitControls( camera, renderer.domElement );
 
     // F_MATERIALS //
+
+    const backdrop_texture = new THREE.TextureLoader().load( 'assets/imgs/meta1.png' );
 
     const key_mat_C2 = new THREE.MeshLambertMaterial({color: 0xCC22EE});
     const key_mat_D2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
@@ -34,7 +36,18 @@ function main()
     const key_mat_C3 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     //const backdrop_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     const backdrop_mat = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, metalness: 0});
+    key_mat_C2.map = backdrop_texture;
+    key_mat_D2.map = backdrop_texture;
+    key_mat_E2.map = backdrop_texture;
+    key_mat_F2.map = backdrop_texture;
+    key_mat_G2.map = backdrop_texture;
+    key_mat_A2.map = backdrop_texture;
+    key_mat_B2.map = backdrop_texture;
+    key_mat_C3.map = backdrop_texture;
+    
     backdrop_mat.side = THREE.DoubleSide;
+    backdrop_texture.magFilter = THREE.LinearFilter;
+    backdrop_texture.minFilter = THREE.LinearFilter;
 
     const room_mat = new THREE.MeshLambertMaterial({color: 0x223333});
     room_mat.side = THREE.BackSide;
