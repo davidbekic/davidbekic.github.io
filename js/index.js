@@ -1033,20 +1033,8 @@ window.addEventListener( 'pointermove', onPointerMove );
             document.getElementById('loading').style.display = "none";
             renderer.render(scene, camera);
         };
-       
-
 }
 
-
-
     animate();
-    
-
-
-
-
-
-
-
 }   
     main();
