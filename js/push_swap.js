@@ -26,6 +26,8 @@ function main()
     let sa_button = document.getElementById("sa");
     let sb_button = document.getElementById("sb");
     let ss_button = document.getElementById("ss");
+    let play_button = document.getElementById("play");
+    
 
     pa_button.style.display = "none";
     inp_button.style.display = "none";
@@ -39,6 +41,8 @@ function main()
     sa_button.style.display = "none";
     sb_button.style.display = "none";
     ss_button.style.display = "none";
+    play_button.style.display = "none";
+    document.getElementById("play_buttons").style.display = "none";
 
     camera.position.z = 20;
     camera.position.y = 10;
@@ -302,6 +306,7 @@ function main()
     button.addEventListener('click', () => {
         button.style.display = "none";
         inp_button.style.display = "inline";
+        play_button.style.display = "inline";
         pa_button.style.display = "inline";
         pb_button.style.display = "inline";
         ra_button.style.display = "inline";
@@ -359,6 +364,12 @@ function main()
     ss_button.addEventListener('click', () => {
         SWAP(stack_a, x);    
         SWAP(stack_b, x); } );
+
+    play_button.addEventListener('click', () => {
+        inp_button.style.display = "none";
+        play_button.style.display = "none";
+        document.getElementById("play_buttons").style.display = "inline";
+     } );
 
     x = 0;
 
