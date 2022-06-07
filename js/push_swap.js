@@ -6,11 +6,12 @@ function main()
     const scene = new THREE.Scene();
     const renderer = new THREE.WebGLRenderer({canvas, antialias: true});
     renderer.setSize(innerWidth, innerHeight);
-    const camera = new THREE.PerspectiveCamera(75, innerWidth/1.5/innerHeight, 0.001, 10000);
+    const camera = new THREE.PerspectiveCamera(75, innerWidth/1.5/innerHeight, 0.001, 1000000);
     let   domEvents	= new THREEx.DomEvents(camera, renderer.domElement);
     let x = 0;
     let y = 0;
     let time = 0;
+    let instr_num = 0;
 
     let button = document.getElementById("button");
     let inp_button = document.getElementById("instructions");
@@ -142,11 +143,11 @@ function main()
     {
         num = prompt("Num of elements", "9");
         let input_arr = [];
-        console.log("num: " + num);
+        //console.log("num: " + num);
         y = 0;
         while(input_arr.length < num){
          //   var r = Math.floor(Math.random() * 100 + 1);
-            input_arr[y] = y;
+            input_arr[y] = y + 1;
             
         //    if(input_arr.indexOf(r) === -1) input_arr.push(r);
         y++;        
@@ -154,19 +155,19 @@ function main()
         shuffle(input_arr);
         const rev_arr = [...input_arr];
         rev_arr.reverse();
-        console.log("input_arr.len: " + input_arr.length);
+    //    console.log("input_arr.len: " + input_arr.length);
         window.alert("copy these nums for input to your push_swap: " + rev_arr.join(' '));
         
-        console.log("y: " + y);
+        console.log("STACK SIZE: " + y);
     
         
         y = input_arr.length;
         while (y > (0))
         {
             
-            console.log(input_arr[y]);
+        //    console.log(input_arr[y]);
             add_element(input_arr[y - 1] / 10, y);
-            console.log("stack_a.length in filling loop: " + stack_a.length);
+       //     console.log("stack_a.length in filling loop: " + stack_a.length);
             y--;
             
 
@@ -236,14 +237,14 @@ function main()
         stack_a[0].position.set(num/3, stack_b.length, 0);
         
         stack_b.unshift(stack_a[0])
-        console.log("stack+a[0]: ", stack_a[0]);
+   //     console.log("stack+a[0]: ", stack_a[0]);
         stack_a.shift(stack_a[0]);
         
         iter2++;
     }
 
     Array.swapItems = function(a, b){
-        console.log("swapped?\n");
+//        console.log("swapped?\n");
         this[a] = this.splice(b, 1, this[a])[0];
         return this;
     }
@@ -259,7 +260,7 @@ function main()
         stack[0].position.y = stack[stack.length - 1].position.y - 1;
         stack.push(stack.shift());
         count = 0;
-        console.log("len of stack_a: " + stack.length);
+  //      console.log("len of stack_a: " + stack.length);
      //   iter++;
     }
 
@@ -275,7 +276,7 @@ function main()
         stack[stack.length - 1].position.y = stack[0].position.y + 1;
         stack.unshift(stack.pop());
         count = 0;
-        console.log("len of stack_a: " + stack.length);
+  //      console.log("len of stack_a: " + stack.length);
      //   iter++;
     }
 
@@ -284,7 +285,7 @@ function main()
         stack[0].position.y -= 1;
         stack[1].position.y += 1;
         [stack[0], stack[1]] = [stack[1], stack[0]];
-        console.log("kuksug");
+    //    console.log("kuksug");
 
     }
 
@@ -365,54 +366,74 @@ function main()
         requestAnimationFrame(animate);
 
         renderer.render(scene, camera);
-        if (time % .1 > 0)
+        if (time % .001 > 0)
         {
          //   console.log("arr[x]: " + arr[x]);
          //
          //   console.log("quanto veces");
             if (arr[x] == "pb") {
                 pb(stack_a); 
-                x++;}
+                x++;
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                }
             else if (arr[x] == "pa") {
                 pa(stack_b);
-                x++; }
+                x++;
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                 }
             else if (arr[x] == "ra") {
                 rot(stack_a);
-                x++; }
+                x++;
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                 }
             else if (arr[x] == "rb") {
                 rot(stack_b);
-                x++; }
+                x++;
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                 }
             else if (arr[x] == "rra") {
+                
                 rrot(stack_a);
-                    x++; }
+                x++;
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x; }
             else if (arr[x] == "rrb") {
-                rrot(stack_b);
-                    x++; }
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                x++;
+                rrot(stack_b);}
             else if (arr[x] == "sa") {
-                SWAP(stack_a);
-                            x++; }
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                x++;
+                SWAP(stack_a); }
             else if (arr[x] == "sb") {
                 SWAP(stack_b);
-                x++; }
+                x++;
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                 }
             else if (arr[x] == "ss") {
                 SWAP(stack_a);
                 SWAP(stack_b);
-                x++; }
-            else if (arr[x] == "rr") {
+                x++;
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                 }
+            else if (arr[x] == "rr") {                
                 rot(stack_a, x);
                 rot(stack_b, x);
                 x++;
+                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                
             }
             else if (arr[x] == "rrr") {
                     rrot(stack_a, x);
                     rrot(stack_b, x);
                     x++;
+                    document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
             //x = 0;  
         }
-        console.log("entra?");
+        
 //        if (arr.length > 0)
   //          {x++;}
     }
+    
     time += 1;
 //*    console.log("time: " + time);*/
 }
