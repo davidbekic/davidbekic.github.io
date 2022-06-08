@@ -151,12 +151,12 @@ function main()
 
     function initialize_stack()
     {
-        num = prompt("Num of elements", "9");
+        num = prompt("Num of elements", "100");
         if (num < 50){
             mod = 6 }
         let input_arr = [];
         camera.position.z = num;
-        camera.position.y = num;
+        camera.position.y = num / 1.5;
         
         camera.position.x = 2;
 
@@ -341,8 +341,8 @@ function main()
 
     inp_button.addEventListener('click', () => {
         input_instructions();    
-        camera.position.z = num;
-        camera.position.y = num;
+      //  camera.position.z = num;
+    //    camera.position.y = num;
         
     } );
 
