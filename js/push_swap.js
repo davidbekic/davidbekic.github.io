@@ -27,6 +27,9 @@ function main()
     let sb_button = document.getElementById("sb");
     let ss_button = document.getElementById("ss");
     let play_button = document.getElementById("play");
+    let main_text = document.getElementById("main_text");
+    //let camera_text = document.getElementById("camera_instructions");
+    let mod = 1;
     
 
     pa_button.style.display = "none";
@@ -42,10 +45,13 @@ function main()
     sb_button.style.display = "none";
     ss_button.style.display = "none";
     play_button.style.display = "none";
+    //camera_text.style.display = "none";
+   // camera_text.style.left = "50px";
     document.getElementById("play_buttons").style.display = "none";
 
     camera.position.z = 20;
     camera.position.y = 10;
+    
     let delay = 300;
 //    camera.lookAt(0, 0, 0);
     camera.position.set(0, 10, 30);
@@ -146,7 +152,14 @@ function main()
     function initialize_stack()
     {
         num = prompt("Num of elements", "9");
+        if (num < 50){
+            mod = 6 }
         let input_arr = [];
+        camera.position.z = num;
+        camera.position.y = num;
+        
+        camera.position.x = 2;
+
         //console.log("num: " + num);
         y = 0;
         while(input_arr.length < num){
@@ -177,6 +190,7 @@ function main()
 
             //x++;
         }
+        //controls.target.x = stack_a[stack_a.length].position.x;
         }
 
         window.console = {
@@ -210,6 +224,7 @@ function main()
             let nums = prompt("instructions: ", "");
             arr = nums.split("\n");
             arr[arr.length] = 0;
+
             let pb_str = "pb";
         }
 
@@ -318,12 +333,17 @@ function main()
         sa_button.style.display = "inline";
         sb_button.style.display = "inline";
         ss_button.style.display = "inline";
+     //   camera_text.style.display = "inline";
+        main_text.style.display = "none";
         initialize_stack();
         
  } );
 
     inp_button.addEventListener('click', () => {
         input_instructions();    
+        camera.position.z = num;
+        camera.position.y = num;
+        
     } );
 
  rr_button.addEventListener('click', () => {
@@ -373,11 +393,14 @@ function main()
 
     x = 0;
 
+
+
     function animate(){
         requestAnimationFrame(animate);
 
         renderer.render(scene, camera);
-        if (time % .001 > 0)
+     //   controls.update();
+        if (time % mod == 0)
         {
          //   console.log("arr[x]: " + arr[x]);
          //
@@ -385,59 +408,82 @@ function main()
             if (arr[x] == "pb") {
                 pb(stack_a); 
                 x++;
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
                 }
             else if (arr[x] == "pa") {
                 pa(stack_b);
                 x++;
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
                  }
             else if (arr[x] == "ra") {
                 rot(stack_a);
                 x++;
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
                  }
             else if (arr[x] == "rb") {
                 rot(stack_b);
                 x++;
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
                  }
             else if (arr[x] == "rra") {
                 
                 rrot(stack_a);
                 x++;
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x; }
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length; }
             else if (arr[x] == "rrb") {
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
                 x++;
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
+
                 rrot(stack_b);}
             else if (arr[x] == "sa") {
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
                 x++;
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
                 SWAP(stack_a); }
             else if (arr[x] == "sb") {
                 SWAP(stack_b);
                 x++;
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
                  }
             else if (arr[x] == "ss") {
                 SWAP(stack_a);
                 SWAP(stack_b);
                 x++;
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
                  }
             else if (arr[x] == "rr") {                
                 rot(stack_a, x);
                 rot(stack_b, x);
                 x++;
-                document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
                 
             }
             else if (arr[x] == "rrr") {
                     rrot(stack_a, x);
                     rrot(stack_b, x);
                     x++;
-                    document.getElementById("pstext").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                    document.getElementById("stack-size-text").innerHTML = "NUM OF INSTRUCTIONS: " + x;
+                    document.getElementById("stack-a").innerHTML = "LEN OF STACK A: " + stack_a.length;
+                    document.getElementById("stack-b").innerHTML = "LEN OF STACK B: " + stack_b.length;
             //x = 0;  
         }
         

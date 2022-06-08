@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>42 Push Swap Tester</title>
-    <link type="text/css" rel="stylesheet" href="css/styles.css">
+    <link type="text/css" rel="stylesheet" href="css/psstyle.css">
     
     
 </head>
@@ -34,15 +34,15 @@
     <div id="info">
         <ul>
             <br></br>
-            <a href="push_swap.html"id="home" rel="noopener"></atarget><b>push swap tester
+            <a href="push_swap.html"id="pshome" rel="noopener"></atarget><b>push swap tester
             </b></a>
             <br></br>
         </ul>
 
-        <button id="button"> fill stack </button>  
+
         <button id="instructions"> input instructions </button>  
         <button id="play"> play around </button>  
-        <br></br>
+
         <div id="play_buttons">
         <button id="pa"> pa </button>  
         <button id="pb"> pb </button>  
@@ -61,8 +61,41 @@
         <button id="rrr"> rrr </button>  
         <br></br>
     </div>
+        
         <p id="myLog"></p>
-        <p id="pstext"></p>
+        
+        <p id="stack-size-text"></p>
+        <p id="stack-a"></p>
+        <p id="stack-b"></p>
+        
+        <p id="main_text">this is a simple 3D visualizer & tester for the <b>École 42</b> project "push_swap". 
+            <br></br>
+            USE: 
+            <br>
+            1. generate n random numbers with the "fill stack" button.
+            <br>
+            2. copy the generated numbers to your push_swap (./push_swap copied numbers)
+            <br>
+            3. copy the stdout of your push_swap into the "input instructions" button.
+            if you wish to generate many numbers you may need to pipe your stdout into a file.
+            <br></br>
+            PLAY<br>
+            there is also a "play" button that allows you to manually put in instructions.
+            <br></br>
+            CURRENT LIMITATIONS:
+            <br>
+            - only positive input numbers.
+            <br>
+            - this page merely checks if your intructions sorts my generated numbers, so no leak/norm check or anything of that nature.
+            <br>
+            - the only way to see if it worked is to visually check if stack a is sorted.
+
+        </p>
+        <p><br>CAMERA:<br>DRAG to rotate<br>SCROLL to zoom<br>SHIFT + CMD + DRAG to translate<br></br></p>
+
+        
+
+        <button id="button"> fill stack </button>  
 
     </div>
 
