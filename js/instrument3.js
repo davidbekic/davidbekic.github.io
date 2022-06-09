@@ -11,9 +11,9 @@ function main()
     let x = 0;
     let y = 0;
 
-    camera.position.z = 30;
-    camera.position.y = -120;
-    camera.position.x = 40;
+    camera.position.z = 100;
+    camera.position.y = -20;
+    camera.position.x = 50;
     camera.lookAt(0, 0, 0);
 
     const key_geo1 = new THREE.CylinderGeometry(6, 6, 100, 120, 50);
@@ -21,32 +21,40 @@ function main()
     const backdrop_geo = new THREE.PlaneGeometry(1200, 1200);
 
 
-    //const controls = new OrbitControls( camera, renderer.domElement );
+    const controls = new OrbitControls( camera, renderer.domElement );
 
     // F_MATERIALS //
 
     const backdrop_texture = new THREE.TextureLoader().load( 'assets/imgs/glass1.jpeg' );
 
-    const key_mat_C2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 1, thickness: 10, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
-    const key_mat_D2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
-    const key_mat_E2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
-    const key_mat_F2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
-    const key_mat_G2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
-    const key_mat_A2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
-    const key_mat_B2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
-    const key_mat_C3 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: true, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_C2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 0, transmission: 0, thickness: 0, wireframe: false, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_D2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: false, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_E2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: false, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_F2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: false, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_G2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: false, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_A2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: false, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_B2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: false, wireframeLineWidth: 10, wireframeLinejoin: "round"});
+    const key_mat_C3 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, transmission: 0, thickness: 0, wireframe: false, wireframeLineWidth: 10, wireframeLinejoin: "round"});
     //const backdrop_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     const backdrop_mat = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, metalness: 0});
     backdrop_mat.side = THREE.DoubleSide;
 
-    key_mat_C2.map = backdrop_texture;
-    key_mat_D2.map = backdrop_texture;
-    key_mat_E2.map = backdrop_texture;
-    key_mat_F2.map = backdrop_texture;
-    key_mat_G2.map = backdrop_texture;
-    key_mat_A2.map = backdrop_texture;
-    key_mat_B2.map = backdrop_texture;
-    key_mat_C3.map = backdrop_texture;
+    key_mat_C2.bumpMap = backdrop_texture;
+    key_mat_C2.bumpScale = .02;
+    key_mat_D2.bumpMap = backdrop_texture;
+    key_mat_D2.bumpScale = .02;
+    key_mat_E2.bumpMap = backdrop_texture;
+    key_mat_E2.bumpScale = .02;
+    key_mat_F2.bumpMap = backdrop_texture;
+    key_mat_F2.bumpScale = .02;
+    key_mat_G2.bumpMap = backdrop_texture;
+    key_mat_G2.bumpScale = .02;
+    key_mat_A2.bumpMap = backdrop_texture;
+    key_mat_A2.bumpScale = .02;
+    key_mat_B2.bumpMap = backdrop_texture;
+    key_mat_B2.bumpScale = .02;
+    key_mat_C3.bumpMap = backdrop_texture;
+    key_mat_C3.bumpScale = .02;
 
     const room_mat = new THREE.MeshLambertMaterial({color: 0x223333});
     room_mat.side = THREE.BackSide;
@@ -64,8 +72,8 @@ function main()
     const room = new THREE.Mesh(room_geo, room_mat);
     const backdrop = new THREE.Mesh(backdrop_geo, backdrop_mat);
 
-    const ambient_light1 = new THREE.AmbientLight({color: 0xFFFFFF}, .4, 100);
-    const point_light1 = new THREE.PointLight({color: 0xCFFFFF}, 1, 1000);
+    const ambient_light1 = new THREE.AmbientLight({color: 0xFFFFFF}, .2, 100);
+    const point_light1 = new THREE.PointLight({color: 0xCFFFFF}, .2, 1000);
     const point_light2 = new THREE.PointLight({color: 0xCFFFFF}, .1, 1000);
     
     const spot_light3 = new THREE.SpotLight(0xFFAA99FF, 2.5, 1000, 90);

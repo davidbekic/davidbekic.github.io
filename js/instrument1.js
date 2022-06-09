@@ -24,27 +24,29 @@ function main()
 
     // F_MATERIALS //
 
-    const backdrop_texture = new THREE.TextureLoader().load( 'assets/imgs/meta1.png' );
+    //const backdrop_texture = new THREE.TextureLoader().load( 'assets/imgs/meta1.png' );
+    const backdrop_texture = new THREE.TextureLoader().load( 'assets/imgs/simon.png' );
 
-    const key_mat_C2 = new THREE.MeshLambertMaterial({color: 0xCC22EE});
-    const key_mat_D2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
-    const key_mat_E2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF});
-    const key_mat_F2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
-    const key_mat_G2 = new THREE.MeshLambertMaterial({color: 0xCC22EE});
-    const key_mat_A2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
-    const key_mat_B2 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
-    const key_mat_C3 = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+    const key_mat_C2 = new THREE.MeshPhysicalMaterial({color: 0xCC22EE, roughness: 0, transmission: 0, thickness: 0});
+    const key_mat_D2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 0});
+    const key_mat_E2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 0});
+    const key_mat_F2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 0});
+    const key_mat_G2 = new THREE.MeshPhysicalMaterial({color: 0xCC22EE, roughness: 0});
+    const key_mat_A2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 0});
+    const key_mat_B2 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 0});
+    const key_mat_C3 = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 0});
     //const backdrop_mat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
     const backdrop_mat = new THREE.MeshPhysicalMaterial({color: 0xFFFFFF, roughness: 1, metalness: 0});
-    key_mat_C2.map = backdrop_texture;
-    key_mat_D2.map = backdrop_texture;
-    key_mat_E2.map = backdrop_texture;
-    key_mat_F2.map = backdrop_texture;
-    key_mat_G2.map = backdrop_texture;
-    key_mat_A2.map = backdrop_texture;
-    key_mat_B2.map = backdrop_texture;
-    key_mat_C3.map = backdrop_texture;
-    
+/*    key_mat_C2.bumpMap = backdrop_texture;
+    key_mat_C2.bumpScale = .0;
+    key_mat_D2.bumpMap = backdrop_texture;
+    key_mat_E2.bumpMap = backdrop_texture;
+    key_mat_F2.bumpMap = backdrop_texture;
+    key_mat_G2.bumpMap = backdrop_texture;
+    key_mat_A2.bumpMap = backdrop_texture;
+    key_mat_B2.bumpMap = backdrop_texture;
+    key_mat_C3.bumpMap = backdrop_texture;
+    */
     backdrop_mat.side = THREE.DoubleSide;
     backdrop_texture.magFilter = THREE.LinearFilter;
     backdrop_texture.minFilter = THREE.LinearFilter;
@@ -94,7 +96,7 @@ function main()
     scene.add(key_C3);
     scene.add(backdrop);
     //scene.add(ambient_light1);
-   // scene.add(point_light1);
+    scene.add(point_light1);
   //  scene.add(point_light2);
     scene.add(spot_light3);
     scene.add(spot_light4);
@@ -118,7 +120,8 @@ function main()
     point_light2.position.y = -30;
     point_light2.position.z = 20;
     room.position.y = 50;
-    backdrop.position.z = -100;
+    backdrop.position.z = -400;
+    backdrop.position.y = -200;
     backdrop.rotation.x = 100;
 
     
@@ -136,8 +139,16 @@ function main()
         
         let sound = new Audio(path);
             sound.play();
-        
     }
+    
+    let touch_C2 = false;
+    let touch_D2 = false;
+    let touch_E2 = false;
+    let touch_F2 = false;
+    let touch_G2 = false;
+    let touch_A2 = false;
+    let touch_B2 = false;
+    let touch_C3 = false;
 
 
 
@@ -146,77 +157,101 @@ function main()
 
     domEvents.addEventListener(key_C2, 'click', function(event){
         keyPlay(key_mat_C2, "assets/audio/instrument1/C2.mp3")
+        touch_C2 = true;
     }, false)
     domEvents.addEventListener(key_C2, 'touchstart', function(event){
         keyPlay(key_mat_C2, "assets/audio/instrument1/C2.mp3")
+        touch_C2 = true;
     }, false)
     domEvents.addEventListener(key_D2, 'click', function(event){
         keyPlay(key_mat_D2, "assets/audio/instrument1/D2.mp3")
+        touch_D2 = true;
     }, false)
     domEvents.addEventListener(key_D2, 'touchstart', function(event){
         keyPlay(key_mat_D2, "assets/audio/instrument1/D2.mp3")
+        touch_D2 = true;
     }, false)
     domEvents.addEventListener(key_E2, 'click', function(event){
         keyPlay(key_mat_E2, "assets/audio/instrument1/E2.mp3")
+        touch_E2 = true;
     }, false)
     domEvents.addEventListener(key_E2, 'touchstart', function(event){
         keyPlay(key_mat_E2, "assets/audio/instrument1/E2.mp3")
+        touch_E2 = true;
     }, false)
     domEvents.addEventListener(key_F2, 'click', function(event){
         keyPlay(key_mat_F2, "assets/audio/instrument1/F2.mp3")
-    }, false)   
+        touch_F2 = true;
+    }, false)  
     domEvents.addEventListener(key_F2, 'touchstart', function(event){
         keyPlay(key_mat_F2, "assets/audio/instrument1/F2.mp3")
+        touch_F2 = true;
     }, false)
     domEvents.addEventListener(key_G2, 'click', function(event){
         keyPlay(key_mat_G2, "assets/audio/instrument1/G2.mp3")
+        touch_G2 = true;
     }, false)
     domEvents.addEventListener(key_G2, 'touchstart', function(event){
         keyPlay(key_mat_G2, "assets/audio/instrument1/G2.mp3")
+        touch_G2 = true;
     }, false)
     domEvents.addEventListener(key_A2, 'click', function(event){
         keyPlay(key_mat_A2, "assets/audio/instrument1/A2.mp3")
+        touch_A2 = true;
     }, false)
     domEvents.addEventListener(key_A2, 'touchstart', function(event){
         keyPlay(key_mat_A2, "assets/audio/instrument1/A2.mp3")
+        touch_A2 = true;
     }, false)
     domEvents.addEventListener(key_B2, 'click', function(event){
         keyPlay(key_mat_B2, "assets/audio/instrument1/B2.mp3")
+        touch_B2 = true;
     }, false)
     domEvents.addEventListener(key_B2, 'touchstart', function(event){
         keyPlay(key_mat_B2, "assets/audio/instrument1/B2.mp3")
+        touch_B2 = true;
     }, false)
     domEvents.addEventListener(key_C3, 'click', function(event){
         keyPlay(key_mat_C3, "assets/audio/instrument1/C3.mp3")
+        touch_C3 = true;
     }, false)    
     domEvents.addEventListener(key_C3, 'touchstart', function(event){
         keyPlay(key_mat_C3, "assets/audio/instrument1/C3.mp3")
+        touch_C3 = true;
     }, false)
     
     document.onkeydown = function(a) {
         if (a.key  == 'a'){
             keyPlay(key_mat_C2, "assets/audio/instrument1/C2.mp3")
+            touch_C2 = true;
         }
         if (a.key  == 's'){
             keyPlay(key_mat_D2, "assets/audio/instrument1/D2.mp3")
+            touch_D2 = true;
             }
             if (a.key  == 'd'){
                 keyPlay(key_mat_E2, "assets/audio/instrument1/E2.mp3")
+                touch_E2 = true;
             }
             if (a.key  == 'f'){
                 keyPlay(key_mat_F2, "assets/audio/instrument1/F2.mp3")
+                touch_F2 = true;
                 }
                 if (a.key  == 'g'){
                     keyPlay(key_mat_G2, "assets/audio/instrument1/G2.mp3")
+                    touch_G2 = true;
                     }
                     if (a.key  == 'h'){
                         keyPlay(key_mat_A2, "assets/audio/instrument1/A2.mp3")
+                        touch_A2 = true;
                     }
                     if (a.key  == 'j'){
                         keyPlay(key_mat_B2, "assets/audio/instrument1/B2.mp3")
+                        touch_B2 = true;
                         }
                         if (a.key  == 'k'){
                             keyPlay(key_mat_C3, "assets/audio/instrument1/C3.mp3")
+                            touch_C3 = true;
                             }
         
     }   
@@ -229,6 +264,24 @@ function main()
     function animate(){
         requestAnimationFrame(animate);
         x += 1;
+
+        if (touch_C2)
+            key_C2.rotation.z += .01 * Math.sin(x/20);
+        if (touch_D2)
+            key_D2.rotation.z += .01 * Math.sin(x/20);
+        if (touch_E2)
+            key_E2.rotation.z += .01 * Math.sin(x/20);
+        if (touch_F2)
+            key_F2.rotation.z += .01 * Math.sin(x/20);
+            if (touch_G2)
+            key_G2.rotation.z += .01 * Math.sin(x/20);
+            if (touch_A2)
+            key_A2.rotation.z += .01 * Math.sin(x/20);
+            if (touch_B2)
+            key_B2.rotation.z += .01 * Math.sin(x/20);
+            if (touch_C3)
+            key_C3.rotation.z += .01 * Math.sin(x/20);
+
         if (x == 10)
         {
             keyAnimation(key_mat_C2, key_C2);
