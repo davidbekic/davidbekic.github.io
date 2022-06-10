@@ -21,14 +21,14 @@ img {
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
-	max-width: 100%;
+	max-width: 50%;
 	height: auto;
 }
 
 .IMGS_WIDE {
 	margin-left: 300px;
 	margin-right: 100px;
-	max-width: 63%;
+	max-width: 33%;
 	height: auto;
 	
 }
@@ -36,7 +36,7 @@ img {
 .IMGS_TALL {
 	margin-left: 300px;
 	margin-right: 100px;
-	max-width: 30%;
+	max-width: 20%;
 	
 }
 
@@ -126,6 +126,18 @@ button {
 	margin-left: 0px;
 }
 
+#camera-instructions {
+	font-size: 12px;
+	color: 0xffaaaa;
+	width: 15%;
+	padding-top: 200px;
+}
+
+#enter {
+	-webkit-text-stroke: 1px rgb(179, 121, 121);
+	
+}
+
 @media only screen and (max-width: 800px) {
 	body {
 	
@@ -138,7 +150,12 @@ button {
 		
 	}
 	
-
+	#camera-instructions {
+		font-size: 9px;
+		width: 30%;
+		padding-top: 120px;
+		
+	}
 
 	a {
 		padding-top: 0px;

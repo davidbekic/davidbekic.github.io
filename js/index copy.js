@@ -26,9 +26,14 @@ function main()
     let screamerText_loader = new THREE.GLTFLoader();
     let windText_loader = new THREE.GLTFLoader();
     renderer.shadowMap.enabled = true;
+    document.getElementById('music-menu').style.display = "none";
+    document.getElementById('3d-menu').style.display = "none";
+    document.getElementById('rooms-menu').style.display = "none";
     document.getElementById('first-menu').style.display = "none";
     document.getElementById('home').style.display = "none";
+    document.getElementById('instruments-menu').style.display = "none";
     document.getElementById('images-menu').style.display = "none";
+    document.getElementById('web-sculptures-menu').style.display = "none";
     let currentStation = "landing";
     let loaded = 0;
   //  renderer.gammaOutput = true;
@@ -652,8 +657,13 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         //camera.position.y += 4 * Math.random();
         //tween.start();
         document.getElementById('first-menu').style.display = "inline";
+        document.getElementById('music-menu').style.display = "none";
+        document.getElementById('3d-menu').style.display = "none";
         document.getElementById("contact").innerHTML = "contact";
+        document.getElementById('rooms-menu').style.display = "none";
+        document.getElementById('instruments-menu').style.display = "none";
         document.getElementById('images-menu').style.display = "none";
+        document.getElementById('web-sculptures-menu').style.display = "none";
 
 
         controls.target.set(0, -70, 0);
@@ -690,23 +700,56 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         controls.minPolarAngle = .8;
         controls.maxPolarAngle = 2;
     }
-
-    function threeD_Move(){
-        document.getElementById("enter").style.display = "none";
-        currentStation = "3D3D3D3D3D3D3D3D3D";
-        console.log("WOW WTF");
+    function musicMove(){
+        currentStation = "music";
+        document.getElementById('first-menu').style.display = "none";
+        document.getElementById('music-menu').style.display = "inline";
         room.visible = true;
         roomEntered = true;
         controls.minPolarAngle = .8;
         controls.maxPolarAngle = 2;
     }
-
+    function threeD_Move(){
+        currentStation = "3D3D3D3D3D3D3D3D3D";
+        document.getElementById('first-menu').style.display = "none";
+        console.log("WOW WTF");
+        document.getElementById('3d-menu').style.display = "inline";
+        /*room.visible = true;
+        roomEntered = true;
+        controls.minPolarAngle = .8;
+        controls.maxPolarAngle = 2;*/
+    }
+    function webSculpturesMove(){
+        currentStation = "3D3D3D3D3D3D3D3D3D";
+        roomEntered = 1;
+        document.getElementById('3d-menu').style.display = "none";
+        document.getElementById('web-sculptures-menu').style.display = "inline";
+        /*room.visible = true;
+        roomEntered = true;
+        controls.minPolarAngle = .8;
+        controls.maxPolarAngle = 2;*/
+    }
     function roomsMove(){
         
         //room.visible = true;
         //roomEntered = true;
         controls.minPolarAngle = .8;
         controls.maxPolarAngle = 2;
+    }
+
+    function instrumentsMove(){
+        document.getElementById('first-menu').style.display = "none";
+        document.getElementById('music-menu').style.display = "none";
+        document.getElementById('instruments-menu').style.display = "inline";
+        controls.target.set(0, -40, 320);
+        camera.lookAt(0, -190, 320);
+        controls.minPolarAngle = .8;
+        controls.maxPolarAngle = 1.9;
+        
+        controls.minDistance = 20;
+        controls.maxDistance = 150;
+        room.visible = true;
+        roomEntered = true;
     }
     
     function onPointerMove( event ) {
@@ -726,15 +769,21 @@ audioLoader2.load( 'assets/audio/instrument/B2.mp3', function( buffer ) {
         render()
 }*/
 document.getElementById("home").addEventListener("click", moveHome);
-document.getElementById("enter").addEventListener("click", threeD_Move);
+document.getElementById("web-sculptures").addEventListener("click", webSculpturesMove);
+document.getElementById("music").addEventListener("click", musicMove);
+document.getElementById("3d").addEventListener("click", threeD_Move);
 
+document.getElementById("images").addEventListener("click", netMove);
 //document.getElementById("rooms").addEventListener("click", roomsMove);
+document.getElementById("instruments").addEventListener("click", instrumentsMove);
 /*document.getElementById("rooms").addEventListener("click", function(){
     document.getElementById('3d-menu').style.display = "none";
+    document.getElementById('rooms-menu').style.display = "inline";
 });*/
-
-
-
+document.getElementById("images").addEventListener("click", function(){
+    document.getElementById('3d-menu').style.display = "none";
+    document.getElementById('images-menu').style.display = "inline";
+});
 //document.getElementById("net").addEventListener("click", netMove);
 document.getElementById("contact").addEventListener("click", function(){
     document.getElementById("contact").innerHTML = "davidbekic@gmail.com";
