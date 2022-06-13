@@ -1,0 +1,216 @@
+  #labels>div:hover {
+    color: rgb(177, 136, 194);
+  }
+ 
+
+  body {
+	background-color: #FFFFFF;
+	color: #fff;
+	margin: 0px;
+	height: 100%;
+	font-size: 16px;
+	line-height: 24px;
+	overscroll-behavior: none;
+}
+
+.pstext {
+	color: rgb(174, 0, 255);
+}
+
+img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+
+.IMGS_WIDE {
+	margin-left: 300px;
+	margin-right: 100px;
+	max-width: 63%;
+	height: auto;
+	
+}
+
+.IMGS_TALL {
+	margin-left: 300px;
+	margin-right: 100px;
+	max-width: 30%;
+	
+}
+
+.fixed_nav
+{
+	position: fixed;
+}
+
+  #info {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	margin: 0px;	
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: left;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+    color: white;
+    font-family: ndot57;
+	z-index: 100; /* TODO Solve this in HTML */
+}
+
+ul { 
+    display: inline; 
+}
+
+.visualtexts
+{
+	color: blueviolet;
+	position: fixed;
+	width: 10%;
+}
+
+.imgdesc
+{
+	font-size: 12px;
+	color: black;
+	
+	margin-left: 300px;
+	margin-right: 100px;
+}
+
+@font-face {
+    font-family: 'ndot57'; /*a name to be used later*/
+    src: url('/assets/fonts/fonts-ndot57.ttf'); /*URL to font*/
+}
+
+
+
+a {
+	padding-top: 0px;
+	margin: 30px;
+	font-family: "ndot57";
+	padding-left: 0px;
+	margin-bottom: 50px;
+	color: rgb(130, 15, 238);
+	text-decoration: none;
+}
+p {
+	margin: 30px;
+	width: 25%;
+	color: rgb(229, 219, 233);
+	font-size: 12px;
+}
+
+a:hover {
+	text-decoration: underline;
+    font-weight: bolder;
+    color: rgb(177, 136, 194);
+}
+
+a, button, input, select, p {
+	pointer-events: auto;
+}
+
+button {
+	margin-left: 27px;
+	font-family: ndot57;
+}
+
+#loadingtext {
+	font-size: 60px;
+	margin-left: 0px;
+}
+
+#NAME {
+	font-size: 40px;
+	padding-left: 0px;
+	line-height: normal;
+}
+
+@media only screen and (max-width: 800px) {
+	body {
+	
+		background-color: rgb(255, 255, 255);
+		color: #fff;
+		font-family: Monospace;
+		font-size: 24px;
+		line-height: 24px;
+		
+		
+	}
+
+	a {
+		padding-top: 0px;
+		margin-bottom: 50px;
+		margin: 0px;
+		padding-left: 25px;
+		margin-top: 200px;
+		
+		color: rgb(130, 15, 238);
+		text-decoration: none;
+	}
+	
+	a:hover {
+		text-decoration: underline;
+		font-weight: bolder;
+		color: rgb(177, 136, 194);
+	}
+	p {
+		margin: 25px;
+		width: 90%;
+		color: rgb(229, 219, 233);
+		font-size: 18px;
+	}
+	#IMGS {
+		
+		padding: 20px;
+		height: auto;
+		max-width: 100%;
+		
+	}
+
+	.IMGS_WIDE {
+		margin:0px;
+		
+		max-width: 100%;
+		height: auto;
+		
+	}
+	
+	.imgdesc
+{
+	font-size: 12px;
+	color: black;
+	margin: 0px;
+}
+
+	.IMGS_TALL {
+		margin-left: 0px;
+		margin-right: auto;
+		
+		max-width: 85%;
+		
+		
+	}
+
+	.visualtexts
+{
+	color: blueviolet;
+	position:  static;
+	width: 90%;
+}
+
+.fixed_nav
+{
+	position: static;
+}
+
+
+  }
+
